@@ -2,6 +2,8 @@ import { StrictMode, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.css';
 import { Eye, TypedHeadline } from './Characters';
+import { HeroDecor, HelloBurst } from './HeroDecor';
+import { SpeedDemo } from './SpeedDemo';
 import { DrawingDemo, PhysicsDemo, EditingDemo } from './DemoScenes';
 
 function App() {
@@ -146,6 +148,7 @@ function App() {
   return <main>
     <section className={`journey chapter-${scene} ${expanded ? 'is-expanded' : ''}`} ref={journey}>
     <section className="hero" aria-label="Meet Pixie">
+    <HeroDecor />
     <div className="notch-arrival">
       <div className={`notch ${greeting ? 'is-greeting' : ''} ${blink ? 'is-blinking' : ''}`} ref={face} role="img" aria-label="Pixie’s two white pixel eyes in a black Mac notch">
         <div className="chapter-wipe wipe-white" style={{ clipPath: 'var(--wipe-0)' }} />
@@ -162,6 +165,7 @@ function App() {
       <h1>Meet Pixie.</h1>
       <p>Your Mac’s little companion.</p>
       <button className="hello-button" onClick={sayHello}>
+        <HelloBurst greeting={greeting} />
         <span>Say hello</span>
         <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
       </button>
@@ -177,7 +181,7 @@ function App() {
           <h2>Just ask.</h2>
         </div>
         <div className={`scene ${scene === 1 ? 'is-active' : ''}`} aria-hidden={scene !== 1}>
-          <div className="words-art" aria-hidden="true"><div className="writing"><i /><i /><i /></div><span className="caret" /></div>
+          {scene === 1 && <SpeedDemo key={activeChapter === 1 ? 'playing' : 'entering'} reducedMotion={reducedMotion} />}
           <h2>Anything you can do,<br />Pixie can do faster</h2>
         </div>
         <div className={`scene ${scene === 2 ? 'is-active' : ''}`} aria-hidden={scene !== 2}>

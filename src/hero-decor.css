@@ -1,0 +1,45 @@
+/* Ornament lives only in the opening frame; the central reading area stays clear. */
+.hero-decor { position: absolute; inset: 0; pointer-events: none; opacity: var(--intro-opacity, 1); }
+.hero-sticker { position: absolute; width: clamp(52px, 5.8vw, 84px); transform: rotate(var(--tilt)); }
+.hero-sticker > span { display: block; animation: sticker-float 5s ease-in-out infinite; animation-delay: var(--delay, 0s); }
+.hero-sticker svg { display: block; width: 100%; overflow: visible; filter: drop-shadow(0 6px 7px #30291c12); }
+.sticker-music { left: 9%; top: 24%; --tilt: -13deg; }
+.sticker-cursor { right: 9%; top: 31%; --tilt: 12deg; --delay: -2.5s; }
+.sticker-heart { left: 17%; top: 74%; --tilt: -12deg; --delay: -4s; width: clamp(43px, 4.6vw, 68px); }
+.sticker-brush { right: 16%; top: 73%; --tilt: 15deg; --delay: -1s; }
+.hero-fleck { position: absolute; width: clamp(13px, 1.6vw, 23px); height: 4px; border-radius: 1px; background: #30322c; transform: rotate(var(--tilt)); animation: fleck-drift var(--duration, 5s) ease-in-out infinite; animation-delay: var(--delay); }
+.hero-fleck.is-square { width: 6px; height: 6px; border-radius: 0; }
+.fleck-sage { background: #45ca88; }
+.fleck-coral { background: #f26887; }
+.fleck-violet { background: #9560f5; }
+.fleck-gold { background: #f5bb36; }
+.hello-button { position: relative; }
+.hello-burst { position: absolute; inset: 0; pointer-events: none; }
+.hello-burst i { position: absolute; left: 50%; top: 50%; width: 5px; height: 3px; border-radius: 1px; background: #45ca88; opacity: 0; }
+.hello-burst i:nth-child(3n) { background: #f26887; }
+.hello-burst i:nth-child(3n + 1) { background: #f5bb36; }
+.hello-burst.is-celebrating i { animation: hello-confetti 850ms cubic-bezier(.18,.65,.35,1) both; animation-delay: var(--delay); }
+@keyframes sticker-float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-11px) rotate(4deg); } }
+@keyframes fleck-drift { 0%, 100% { transform: translateY(0) rotate(var(--tilt)); } 50% { transform: translate(var(--drift), -15px) rotate(calc(var(--tilt) + 32deg)); } }
+@keyframes hello-confetti {
+  0% { opacity: 0; transform: translate(calc(var(--x) * .5), 0) scale(.4); }
+  15% { opacity: 1; }
+  65% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(.8); }
+}
+@media (max-width: 600px) {
+  .hero-sticker { width: 44px; }
+  .sticker-music { left: 4%; top: 28%; }
+  .sticker-cursor { right: 4%; top: 32%; }
+  .sticker-heart { left: 9%; top: 80%; width: 36px; }
+  .sticker-brush { right: 8%; top: 78%; }
+  .hero-fleck:nth-of-type(2n) { display: none; }
+  .hero-fleck { width: 11px; height: 2px; }
+  .hero-fleck.is-square { width: 4px; height: 4px; }
+}
+@media (max-height: 620px) {
+  .sticker-heart, .sticker-brush { top: 72%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-sticker > span, .hero-fleck, .hello-burst.is-celebrating i { animation: none; }
+}

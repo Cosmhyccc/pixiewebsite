@@ -1,0 +1,50 @@
+.speed-demo { display: block; width: min(540px, 86vw); height: auto; margin: 0 auto; overflow: visible; color: #191b17; }
+.speed-label { fill: #6c7066; font: 500 18px -apple-system, BlinkMacSystemFont, sans-serif; letter-spacing: -.3px; }
+.lane-pixie .speed-label { fill: #191b17; font-weight: 650; }
+.task-complete { opacity: 0; animation: speed-you-one 9s linear infinite; }
+.lane-you .task-1 .task-complete { animation-name: speed-you-two; }
+.lane-you .task-2 .task-complete { animation-name: speed-you-three; }
+.lane-pixie .task-0 .task-complete { animation-name: speed-pixie-one; }
+.lane-pixie .task-1 .task-complete { animation-name: speed-pixie-two; }
+.lane-pixie .task-2 .task-complete { animation-name: speed-pixie-three; }
+.speed-pointer { transform: translate(110px, 83px); animation: speed-you 9s cubic-bezier(.4,0,.2,1) infinite; }
+.pointer-pixie { animation-name: speed-pixie; }
+.speed-pixel-eyes { transform-origin: 19px 12px; animation: speed-wait-blink 9s linear infinite; }
+.chapter-1 .scenes { top: 43%; }
+@keyframes speed-you {
+  0%, 5% { transform: translate(110px,83px); opacity: 0; }
+  9% { opacity: 1; }
+  22%, 31% { transform: translate(190px,65px); }
+  49%, 58% { transform: translate(310px,65px); }
+  74%, 80% { transform: translate(430px,65px); opacity: 1; }
+  88%, 100% { transform: translate(478px,80px); opacity: 0; }
+}
+@keyframes speed-pixie {
+  0%, 5% { transform: translate(110px,83px); opacity: 0; }
+  9% { opacity: 1; }
+  10%, 13% { transform: translate(190px,65px); }
+  18%, 21% { transform: translate(310px,65px); }
+  26%, 29% { transform: translate(430px,65px); }
+  35%, 80% { transform: translate(478px,62px); opacity: 1; }
+  88%, 100% { transform: translate(478px,62px); opacity: 0; }
+}
+@keyframes speed-you-one { 0%, 23%, 95%, 100% { opacity: 0; } 25%, 88% { opacity: 1; } }
+@keyframes speed-you-two { 0%, 50%, 95%, 100% { opacity: 0; } 52%, 88% { opacity: 1; } }
+@keyframes speed-you-three { 0%, 75%, 95%, 100% { opacity: 0; } 77%, 88% { opacity: 1; } }
+@keyframes speed-pixie-one { 0%, 11%, 95%, 100% { opacity: 0; } 13%, 88% { opacity: 1; } }
+@keyframes speed-pixie-two { 0%, 19%, 95%, 100% { opacity: 0; } 21%, 88% { opacity: 1; } }
+@keyframes speed-pixie-three { 0%, 27%, 95%, 100% { opacity: 0; } 29%, 88% { opacity: 1; } }
+@keyframes speed-wait-blink { 0%, 53%, 57%, 100% { transform: scaleY(1); } 54%, 56% { transform: scaleY(.15); } }
+.speed-demo.is-still * { animation: none !important; }
+.speed-demo.is-still .task-complete { opacity: 1; }
+.speed-demo.is-still .pointer-you { transform: translate(478px,80px); }
+.speed-demo.is-still .pointer-pixie { transform: translate(478px,62px); }
+@media (max-width: 600px) {
+  .chapter-1 .scenes { top: 47%; }
+  .speed-demo { width: 92vw; }
+  .speed-label { font-size: 21px; }
+}
+@media (max-height: 650px) {
+  .chapter-1 .scenes { top: 40%; }
+  .speed-demo { width: min(400px, 76vw); max-height: 24svh; }
+}

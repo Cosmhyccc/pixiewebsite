@@ -210,7 +210,7 @@ function App() {
       <div className="scene-window">
         <div className={`scene ${scene === 0 ? 'is-active' : ''}`} aria-hidden={scene !== 0}>
           <div className="ask-art" aria-hidden="true"><span className="fn-key">fn</span><div className="wave">{[0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => <i key={i} style={{ animationDelay: `${i * -.17}s` }} />)}</div></div>
-          <h2>Pixie is the fastest AI buddy that can do things for you.</h2>
+          <TypedHeadline id="intro-feature-title" text="Pixie is the fastest AI buddy that can do things for you." active={expanded && activeChapter === 0} reducedMotion={reducedMotion} />
         </div>
         <div className={`scene ${scene === 1 ? 'is-active' : ''}`} aria-hidden={scene !== 1}>
           {scene === 1 && <SpeedDemo key={activeChapter === 1 ? 'playing' : 'entering'} reducedMotion={reducedMotion} />}

@@ -374,7 +374,7 @@ p {
 .greeting-typed { position: absolute; inset: 0; text-align: left; }
 .greeting-cursor { display: inline-block; height: .82em; width: .035em; margin-left: .09em; background: currentColor; vertical-align: -.04em; animation: caret 1s steps(1) infinite; }
 @media (max-width: 600px) {
-  .site-wordmark { top: 18px; left: 18px; font-size: 24px; }
+  .site-wordmark { top: 18px; left: 12px; font-size: 20px; }
   .intro .hero-greeting { font-size: clamp(44px, 10.5vw, 63px); }
 }
 @media (max-height: 650px) and (min-width: 601px) { .intro .hero-greeting { font-size: 64px; } }

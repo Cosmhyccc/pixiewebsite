@@ -378,3 +378,9 @@ p {
   .intro .hero-greeting { font-size: clamp(44px, 10.5vw, 63px); }
 }
 @media (max-height: 650px) and (min-width: 601px) { .intro .hero-greeting { font-size: 64px; } }
+
+/* Pixie spectrum: vintage rainbow emphasis, shared with native auth accents. */
+:root { --pixie-spectrum: linear-gradient(110deg, #79b83b 0%, #efbd22 20%, #ff9218 38%, #ee403b 57%, #a83c91 76%, #238cd0 100%); }
+.spectrum-italic { background: var(--pixie-spectrum); background-clip: text; -webkit-background-clip: text; color: transparent; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 500; padding-inline: .05em; }
+.scene .feature-subtitle { margin: 18px auto 0; padding-inline: 24px; max-width: 850px; color: #d8d8d2; font-size: clamp(18px, 2vw, 26px); line-height: 1.4; animation: none; }
+.feature-subtitle .spectrum-italic { font-size: 1.22em; }

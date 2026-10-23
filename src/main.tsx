@@ -202,7 +202,7 @@ function App() {
       </button>
       <span className="sr-only" role="status">{greeting ? 'Pixie says: oh, hi.' : ''}</span>
     </div>
-    <button className="scroll-cue explore-control" inert={expanded} aria-label="Scroll down to Just ask" onClick={() => scrollToScene(0)} tabIndex={expanded ? -1 : 0}>
+    <button className="scroll-cue explore-control" inert={expanded} aria-label="Scroll down to meet Pixie" onClick={() => scrollToScene(0)} tabIndex={expanded ? -1 : 0}>
       <span>Scroll to explore</span>
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
     </button>
@@ -210,7 +210,7 @@ function App() {
       <div className="scene-window">
         <div className={`scene ${scene === 0 ? 'is-active' : ''}`} aria-hidden={scene !== 0}>
           <div className="ask-art" aria-hidden="true"><span className="fn-key">fn</span><div className="wave">{[0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => <i key={i} style={{ animationDelay: `${i * -.17}s` }} />)}</div></div>
-          <h2>Just ask.</h2>
+          <h2>Pixie is the fastest AI buddy that can do things for you.</h2>
         </div>
         <div className={`scene ${scene === 1 ? 'is-active' : ''}`} aria-hidden={scene !== 1}>
           {scene === 1 && <SpeedDemo key={activeChapter === 1 ? 'playing' : 'entering'} reducedMotion={reducedMotion} />}

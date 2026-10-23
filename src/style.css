@@ -370,3 +370,14 @@ p {
   .hand-ink { stroke-dashoffset: 0; }
   .demo-notch .pupil { transition: none; }
 }
+
+/* A consistent down arrow makes the vertical scroll journey explicit. */
+.chapter-next { position: absolute; z-index: 4; right: max(24px, env(safe-area-inset-right)); bottom: 28px; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 10px 14px; border: 1px solid #ffffff38; border-radius: 28px; background: #050505; color: #fffefa; font: inherit; font-size: 13px; cursor: pointer; opacity: var(--scene-opacity, 0); transition: background .2s, border-color .2s; }
+.chapter-next svg { width: 20px; height: 20px; }
+.chapter-1 .chapter-next, .chapter-3 .chapter-next, .chapter-5 .chapter-next { background: #faf9f6; color: #111110; border-color: #11111038; }
+.chapter-next:hover { border-color: currentColor; }
+@media (max-width: 600px) {
+  .chapter-next { right: 16px; bottom: 16px; padding: 10px; }
+  .chapter-next span { display: none; }
+}
+@media (max-height: 600px) { .chapter-next { bottom: 8px; } }

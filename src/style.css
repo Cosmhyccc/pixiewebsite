@@ -398,3 +398,11 @@ p {
 .closing-section .spectrum-italic .typing-head::after { background: #faf9f6; }
 
 #physics-title .spectrum-italic .typing-head::after { background: #faf9f6; }
+
+.download-control { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.hello-button.download-button { gap: 12px; text-decoration: none; }
+.hello-button.download-button svg { width: 22px; height: 22px; flex-shrink: 0; }
+.hello-button.download-button:hover svg { transform: none; }
+.hello-button.download-closing { border-color: #666; background: #171716; color: #fff; }
+.download-requirements { font-size: 12px; opacity: .65; }
+.download-message { font-size: 13px; max-width: 320px; min-height: 18px; text-align: center; }

@@ -2,9 +2,33 @@ import { StrictMode, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.css';
 import { Eye, TypedHeadline, HeroGreeting } from './Characters';
-import { HeroDecor, HelloBurst } from './HeroDecor';
+import { HeroDecor } from './HeroDecor';
 import { SpeedDemo } from './SpeedDemo';
 import { DrawingDemo, PhysicsDemo, EditingDemo } from './DemoScenes';
+
+const downloadURL = 'https://github.com/Cosmhyccc/pixiewebsite/releases/download/pixie-production-20261023/Pixie.dmg';
+
+function DownloadButton({ closing = false }: { closing?: boolean }) {
+  const [message, setMessage] = useState('');
+  function download() {
+    const isMac = /Macintosh|Mac OS X/.test(navigator.userAgent)
+      && !/iPhone|iPad|iPod|Android/.test(navigator.userAgent)
+      && navigator.maxTouchPoints < 2;
+    if (!isMac) {
+      setMessage('Open wowpixie.com on your Mac to download Pixie.');
+      return;
+    }
+    window.location.assign(downloadURL);
+  }
+  return <div className="download-control">
+    <button className={`hello-button download-button ${closing ? 'download-closing' : ''}`} onClick={download}>
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>
+      <span>Download for Mac</span>
+    </button>
+    <small className="download-requirements">Apple Silicon · macOS 26 or later</small>
+    <span className="download-message" role="status">{message}</span>
+  </div>;
+}
 
 function App() {
   const scrollAnimation = useRef(0);
@@ -13,8 +37,8 @@ function App() {
   const [drawingVisible, setDrawingVisible] = useState(false);
   const [closingVisible, setClosingVisible] = useState(false);
   const [activeChapter, setActiveChapter] = useState(-1);
-  const [comingSoon, setComingSoon] = useState(false);
-  const ctaTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+
   const [headerVisible, setHeaderVisible] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const [scene, setScene] = useState(0);
@@ -169,19 +193,7 @@ function App() {
     };
   }, [reducedMotion]);
 
-  useEffect(() => () => { clearTimeout(greetingTimer.current); clearTimeout(ctaTimer.current); }, []);
-
-  function previewDownload() {
-    clearTimeout(ctaTimer.current);
-    setComingSoon(true);
-    ctaTimer.current = setTimeout(() => setComingSoon(false), 2400);
-  }
-
-  function sayHello() {
-    clearTimeout(greetingTimer.current);
-    setGreeting(true);
-    greetingTimer.current = setTimeout(() => setGreeting(false), 2600);
-  }
+  useEffect(() => () => { clearTimeout(greetingTimer.current); }, []);
 
   return <main>
     <section className={`journey chapter-${scene} ${expanded ? 'is-expanded' : ''}`} ref={journey}>
@@ -209,12 +221,7 @@ function App() {
     <div className="intro" inert={expanded}>
       <HeroGreeting reducedMotion={reducedMotion} />
       <p>Your Mac’s little companion.</p>
-      <button className="hello-button" onClick={sayHello}>
-        <HelloBurst greeting={greeting} />
-        <span>Say hello</span>
-        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-      </button>
-      <span className="sr-only" role="status">{greeting ? 'Pixie says: oh, hi.' : ''}</span>
+      <DownloadButton />
     </div>
     <button className="scroll-cue explore-control" inert={expanded} aria-label="Scroll down to meet Pixie" onClick={() => scrollToScene(0)} tabIndex={expanded ? -1 : 0}>
       <span>Scroll to explore</span>
@@ -258,11 +265,7 @@ function App() {
     <section className={`closing-section ${scene === 6 ? 'is-current' : ''}`} inert={scene !== 6} aria-hidden={scene !== 6} aria-labelledby="closing-title">
       <div className={`closing-notch ${greeting ? 'is-greeting' : ''} ${blink ? 'is-blinking' : ''}`} aria-hidden="true"><Eye side="left" /><Eye side="right" /></div>
       <TypedHeadline id="closing-title" rainbowWord="fastest" text="Pixie is the fastest AI buddy that can DO things for you" active={closingVisible} reducedMotion={reducedMotion} />
-      <button className="hello-button get-button" onClick={previewDownload} aria-label="Get Pixie — coming soon">
-        <span>{comingSoon ? 'Coming soon' : 'Get Pixie'}</span>
-        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-      </button>
-      <span className="sr-only" role="status">{comingSoon ? 'Pixie downloads are coming at launch.' : ''}</span>
+      <DownloadButton closing />
     </section>
     <button className="chapter-next explore-control" inert={!expanded} onClick={() => scene < 6 ? scrollToScene(scene + 1) : window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' })} aria-label={scene < 6 ? 'Scroll down to the next feature' : 'Back to top'}>
       <span>{scene < 6 ? 'Scroll to explore' : 'Back to top'}</span>

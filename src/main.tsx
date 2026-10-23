@@ -191,7 +191,7 @@ function App() {
       <button onClick={() => scrollToScene(0)}>About</button>
       <a href="/models.html">Models</a>
       <a href="/privacy.html">Privacy</a>
-      <a href="/manifesto.html">Manifesto</a>
+
     </nav>
     <HeroDecor />
     <div className="notch-arrival">

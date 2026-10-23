@@ -247,7 +247,7 @@ function App() {
       <DrawingDemo active={drawingVisible} reducedMotion={reducedMotion} />
     </section>
     <section className={`teaching-section physics-section ${scene === 4 ? 'is-current' : ''}`} inert={scene !== 4} aria-hidden={scene !== 4} aria-labelledby="physics-title">
-      <TypedHeadline id="physics-title" text="Hard concepts. Made clear." active={activeChapter === 4} reducedMotion={reducedMotion} />
+      <TypedHeadline id="physics-title" rainbowWord={["Made", "clear."]} text="Hard concepts. Made clear." active={activeChapter === 4} reducedMotion={reducedMotion} />
       <PhysicsDemo active={activeChapter === 4} reducedMotion={reducedMotion} />
     </section>
     <section className={`teaching-section editing-section ${scene === 5 ? 'is-current' : ''}`} inert={scene !== 5} aria-hidden={scene !== 5} aria-labelledby="editing-title">

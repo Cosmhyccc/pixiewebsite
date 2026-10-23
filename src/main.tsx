@@ -15,6 +15,7 @@ function App() {
   const [activeChapter, setActiveChapter] = useState(-1);
   const [comingSoon, setComingSoon] = useState(false);
   const ctaTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const [headerVisible, setHeaderVisible] = useState(true);
   const [expanded, setExpanded] = useState(false);
   const [scene, setScene] = useState(0);
   const [greeting, setGreeting] = useState(false);
@@ -64,6 +65,7 @@ function App() {
       element.style.setProperty('--intro-opacity', `${Math.max(0, 1 - progress / .16)}`);
       element.style.setProperty('--intro-shift', `${reducedMotion ? 0 : -progress * 180}px`);
       element.style.setProperty('--scene-opacity', `${Math.max(0, Math.min(1, (progress - .25) / .18))}`);
+      setHeaderVisible(progress < .16);
       setExpanded(progress > .35);
       setScene(chapter);
     }
@@ -179,6 +181,12 @@ function App() {
     <section className={`journey chapter-${scene} ${expanded ? 'is-expanded' : ''}`} ref={journey}>
     <section className="hero" aria-label="Meet Pixie">
     <span className="site-wordmark" aria-label="Pixie">Pixie</span>
+    <nav className="site-nav" aria-label="Main navigation" inert={!headerVisible}>
+      <button onClick={() => scrollToScene(0)}>About</button>
+      <a href="/models.html">Models</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/manifesto.html">Manifesto</a>
+    </nav>
     <HeroDecor />
     <div className="notch-arrival">
       <div className={`notch ${greeting ? 'is-greeting' : ''} ${blink ? 'is-blinking' : ''}`} ref={face} role="img" aria-label="Pixie’s two white pixel eyes in a black Mac notch">

@@ -34,3 +34,24 @@ export function TypedHeadline({ active, reducedMotion, text, id }: { active: boo
   </span></h2>;
 }
 
+
+export function HeroGreeting({ reducedMotion }: { reducedMotion: boolean }) {
+  const text = 'Hello, world';
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (reducedMotion) return;
+    setCount(0);
+    let interval: ReturnType<typeof setInterval>;
+    const delay = setTimeout(() => {
+      interval = setInterval(() => setCount(previous => {
+        if (previous + 1 >= text.length) clearInterval(interval);
+        return Math.min(previous + 1, text.length);
+      }), 110);
+    }, 450);
+    return () => { clearTimeout(delay); clearInterval(interval); };
+  }, [reducedMotion]);
+  return <h1 className="hero-greeting" aria-label={text}>
+    <span className="greeting-measure" aria-hidden="true">{text}</span>
+    <span className="greeting-typed" aria-hidden="true">{reducedMotion ? text : text.slice(0, count)}<span className="greeting-cursor" /></span>
+  </h1>;
+}

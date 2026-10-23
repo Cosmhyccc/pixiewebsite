@@ -367,3 +367,14 @@ p {
 .explore-control:hover { border-color: currentColor; }
 @media (max-width: 600px) { .explore-control { bottom: 16px; } }
 @media (max-height: 600px) { .explore-control { bottom: 8px; } }
+
+.site-wordmark { position: absolute; top: 24px; left: 28px; z-index: 3; font-size: 30px; font-weight: 800; letter-spacing: -.06em; opacity: var(--intro-opacity, 1); pointer-events: none; }
+.intro .hero-greeting { position: relative; display: inline-block; font-size: clamp(52px, 8.5vw, 112px); font-weight: 800; font-style: italic; letter-spacing: -.065em; line-height: 1.1; white-space: nowrap; animation: none; }
+.greeting-measure { visibility: hidden; }
+.greeting-typed { position: absolute; inset: 0; text-align: left; }
+.greeting-cursor { display: inline-block; height: .82em; width: .035em; margin-left: .09em; background: currentColor; vertical-align: -.04em; animation: caret 1s steps(1) infinite; }
+@media (max-width: 600px) {
+  .site-wordmark { top: 18px; left: 18px; font-size: 24px; }
+  .intro .hero-greeting { font-size: clamp(44px, 10.5vw, 63px); }
+}
+@media (max-height: 650px) and (min-width: 601px) { .intro .hero-greeting { font-size: 64px; } }

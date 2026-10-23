@@ -1,7 +1,7 @@
 import { StrictMode, useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.css';
-import { Eye, TypedHeadline } from './Characters';
+import { Eye, TypedHeadline, HeroGreeting } from './Characters';
 import { HeroDecor, HelloBurst } from './HeroDecor';
 import { SpeedDemo } from './SpeedDemo';
 import { DrawingDemo, PhysicsDemo, EditingDemo } from './DemoScenes';
@@ -178,6 +178,7 @@ function App() {
   return <main>
     <section className={`journey chapter-${scene} ${expanded ? 'is-expanded' : ''}`} ref={journey}>
     <section className="hero" aria-label="Meet Pixie">
+    <span className="site-wordmark" aria-label="Pixie">Pixie</span>
     <HeroDecor />
     <div className="notch-arrival">
       <div className={`notch ${greeting ? 'is-greeting' : ''} ${blink ? 'is-blinking' : ''}`} ref={face} role="img" aria-label="Pixie’s two white pixel eyes in a black Mac notch">
@@ -192,7 +193,7 @@ function App() {
       </div>
     </div>
     <div className="intro" inert={expanded}>
-      <h1>Meet Pixie.</h1>
+      <HeroGreeting reducedMotion={reducedMotion} />
       <p>Your Mac’s little companion.</p>
       <button className="hello-button" onClick={sayHello}>
         <HelloBurst greeting={greeting} />

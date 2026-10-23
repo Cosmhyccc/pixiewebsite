@@ -257,7 +257,7 @@ function App() {
     </section>
     <section className={`closing-section ${scene === 6 ? 'is-current' : ''}`} inert={scene !== 6} aria-hidden={scene !== 6} aria-labelledby="closing-title">
       <div className={`closing-notch ${greeting ? 'is-greeting' : ''} ${blink ? 'is-blinking' : ''}`} aria-hidden="true"><Eye side="left" /><Eye side="right" /></div>
-      <TypedHeadline id="closing-title" text="Pixie is the fastest AI buddy that can DO things for you" active={closingVisible} reducedMotion={reducedMotion} />
+      <TypedHeadline id="closing-title" rainbowWord="fastest" text="Pixie is the fastest AI buddy that can DO things for you" active={closingVisible} reducedMotion={reducedMotion} />
       <button className="hello-button get-button" onClick={previewDownload} aria-label="Get Pixie — coming soon">
         <span>{comingSoon ? 'Coming soon' : 'Get Pixie'}</span>
         <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" /></svg>

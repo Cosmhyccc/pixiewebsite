@@ -394,3 +394,5 @@ p {
 }
 
 .spectrum-italic .typing-head::after { background: #111110; }
+
+.closing-section .spectrum-italic .typing-head::after { background: #faf9f6; }

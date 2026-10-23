@@ -201,8 +201,9 @@ function App() {
       </button>
       <span className="sr-only" role="status">{greeting ? 'Pixie says: oh, hi.' : ''}</span>
     </div>
-    <button className="scroll-cue" inert={expanded} aria-label="Scroll down to Just ask" onClick={() => scrollToScene(0)} tabIndex={expanded ? -1 : 0}>
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+    <button className="scroll-cue explore-control" inert={expanded} aria-label="Scroll down to Just ask" onClick={() => scrollToScene(0)} tabIndex={expanded ? -1 : 0}>
+      <span>Scroll to explore</span>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
     </button>
     <div className="scenes" inert={!expanded || scene > 2} aria-label="A little of what Pixie can do">
       <div className="scene-window">
@@ -247,13 +248,10 @@ function App() {
       </button>
       <span className="sr-only" role="status">{comingSoon ? 'Pixie downloads are coming at launch.' : ''}</span>
     </section>
-    <button className="chapter-next" inert={!expanded} onClick={() => scene < 6 ? scrollToScene(scene + 1) : window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' })} aria-label={scene < 6 ? 'Scroll down to the next feature' : 'Back to top'}>
+    <button className="chapter-next explore-control" inert={!expanded} onClick={() => scene < 6 ? scrollToScene(scene + 1) : window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' })} aria-label={scene < 6 ? 'Scroll down to the next feature' : 'Back to top'}>
       <span>{scene < 6 ? 'Scroll to explore' : 'Back to top'}</span>
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" style={scene === 6 ? { transform: 'rotate(180deg)' } : undefined}><path d="M12 4v16m-6-6 6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
     </button>
-    <nav className="scene-nav" aria-label="Pixie animations" inert={!expanded}>
-      {['Just ask', 'Anything you can do, Pixie can do faster', 'Play music, take notes, explain concepts', 'Pixie can draw directly on your screen', 'Explain a physics concept', 'Learn a creative tool', 'Get Pixie'].map((label, index) => <button key={label} onClick={() => scrollToScene(index)} aria-label={label} aria-current={scene === index ? 'step' : undefined}><span /></button>)}
-    </nav>
     </section>
     </section>
   </main>;

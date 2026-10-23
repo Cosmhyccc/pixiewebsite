@@ -147,8 +147,6 @@ p {
 /* The notch itself grows into the dark scene; no second face or crossfade. */
 .journey { position: relative; height: 300svh; }
 .is-expanded .intro, .is-expanded .scroll-cue { pointer-events: none; }
-.scroll-cue { position: absolute; bottom: 24px; padding: 12px; border: 0; background: none; color: #99988f; cursor: pointer; opacity: var(--intro-opacity, 1); }
-.scroll-cue svg { display: block; width: 24px; height: 24px; }
 .scenes { position: absolute; top: 55%; width: 100%; text-align: center; color: #fffefa; opacity: var(--scene-opacity, 0); }
 .scene-window { position: relative; height: clamp(240px, 32svh, 290px); }
 .scene { position: absolute; inset: 0; opacity: 0; transform: translateY(24px) scale(.96); transition: opacity .35s, transform .7s cubic-bezier(.16,1,.3,1); pointer-events: none; }
@@ -172,10 +170,6 @@ p {
 .done-mark { position: absolute; right: -7px; top: -7px; background: #d1efb0; color: #151b10; font-size: 13px; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; animation: done 4s infinite; }
 .little-cursor { position: absolute; width: 23px; height: 27px; top: 48px; left: 145px; animation: cursor 4s infinite; }
 .scene:not(.is-active) *, .journey:not(.is-expanded) .scene * { animation-play-state: paused; }
-.scene-nav { display: flex; justify-content: center; gap: 2px; }
-.scene-nav button { border: 0; background: none; padding: 16px 8px; cursor: pointer; }
-.scene-nav span { display: block; width: 6px; height: 6px; border-radius: 8px; background: #52524e; transition: width .35s, background .35s; }
-.scene-nav [aria-current] span { width: 23px; background: #fffefa; }
 @keyframes wave { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
 @keyframes key-press { 0%, 22%, 100% { transform: translateY(0); box-shadow: 0 5px 0 #222221; } 30%, 44% { transform: translateY(4px); box-shadow: 0 1px 0 #222221; } }
 @keyframes write-line { 0%, 12% { transform: scaleX(.05); } 55%, 88% { transform: scaleX(1); } 100% { transform: scaleX(.05); } }
@@ -267,9 +261,6 @@ p {
 .chapter-1 .writing i { background: #111110; }
 .chapter-1 .caret { background: #111110; }
 .chapter-3 .scenes, .chapter-4 .scenes { opacity: 0; pointer-events: none; }
-.scene-nav { position: absolute; bottom: 32px; opacity: var(--scene-opacity, 0); z-index: 3; }
-.chapter-1 .scene-nav span, .chapter-3 .scene-nav span { background: #cfcec8; }
-.chapter-1 .scene-nav [aria-current] span, .chapter-3 .scene-nav [aria-current] span { background: #111110; }
 .drawing-section, .closing-section {
   position: absolute; inset: 0; min-height: 0; height: 100%; background: transparent;
   opacity: 0; pointer-events: none; transform: translateY(var(--chapter-shift, 0px));
@@ -293,7 +284,6 @@ p {
   .drawing-section h2 { font-size: clamp(32px, 8vw, 48px); }
   .computer { width: 86vw; }
   .closing-section h2 { font-size: clamp(36px, 9.5vw, 54px); }
-  .scene-nav { bottom: 20px; }
 }
 @media (max-height: 600px) {
   .drawing-section { gap: 20px; padding-top: 30px; padding-bottom: 70px; }
@@ -302,15 +292,12 @@ p {
   .closing-section { padding-top: 100px; padding-bottom: 70px; gap: 24px; }
   .closing-section h2 { font-size: 36px; }
   .closing-notch { height: 64px; }
-  .scene-nav { bottom: 10px; }
 }
 
 /* The two teaching chapters keep the same alternating notch reveal. */
 .journey { height: 900svh; --wipe-4: inset(0 50% 100%); --wipe-5: inset(0 50% 100%); }
 .chapter-5 .notch > .eyes, .chapter-6 .notch > .eyes { opacity: 0; }
 .chapter-5 .scenes, .chapter-6 .scenes { opacity: 0; pointer-events: none; }
-.chapter-5 .scene-nav span { background: #cfcec8; }
-.chapter-5 .scene-nav [aria-current] span { background: #111110; }
 .teaching-section { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(24px, 4svh, 44px); padding: 44px 24px 94px; opacity: 0; pointer-events: none; transform: translateY(var(--chapter-shift, 0px)); }
 .teaching-section.is-current { opacity: var(--chapter-opacity, 1); pointer-events: auto; }
 .teaching-section h2 { margin: 0; text-align: center; font-size: clamp(32px, min(5.7vw, 6.5svh), 76px); line-height: 1.06; letter-spacing: -.055em; font-weight: 600; max-width: 1000px; }
@@ -372,12 +359,11 @@ p {
 }
 
 /* A consistent down arrow makes the vertical scroll journey explicit. */
-.chapter-next { position: absolute; z-index: 4; right: max(24px, env(safe-area-inset-right)); bottom: 28px; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 10px 14px; border: 1px solid #ffffff38; border-radius: 28px; background: #050505; color: #fffefa; font: inherit; font-size: 13px; cursor: pointer; opacity: var(--scene-opacity, 0); transition: background .2s, border-color .2s; }
-.chapter-next svg { width: 20px; height: 20px; }
-.chapter-1 .chapter-next, .chapter-3 .chapter-next, .chapter-5 .chapter-next { background: #faf9f6; color: #111110; border-color: #11111038; }
-.chapter-next:hover { border-color: currentColor; }
-@media (max-width: 600px) {
-  .chapter-next { right: 16px; bottom: 16px; padding: 10px; }
-  .chapter-next span { display: none; }
-}
-@media (max-height: 600px) { .chapter-next { bottom: 8px; } }
+ .explore-control { position: absolute; z-index: 4; left: 50%; transform: translateX(-50%); bottom: 28px; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 10px 16px; border: 1px solid #ffffff38; border-radius: 28px; background: #050505; color: #fffefa; font: inherit; font-size: 13px; white-space: nowrap; cursor: pointer; transition: background .2s, border-color .2s; }
+.explore-control svg { display: block; width: 20px; height: 20px; }
+.scroll-cue { opacity: var(--intro-opacity, 1); }
+.chapter-next { opacity: var(--scene-opacity, 0); }
+.scroll-cue, .chapter-1 .chapter-next, .chapter-3 .chapter-next, .chapter-5 .chapter-next { background: #faf9f6; color: #111110; border-color: #11111055; }
+.explore-control:hover { border-color: currentColor; }
+@media (max-width: 600px) { .explore-control { bottom: 16px; } }
+@media (max-height: 600px) { .explore-control { bottom: 8px; } }

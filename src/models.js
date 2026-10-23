@@ -14,3 +14,24 @@ document.querySelectorAll('[data-route]').forEach(b=>b.addEventListener('click',
 document.querySelector('#next-step').addEventListener('click',()=>{stopPlayback();selectStep((step+1)%routes[current].steps.length)});
 document.querySelector('#replay').addEventListener('click',()=>playback?stopPlayback():play());
 render('talk');
+
+// Match the homepage's small, pixel-stepped gaze without moving the eye silhouettes.
+const faceDiagram = document.querySelector('.mind svg');
+const pupils = document.querySelector('.model-pupils');
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+let gazeFrame = 0;
+function resetGaze(){cancelAnimationFrame(gazeFrame);pupils.removeAttribute('transform');}
+window.addEventListener('pointermove', event => {
+  if(event.pointerType !== 'mouse' || motionPreference.matches) return;
+  cancelAnimationFrame(gazeFrame);
+  gazeFrame = requestAnimationFrame(() => {
+    const box = faceDiagram.getBoundingClientRect();
+    const dx = event.clientX - (box.left + box.width / 2);
+    const dy = event.clientY - (box.top + box.height / 2);
+    const distance = Math.max(180, Math.hypot(dx, dy));
+    pupils.setAttribute('transform', `translate(${Math.round(dx / distance * 3)} ${Math.round(dy / distance * 3)})`);
+  });
+}, {passive:true});
+document.documentElement.addEventListener('pointerleave', resetGaze);
+window.addEventListener('blur', resetGaze);
+motionPreference.addEventListener('change', resetGaze);

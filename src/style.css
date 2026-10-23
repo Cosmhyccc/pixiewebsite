@@ -418,3 +418,11 @@ p {
   .mac-only-bubble::before { top: 28px; left: -9px; border-left: 1px solid #deddd6; border-bottom: 1px solid #deddd6; border-top: 0; }
   .mac-only-closing { top: 28px; left: calc(50% + 130px); }
 }
+
+/* Keep the speed comparison above the fixed explore control on short windows. */
+@media (max-height: 850px) {
+  .chapter-1 .scenes { top: auto; bottom: 100px; }
+  .chapter-1 .scene-window { height: auto; }
+  .chapter-1 .scene.is-active { position: relative; inset: auto; }
+  .chapter-1 .speed-demo { max-height: 24svh; }
+}

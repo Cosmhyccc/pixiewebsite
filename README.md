@@ -33,3 +33,7 @@ Both homepage CTAs use the explicit production GitHub Release asset `pixie-produ
 Mac detection is a convenience guard: excludes iOS (including iPad desktop mode), Android, Windows and other platforms from the download action. It cannot verify CPU or macOS version; the page states Apple Silicon / macOS 26+ explicitly.
 
 Apple vector mark: Simple Icons, https://github.com/simple-icons/simple-icons/blob/develop/icons/apple.svg (rendered white; no raster/background required).
+
+### Download analytics
+The primary download now fetches `/downloads/Pixie.dmg` (byte-identical to the notarized release), verifies SHA256, then hands a Blob to the browser download manager. GitHub Release remains a direct fallback.
+Mixpanel events in the existing app project: Download Clicked, Download Completed, Download Failed, Download Unsupported, Download Fallback Clicked. Completion means the browser fully received and checksum-verified the bytes, NOT proof the user saved to disk or installed. Click/completion share attempt_id; cta is hero/closing; anonymous distinct_id supports unique browser counts. Filter is_test=false for launch reporting. Local QA is is_test=true. No autocapture, session replay, email, full URL, or IP enrichment. Ad blockers/offline analytics can undercount; telemetry cannot block downloading. Fallback transfers cannot be measured as completed.

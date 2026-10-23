@@ -421,7 +421,7 @@ p {
 
 /* Keep the speed comparison above the fixed explore control on short windows. */
 @media (max-height: 850px) {
-  .chapter-1 .scenes { top: auto; bottom: 100px; }
+  .journey.chapter-1 .scenes { top: auto; bottom: 100px; }
   .chapter-1 .scene-window { height: auto; }
   .chapter-1 .scene.is-active { position: relative; inset: auto; }
   .chapter-1 .speed-demo { max-height: 24svh; }

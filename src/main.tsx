@@ -114,6 +114,12 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (window.location.hash !== '#about') return;
+    const frame = requestAnimationFrame(() => scrollToScene(0));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
+  useEffect(() => {
     // The greeting owns the eyes until its wink finishes. Restart idle blinking
     // afterward so a scheduled blink cannot compete with the wink animation.
     if (reducedMotion || greeting) return;

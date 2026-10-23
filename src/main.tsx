@@ -8,14 +8,13 @@ import { DrawingDemo, PhysicsDemo, EditingDemo } from './DemoScenes';
 
 const downloadURL = 'https://github.com/Cosmhyccc/pixiewebsite/releases/download/pixie-production-20261023/Pixie.dmg';
 
-function DownloadButton({ closing = false }: { closing?: boolean }) {
-  const [message, setMessage] = useState('');
+function DownloadButton({ closing = false, onUnsupported }: { closing?: boolean; onUnsupported: () => void }) {
   function download() {
     const isMac = /Macintosh|Mac OS X/.test(navigator.userAgent)
       && !/iPhone|iPad|iPod|Android/.test(navigator.userAgent)
       && navigator.maxTouchPoints < 2;
     if (!isMac) {
-      setMessage('Open wowpixie.com on your Mac to download Pixie.');
+      onUnsupported();
       return;
     }
     window.location.assign(downloadURL);
@@ -26,11 +25,19 @@ function DownloadButton({ closing = false }: { closing?: boolean }) {
       <span>Download for Mac</span>
     </button>
     <small className="download-requirements">Apple Silicon · macOS 26 or later</small>
-    <span className="download-message" role="status">{message}</span>
+
+  </div>;
+}
+
+function MacOnlyBubble({ closing = false, onClose }: { closing?: boolean; onClose: () => void }) {
+  return <div className={`mac-only-bubble ${closing ? 'mac-only-closing' : ''}`} role="status">
+    <button className="bubble-close" aria-label="Dismiss message" onClick={onClose}>×</button>
+    <p>I'm only on Mac for now😭 Windows n Linux coming very very soon!! Join our <a href="https://discord.gg/N5vkCwKrX" target="_blank" rel="noopener noreferrer">Discord</a> to stay up to date</p>
   </div>;
 }
 
 function App() {
+  const [macOnlyBubble, setMacOnlyBubble] = useState<'hero' | 'closing' | null>(null);
   const scrollAnimation = useRef(0);
   const face = useRef<HTMLDivElement>(null);
   const journey = useRef<HTMLElement>(null);
@@ -46,6 +53,13 @@ function App() {
   const [blink, setBlink] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const greetingTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => { setMacOnlyBubble(null); }, [expanded, scene]);
+  useEffect(() => {
+    const dismiss = (event: KeyboardEvent) => { if (event.key === 'Escape') setMacOnlyBubble(null); };
+    window.addEventListener('keydown', dismiss);
+    return () => window.removeEventListener('keydown', dismiss);
+  }, []);
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -218,10 +232,11 @@ function App() {
         <span className="notch-hello" aria-hidden="true">oh, hi.</span>
       </div>
     </div>
+    {macOnlyBubble === 'hero' && !expanded && <MacOnlyBubble onClose={() => setMacOnlyBubble(null)} />}
     <div className="intro" inert={expanded}>
       <HeroGreeting reducedMotion={reducedMotion} />
       <p>Your Mac’s little companion.</p>
-      <DownloadButton />
+      <DownloadButton onUnsupported={() => setMacOnlyBubble('hero')} />
     </div>
     <button className="scroll-cue explore-control" inert={expanded} aria-label="Scroll down to meet Pixie" onClick={() => scrollToScene(0)} tabIndex={expanded ? -1 : 0}>
       <span>Scroll to explore</span>
@@ -265,7 +280,8 @@ function App() {
     <section className={`closing-section ${scene === 6 ? 'is-current' : ''}`} inert={scene !== 6} aria-hidden={scene !== 6} aria-labelledby="closing-title">
       <div className={`closing-notch ${greeting ? 'is-greeting' : ''} ${blink ? 'is-blinking' : ''}`} aria-hidden="true"><Eye side="left" /><Eye side="right" /></div>
       <TypedHeadline id="closing-title" rainbowWord="fastest" text="Pixie is the fastest AI buddy that can DO things for you" active={closingVisible} reducedMotion={reducedMotion} />
-      <DownloadButton closing />
+      {macOnlyBubble === 'closing' && <MacOnlyBubble closing onClose={() => setMacOnlyBubble(null)} />}
+      <DownloadButton closing onUnsupported={() => setMacOnlyBubble('closing')} />
     </section>
     <button className="chapter-next explore-control" inert={!expanded} onClick={() => scene < 6 ? scrollToScene(scene + 1) : window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' })} aria-label={scene < 6 ? 'Scroll down to the next feature' : 'Back to top'}>
       <span>{scene < 6 ? 'Scroll to explore' : 'Back to top'}</span>

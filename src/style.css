@@ -406,3 +406,15 @@ p {
 .hello-button.download-closing { border-color: #666; background: #171716; color: #fff; }
 .download-requirements { font-size: 12px; opacity: .65; }
 .download-message { font-size: 13px; max-width: 320px; min-height: 18px; text-align: center; }
+
+.mac-only-bubble { position: absolute; z-index: 6; top: calc(var(--notch-height, 285px) * .62); left: 50%; transform: translateX(-50%); width: min(340px, calc(100vw - 32px)); padding: 18px 30px 18px 20px; border-radius: 20px; border: 1px solid #deddd6; background: #fffefa; color: #171716; box-shadow: 0 10px 30px #0002; text-align: left; font-size: 15px; line-height: 1.45; }
+.mac-only-bubble::before { content: ''; position: absolute; top: -9px; left: 48px; width: 16px; height: 16px; transform: rotate(45deg); background: #fffefa; border-top: 1px solid #deddd6; border-left: 1px solid #deddd6; }
+.mac-only-bubble p { margin: 0; font: inherit; color: inherit; letter-spacing: normal; animation: none; }
+.mac-only-bubble a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.bubble-close { position: absolute; top: 3px; right: 4px; width: 28px; height: 28px; border: 0; background: transparent; color: #777; font: inherit; font-size: 20px; cursor: pointer; }
+.mac-only-closing { top: 106px; }
+@media (min-width: 1100px) {
+  .mac-only-bubble { top: 110px; left: calc(50% + 175px); transform: none; }
+  .mac-only-bubble::before { top: 28px; left: -9px; border-left: 1px solid #deddd6; border-bottom: 1px solid #deddd6; border-top: 0; }
+  .mac-only-closing { top: 28px; left: calc(50% + 130px); }
+}

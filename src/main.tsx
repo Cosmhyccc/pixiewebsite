@@ -251,8 +251,8 @@ function App() {
       <PhysicsDemo active={activeChapter === 4} reducedMotion={reducedMotion} />
     </section>
     <section className={`teaching-section editing-section ${scene === 5 ? 'is-current' : ''}`} inert={scene !== 5} aria-hidden={scene !== 5} aria-labelledby="editing-title">
-      <h2 id="editing-title">Finally do the thing</h2>
-      <p>Pixie can teach you any tools, software or craft you wanna learn</p>
+      <TypedHeadline id="editing-title" text="Finally do the thing" rainbowWord="thing" active={activeChapter === 5} reducedMotion={reducedMotion} />
+      <p>Pixie can teach you any tool, software or craft you wanna learn</p>
       <EditingDemo active={activeChapter === 5} reducedMotion={reducedMotion} />
     </section>
     <section className={`closing-section ${scene === 6 ? 'is-current' : ''}`} inert={scene !== 6} aria-hidden={scene !== 6} aria-labelledby="closing-title">

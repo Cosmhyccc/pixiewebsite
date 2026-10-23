@@ -392,3 +392,5 @@ p {
   .site-nav { top: 18px; right: 8px; max-width: calc(17vw - 12px); flex-direction: column; align-items: flex-end; gap: 6px; }
   .site-nav a, .site-nav button { font-size: 10px; }
 }
+
+.spectrum-italic .typing-head::after { background: #111110; }

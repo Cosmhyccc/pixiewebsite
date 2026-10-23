@@ -10,7 +10,7 @@ export function Eye({ side }: { side: string }) {
 
 
 
-export function TypedHeadline({ active, reducedMotion, text, id }: { active: boolean; reducedMotion: boolean; text: string; id: string }) {
+export function TypedHeadline({ active, reducedMotion, text, id, rainbowWord }: { active: boolean; reducedMotion: boolean; text: string; id: string; rainbowWord?: string }) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     setCount(0);
@@ -26,7 +26,7 @@ export function TypedHeadline({ active, reducedMotion, text, id }: { active: boo
     {text.split(' ').map((word, index) => {
       const start = offset;
       offset += word.length + 1;
-      return <span key={index} className={`typed-word ${word === 'DO' ? 'typed-emphasis' : ''}`}>
+      return <span key={index} className={`typed-word ${word === 'DO' ? 'typed-emphasis' : ''} ${word === rainbowWord ? 'spectrum-italic' : ''}`}>
         {[...word].map((letter, i) => <span key={i} className={`${reducedMotion || start + i < count ? 'typed-letter' : 'untyped-letter'} ${!reducedMotion && start + i === count - 1 ? 'typing-head' : ''}`}>{letter}</span>)}
         <span> </span>
       </span>;

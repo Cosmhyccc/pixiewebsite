@@ -4,7 +4,7 @@ const token = 'bc31218b5266564b4ee19572ba6d53dc';
 // installer can never ship with a stale checksum.
 declare const __DMG_SHA256__: string;
 const checksum = __DMG_SHA256__;
-export const fallbackURL = 'https://github.com/Cosmhyccc/pixiewebsite/releases/download/pixie-production-20261023/Pixie.dmg';
+export const fallbackURL = 'https://github.com/Cosmhyccc/pixiewebsite/releases/download/pixie-production-20261115/Pixie.dmg';
 // First-party relay keeps ad blockers from dropping events; direct Mixpanel is the fallback.
 const relayURL = 'https://yiphasqdhitluorenuwl.supabase.co/functions/v1/pixie-analytics';
 const mixpanelURL = 'https://api.mixpanel.com/track?verbose=1&ip=0';

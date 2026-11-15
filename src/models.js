@@ -1,3 +1,5 @@
+import { trackPageView } from './download';
+trackPageView();
 const routes = {
  talk: {label:'MUSIC PLAYBACK',steps:[['Your request','VOICE','Ask Pixie to play music, or name a song and artist.'],['GPT-6 Luna','RESPONSES DELEGATE','The delegated request selects a music tool. A specific song request can use catalog lookup to find a match.'],['Music playback','ON YOUR MAC','Pixie’s native music handler starts playback through the supported music integration, subject to access and availability.'],['Playback result','RETURN PATH','The tool returns playing, an ambiguous match, or an error. Pixie uses that result to respond rather than assuming the music started.']]},
  screen:{label:'SCREEN CONTEXT',steps:[['Your question','VOICE','Ask about something on your screen.'],['Requested context','ON YOUR MAC','Pixie can capture the requested screen image using macOS screen-recording permission.'],['GPT-6 Luna','CLOUD INFERENCE','The Responses delegate reasons over the supplied question and screen context.'],['Explanation','VOICE + TOOLS','The result can return to the conversation, with supported annotation tools used when appropriate.']]},

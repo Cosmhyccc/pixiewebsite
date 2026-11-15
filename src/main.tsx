@@ -69,6 +69,7 @@ function App() {
 
 
   const [headerVisible, setHeaderVisible] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [scene, setScene] = useState(0);
   const [greeting, setGreeting] = useState(false);
@@ -231,15 +232,30 @@ function App() {
 
   useEffect(() => () => { clearTimeout(greetingTimer.current); }, []);
 
+  // Mobile menu: close on Escape, outside tap, or once the header fades away.
+  useEffect(() => {
+    if (!menuOpen) return;
+    if (!headerVisible) { setMenuOpen(false); return; }
+    const onKey = (event: KeyboardEvent) => { if (event.key === 'Escape') setMenuOpen(false); };
+    const onTap = (event: PointerEvent) => { if (!(event.target as Element).closest('.site-nav')) setMenuOpen(false); };
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('pointerdown', onTap);
+    return () => { window.removeEventListener('keydown', onKey); window.removeEventListener('pointerdown', onTap); };
+  }, [menuOpen, headerVisible]);
+
   return <main>
     <section className={`journey chapter-${scene} ${expanded ? 'is-expanded' : ''}`} ref={journey}>
     <section className="hero" aria-label="Meet Pixie">
     <span className="site-wordmark" aria-label="Pixie">Pixie</span>
-    <nav className="site-nav" aria-label="Main navigation" inert={!headerVisible}>
-      <button onClick={() => scrollToScene(0)}>About</button>
-      <a href="/models.html">Models</a>
-      <a href="/privacy.html">Privacy</a>
-
+    <nav className={`site-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation" inert={!headerVisible}>
+      <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="site-menu" aria-label={menuOpen ? 'Close menu' : 'Open menu'} onClick={() => setMenuOpen(open => !open)}>
+        <span aria-hidden="true" /><span aria-hidden="true" /><span aria-hidden="true" />
+      </button>
+      <div className="site-menu" id="site-menu">
+        <button onClick={() => { setMenuOpen(false); scrollToScene(0); }}>About</button>
+        <a href="/models.html">Models</a>
+        <a href="/privacy.html">Privacy</a>
+      </div>
     </nav>
     <HeroDecor />
     <div className="notch-arrival">

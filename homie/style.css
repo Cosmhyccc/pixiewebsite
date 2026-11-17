@@ -118,6 +118,7 @@ a { color: inherit; text-decoration: none; }
 }
 .cta:hover { transform: rotate(1deg) scale(1.05); background: var(--blue); }
 .cta:active { transform: rotate(0) scale(.97); }
+.cta__apple { width: .9em; height: .9em; margin: -.12em -.2em 0 0; flex: none; }
 .cta__free { font-family: var(--f-hand); font-weight: 400; text-transform: none; font-size: .7em; color: var(--green); transform: rotate(-6deg); }
 .cta-note { margin: 0; font-size: 14px; line-height: 1.35; opacity: .62; }
 

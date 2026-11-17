@@ -51,7 +51,7 @@ function talk() {
     out.textContent = line.slice(0, ++i);
     if (i >= line.length) {
       clearInterval(type);
-      setTimeout(() => { clearInterval(swap); t.classList.remove("is-open"); t.classList.add("is-smile"); $(".bubble").classList.add("is-done"); cycleWord(); }, 260);
+      setTimeout(() => { clearInterval(swap); t.classList.remove("is-open"); t.classList.add("is-smile"); $(".bubble").classList.add("is-done"); }, 260);
     }
   }, 42);
 }
@@ -98,6 +98,7 @@ function intro() {
     .add(draw($$(".x"), { duration: 0.32, ease: "power3.in", stagger: 0.18 }), 1.85)
     .fromTo(".cloud", { x: 0 }, { x: 6, duration: 0.05, repeat: 5, yoyo: true, ease: "steps(1)" }, 2.25)
     .add(slap(".founder", { rotation: 8, y: 40, scale: 1, ease: "back.out(1.8)", duration: 0.6 }), 1.9)
+    .call(cycleWord, null, 1.9) // the word starts swapping once the headline + button have landed
     .call(talk, null, 2.5)
     .call(blink, null, 2.8);
 

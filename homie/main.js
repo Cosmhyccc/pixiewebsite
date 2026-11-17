@@ -74,10 +74,11 @@ function cycleWord() {
 
 // --- homie blinks now and then
 function blink() {
-  const eyes = $(".eyes");
+  // squash the eye shapes themselves (no transforms, so they can never jump off the house)
+  const eyes = $$(".eyes ellipse");
   gsap.timeline({ onComplete: () => gsap.delayedCall(gsap.utils.random(2, 5), blink) })
-    .to(eyes, { scaleY: 0.1, duration: 0.06, ease: "steps(1)" })
-    .to(eyes, { scaleY: 1, duration: 0.06, ease: "steps(1)" }, 0.12);
+    .set(eyes, { attr: { ry: 1.5 } })
+    .set(eyes, { attr: { ry: 10 } }, 0.12);
 }
 
 function intro() {
@@ -92,13 +93,14 @@ function intro() {
     .add(slap(".lede", { rotation: 0, scale: 1.08, duration: 0.5 }), 0.75)
     .add(slap(".chip", { stagger: 0.07 }), 0.95)
     .add(slap(".cta-row", { rotation: -4 }), 1.25)
-    .from(".eyes, .dots circle", { scale: 0, duration: 0.45, ease: "back.out(3)", stagger: 0.05, transformOrigin: "center" }, 1.3)
+    .from(".eyes ellipse", { attr: { ry: 0 }, duration: 0.3, ease: "back.out(3)", stagger: 0.05 }, 1.3)
+    .from(".dots circle", { attr: { r: 0 }, duration: 0.45, ease: "back.out(3)", stagger: 0.05 }, 1.35)
     .from(".note", { autoAlpha: 0, y: 10, duration: 0.4, stagger: 0.15 }, 1.5)
     // the cloud gets a big red "nah"
     .add(draw($$(".x"), { duration: 0.32, ease: "power3.in", stagger: 0.18 }), 1.85)
     .fromTo(".cloud", { x: 0 }, { x: 6, duration: 0.05, repeat: 5, yoyo: true, ease: "steps(1)" }, 2.25)
     .add(slap(".founder", { rotation: 8, y: 40, scale: 1, ease: "back.out(1.8)", duration: 0.6 }), 1.9)
-    .call(cycleWord, null, 1.9) // the word starts swapping once the headline + button have landed
+    .call(cycleWord, null, 0.6) // first swap ~1.6s in, right as the headline finishes landing
     .call(talk, null, 2.5)
     .call(blink, null, 2.8);
 

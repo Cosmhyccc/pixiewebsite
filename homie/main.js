@@ -51,9 +51,25 @@ function talk() {
     out.textContent = line.slice(0, ++i);
     if (i >= line.length) {
       clearInterval(type);
-      setTimeout(() => { clearInterval(swap); t.classList.remove("is-open"); t.classList.add("is-smile"); $(".bubble").classList.add("is-done"); }, 260);
+      setTimeout(() => { clearInterval(swap); t.classList.remove("is-open"); t.classList.add("is-smile"); $(".bubble").classList.add("is-done"); cycleWord(); }, 260);
     }
   }, 42);
+}
+
+// --- "stays HOME." -> FREE. -> LOCAL. -> PRIVATE., once everything has landed
+const WORDS = [["HOME.", "var(--blue)"], ["FREE.", "#3fae12"], ["LOCAL.", "var(--orange)"], ["PRIVATE.", "var(--purple)"]];
+function cycleWord() {
+  const el = $(".w--home");
+  let i = 0;
+  setInterval(() => {
+    if (document.hidden) return;
+    i = (i + 1) % WORDS.length;
+    el.textContent = WORDS[i][0];
+    el.style.color = WORDS[i][1];
+    // a fresh sticker slapped on top: lands big and crooked, settles (stop-motion steps)
+    gsap.fromTo(el, { scale: 1.22, rotation: gsap.utils.random([-7, -4, 5, 8]) },
+      { scale: 1, rotation: gsap.utils.random([-2.5, 1.5, 2.5]), duration: 0.32, ease: "back.out(3)" });
+  }, 1000);
 }
 
 // --- homie blinks now and then

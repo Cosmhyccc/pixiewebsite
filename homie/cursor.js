@@ -158,6 +158,9 @@
       if (act === "circle") {
         introTarget = () => { const r = s.getBoundingClientRect(); return { x: r.right - 30, y: r.top + 10 }; };
         await sleep(260); say(line, 1300); circle(s); await sleep(900);
+      } else if (act === "visit") {
+        introTarget = () => { const r = s.getBoundingClientRect(); return { x: r.right - 30, y: r.top + 10 }; };
+        await sleep(260); say(line, 1300); await sleep(900);
       } else if (act === "zigzag") {
         // just visits the word (no line drawn under it)
         introTarget = () => { const r = s.getBoundingClientRect(); return { x: r.right - 20, y: r.bottom - 30 }; };

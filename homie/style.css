@@ -246,15 +246,6 @@ body.is-loading .slap, body.is-loading .nav, body.is-loading .founder { visibili
   .cta { font-size: 22px; }
 }
 
-/* homie's eyes: two shiny balls that shimmer through colors; the pupils watch the flying cursor */
-.orb { display: flex; gap: clamp(8px, .9vw, 14px); margin: 0 0 16px 4px; }
-.eyeball { position: relative; width: clamp(46px, 4.4vw, 66px); aspect-ratio: 1; border-radius: 50%;
-  background: radial-gradient(circle at 34% 30%, rgba(255,255,255,.95) 0 9%, rgba(255,255,255,0) 24%),
-              radial-gradient(circle at 45% 40%, #b49cff 0%, #7b5cf2 55%, #3d2596 100%);
-  box-shadow: inset -6px -8px 12px rgba(0,0,0,.28), 4px 8px 10px rgba(59,42,20,.22);
-  animation: orbHue 2.4s linear infinite; transition: transform .07s; }
-@keyframes orbHue { to { filter: hue-rotate(360deg); } }
-.pup { position: absolute; left: 50%; top: 50%; width: 30%; height: 38%; margin: -19% 0 0 -15%; border-radius: 50%; background: #141414; will-change: transform; }
-.pup::after { content: ""; position: absolute; left: 20%; top: 14%; width: 40%; height: 32%; border-radius: 50%; background: #fff; }
-.orb.is-shut .eyeball { transform: scaleY(.1); }
-@media (prefers-reduced-motion: reduce) { .eyeball { animation: none; } }
+/* Pixie's real eyes (GiantEyesView.swift): 5x6 white pixel eyes, square pupils, on the black notch */
+.orb { display: inline-block; margin: 0 0 16px 4px; background: #0b0b0b; border-radius: 10px 10px 22px 22px; padding: 10px 18px 12px; }
+.pxeyes { display: block; width: clamp(120px, 11vw, 170px); aspect-ratio: 222 / 100; image-rendering: pixelated; }

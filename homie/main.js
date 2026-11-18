@@ -87,7 +87,7 @@ function intro() {
 
   const tl = gsap.timeline({ defaults: { overwrite: "auto" } });
   tl.add(slap(".nav", { scale: 1, rotation: 0, y: -20, ease: "power3.out", duration: 0.6 }), 0)
-    .add(slap(".eyeball", { scale: 0, stagger: 0.1, ease: "back.out(3)" }), 0.05)
+    .add(slap(".orb", { scale: 0, ease: "back.out(3)" }), 0.05)
     .add(slap(".hero__hi"), 0.1)
     .add(slap(".h1 .w", { stagger: 0.09 }), 0.2)
     .add(draw($$(".hero__art .draw").filter((p) => !p.classList.contains("x")), { stagger: 0.05 }), 0.35)
@@ -136,25 +136,39 @@ Promise.race([
   new Promise((r) => setTimeout(r, 2500)),
 ]).then(intro);
 
-// --- homie's eyes: pupils follow your cursor (or finger), blink now and then
+// --- Pixie's actual eyes, ported from GiantEyesView.swift: 5x6 white pixel silhouette, 2x2 square pupils
+// that step in half-pixels toward your cursor, and the same 5-frame blink every 3-6s
 (() => {
-  const orb = $(".orb"), balls = $$(".eyeball"), pups = $$(".pup");
-  if (!orb) return;
-  let mouse = { x: innerWidth / 2, y: innerHeight / 2 };
-  const cur = pups.map(() => ({ x: 0, y: 0 }));
+  const cv = $(".pxeyes");
+  if (!cv) return;
+  const ctx = cv.getContext("2d");
+  const W = 222, H = 100; cv.width = W; cv.height = H;
+  const P = Math.floor(Math.min(H * 0.72 / 6, W * 0.27 / 5)); // one "pixel"
+  const SHAPE = ["01110", "11111", "11111", "11111", "11111", "01110"];
+  const BLINK = [3, 1, 1, 3, 6];
+  let mouse = { x: innerWidth / 2, y: innerHeight / 2 }, gaze = { x: 0, y: 0 };
+  let blinkAt = -1, nextBlink = performance.now() + 2000;
   addEventListener("pointermove", (e) => { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
-  const look = () => {
-    const tgt = mouse; // they watch YOU
-    balls.forEach((b, k) => {
-      const r = b.getBoundingClientRect();
-      const dx = tgt.x - (r.left + r.width / 2), dy = tgt.y - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1;
-      const reach = r.width * 0.22 * Math.min(1, d / 150);
-      cur[k].x += (dx / d * reach - cur[k].x) * 0.22; cur[k].y += (dy / d * reach - cur[k].y) * 0.22;
-      pups[k].style.transform = `translate(${cur[k].x}px, ${cur[k].y}px)`;
-    });
-    requestAnimationFrame(look);
+  const draw = (now) => {
+    const r = cv.getBoundingClientRect();
+    const dx = mouse.x - (r.left + r.width / 2), dy = mouse.y - (r.top + r.height / 2);
+    const dist = Math.max(180, Math.hypot(dx, dy));
+    gaze.x += (dx / dist - gaze.x) * 0.2; gaze.y += (dy / dist - gaze.y) * 0.2;
+    if (!reduce && now >= nextBlink) { blinkAt = now; nextBlink = now + 3000 + Math.random() * 3000; }
+    const el = (now - blinkAt) / 1000;
+    const rows = el >= 0 && el < 0.225 ? BLINK[Math.min(4, Math.floor(el / 0.045))] : 6;
+    const sil = rows === 6 ? SHAPE : Array(rows).fill("11111");
+    const pupH = rows === 6 ? 2 * P : P, step = Math.max(1, Math.floor(P / 2));
+    const ox = Math.round(gaze.x * 2) * step, oy = rows === 6 ? Math.round(gaze.y * 2) * step : 0;
+    const midY = Math.round(H / 2);
+    ctx.clearRect(0, 0, W, H);
+    for (const c of [W * 0.29, W * 0.71]) {
+      const left = Math.round(c - 2.5 * P), top = Math.round(midY - rows * P / 2);
+      ctx.fillStyle = "#fff";
+      sil.forEach((row, y) => [...row].forEach((cell, x) => { if (cell === "1") ctx.fillRect(left + x * P, top + y * P, P, P); }));
+      if (rows > 1) { ctx.fillStyle = "#000"; ctx.fillRect(Math.round(c - P) + ox, Math.round(midY - pupH / 2) + oy, 2 * P, pupH); }
+    }
+    requestAnimationFrame(draw);
   };
-  requestAnimationFrame(look);
-  const blink = () => { orb.classList.add("is-shut"); setTimeout(() => orb.classList.remove("is-shut"), 120); setTimeout(blink, 2200 + Math.random() * 3000); };
-  if (!reduce) setTimeout(blink, 2800);
+  requestAnimationFrame(draw);
 })();

@@ -67,8 +67,8 @@ a { color: inherit; text-decoration: none; }
   transition: background-color .3s var(--soft), transform .4s var(--pop);
 }
 .pill:hover { background: var(--cream); transform: rotate(-2deg); }
-.pill--go { background: var(--ink); color: var(--cream); margin-left: 8px; display: inline-flex; align-items: center; gap: 7px; }
-.pill__apple { width: 1em; height: 1em; margin-top: -.15em; flex: none; }
+.pill--go { background: var(--ink); color: var(--cream); margin-left: 8px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; flex: none; }
+.pill__apple { width: .85em; height: .85em; margin-top: -.18em; flex: none; }
 .pill--go:hover { background: var(--blue); }
 .max-word { font-family: var(--f-hand); font-weight: 400; color: var(--red); }
 

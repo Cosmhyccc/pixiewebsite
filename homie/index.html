@@ -75,12 +75,13 @@
 
   <main id="top">
     <!-- ============ HERO ============ -->
-    <section class="hero">
+    <section class="hero" data-intro="3" data-intro-act="wander" data-intro-say="wheee">
       <div class="hero__copy">
+        <div class="orb slap" aria-hidden="true"><span class="orb__ball"></span><span class="orb__face"><i class="oe"></i><i class="oe"></i><s class="blush"></s><s class="blush"></s></span></div>
         <p class="hand hero__hi slap">meet homie <span class="hand-arrow">↘</span></p>
         <h1 class="h1" aria-label="The AI that stays home. Free, local and private.">
           <span class="h1__l"><span class="w slap">THE</span> <span class="w slap">AI</span> <span class="w slap">THAT</span></span>
-          <span class="h1__l"><span class="w slap">STAYS</span> <span class="w slap w--home" aria-hidden="true">HOME.</span></span>
+          <span class="h1__l"><span class="w slap">STAYS</span> <span class="w slap w--home" aria-hidden="true" data-intro="2" data-intro-act="zigzag" data-intro-say="bleep bloop. all yours.">HOME.</span></span>
         </h1>
         <p class="lede slap">homie is a free AI buddy that lives on your Mac. talk to it, it gets stuff done, and your stuff <em>never</em> leaves your computer.</p>
         <ul class="chips">
@@ -89,14 +90,14 @@
           <li class="chip slap c-orange">no cloud</li>
           <li class="chip slap c-purple">nothing to sell</li>
         </ul>
-        <div class="cta-row slap" id="get">
+        <div class="cta-row slap" id="get" data-guide="psst. it's free. like, actually">
           <a class="cta stick" href="#get"><svg class="cta__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>download for mac <span class="cta__free">it's free</span></a>
           <p class="cta-note">Apple silicon · macOS 26 or later</p>
         </div>
       </div>
 
       <!-- the drawing: your house (with homie inside) vs "the cloud" -->
-      <div class="hero__art">
+      <div class="hero__art" data-guide="that's my house. i live in there">
         <svg class="art" viewBox="0 0 620 600" role="img" aria-label="A hand-drawn house with homie living in a laptop inside. Far away, a crossed-out cloud labelled the cloud.">
           <g filter="url(#crayon)">
             <!-- the cloud (someone else's computer) -->
@@ -130,7 +131,7 @@
           <!-- your data: little dots that live in the house -->
           <g class="dots"><circle cx="178" cy="470" r="9" class="f-blue" /><circle cx="214" cy="482" r="7" class="f-green" /><circle cx="250" cy="468" r="8" class="f-orange" /><circle cx="196" cy="452" r="5" class="f-pink" /><circle cx="236" cy="448" r="6" class="f-purple" /></g>
         </svg>
-        <p class="note note--cloud hand">"the cloud"<br /><small>(someone else's computer)</small></p>
+        <p class="note note--cloud hand" data-intro="1" data-intro-act="circle" data-intro-say="the cloud? nah.">"the cloud"<br /><small>(someone else's computer)</small></p>
         <p class="note note--home hand">your stuff<br />stays here</p>
       </div>
 
@@ -144,7 +145,7 @@
         </div>
       </aside>
 
-      <a class="scroll-hint hand" href="#why">why does local matter? <span>↓</span></a>
+      <a class="scroll-hint hand" href="#why" data-intro="4" data-intro-act="nudge" data-intro-say="ok now scroll ↓">why does local matter? <span>↓</span></a>
     </section>
 
     <!-- ============ WHY LOCAL: the 2x2 ============ -->
@@ -154,7 +155,7 @@
         <p class="hand why__sub">4 reasons your AI should live at home, not in a data center</p>
       </header>
 
-      <div class="grid">
+      <div class="grid" data-guide="4 reasons i stay home">
         <article class="card c-blue">
           <div class="card__screen"><h3 class="card__t">your stuff stays yours.</h3><p class="card__b">your chats, files and voice get handled right on your Mac. nothing gets uploaded, stored on a server, or used to train someone's model.</p></div>
           <img class="card__mac" src="assets/mac.png" alt="" width="640" height="792" />
@@ -181,7 +182,7 @@
         </article>
       </div>
 
-      <p class="max-line" id="max">need more muscle? there's
+      <p class="max-line" id="max" data-guide="need more muscle? flip to max">need more muscle? there's
         <span class="max-tag"><svg viewBox="0 12 196 98" preserveAspectRatio="none" aria-hidden="true"><g filter="url(#crayon-wide)"><path class="draw ln ln--red" d="M24 58c-4-10 6-14 4-24 10 2 12-10 22-6 4-10 16-8 20 0 6-10 18-6 22 2 8-8 20-4 22 6 10-4 18 4 16 14 10 2 12 14 4 20 8 6 4 18-6 18 2 10-8 16-18 12-4 10-18 10-22 2-6 8-18 8-22-2-8 6-20 2-20-8-10 2-18-8-12-16-10-4-10-16 0-18z" /></g></svg><b class="max-word">max</b></span>
         for heavy lifting, in the cloud. your call, one switch.</p>
     </section>
@@ -190,5 +191,6 @@
   <script src="vendor/gsap.min.js"></script>
   <script src="vendor/ScrollTrigger.min.js"></script>
   <script src="main.js"></script>
+  <script src="cursor.js"></script>
 </body>
 </html>

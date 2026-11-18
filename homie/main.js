@@ -87,6 +87,7 @@ function intro() {
 
   const tl = gsap.timeline({ defaults: { overwrite: "auto" } });
   tl.add(slap(".nav", { scale: 1, rotation: 0, y: -20, ease: "power3.out", duration: 0.6 }), 0)
+    .add(slap(".orb", { scale: 0, ease: "back.out(3)" }), 0.05)
     .add(slap(".hero__hi"), 0.1)
     .add(slap(".h1 .w", { stagger: 0.09 }), 0.2)
     .add(draw($$(".hero__art .draw").filter((p) => !p.classList.contains("x")), { stagger: 0.05 }), 0.35)
@@ -134,3 +135,24 @@ Promise.race([
   ]),
   new Promise((r) => setTimeout(r, 2500)),
 ]).then(intro);
+
+// --- the orb: its face turns toward homie's flying cursor (or yours), blinks, wobbles a bit
+(() => {
+  const orb = $(".orb"), face = $(".orb__face");
+  if (!orb) return;
+  let mouse = { x: innerWidth / 2, y: innerHeight / 2 }, fx = 0, fy = 0;
+  addEventListener("pointermove", (e) => { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
+  const look = () => {
+    const tgt = window.homieCursor || mouse;
+    const r = orb.getBoundingClientRect();
+    const dx = tgt.x - (r.left + r.width / 2), dy = tgt.y - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1;
+    const reach = r.width * 0.17 * Math.min(1, d / 200);
+    fx += (dx / d * reach - fx) * 0.2; fy += (dy / d * reach - fy) * 0.2;
+    face.style.transform = `translate(${fx}px, ${fy}px)`;
+    orb.style.rotate = `${fx * 0.6}deg`;
+    requestAnimationFrame(look);
+  };
+  requestAnimationFrame(look);
+  const blink = () => { orb.classList.add("is-shut"); setTimeout(() => orb.classList.remove("is-shut"), 120); setTimeout(blink, 2200 + Math.random() * 3000); };
+  if (!reduce) setTimeout(blink, 2800);
+})();

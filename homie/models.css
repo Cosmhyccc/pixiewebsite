@@ -448,7 +448,6 @@ body.is-loading .slap, body.is-loading .nav { visibility: hidden; }
 @media (max-width: 600px) { .invite { padding-top: 80px; } }
 
 /* ============ will it run on my Mac? ============ */
-.w--blue { color: var(--blue); transform: rotate(2deg); }
 .chk { padding: 130px var(--pad) 40px; overflow-x: clip; }
 .chk__wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(24px, 4vw, 64px); align-items: center; max-width: 1180px; margin: 0 auto; }
 .chk__ctl { display: flex; flex-direction: column; gap: 22px; }

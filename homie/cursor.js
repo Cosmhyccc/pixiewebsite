@@ -140,7 +140,7 @@
     if (ring) ring.remove();
     ring = svg;
     const o = { t: 0 };
-    return new Promise((done) => gsap.to(o, { t: 1, duration: 0.85, ease: "none", onUpdate: () => {
+    return new Promise((done) => gsap.to(o, { t: 1, duration: 0.6, ease: "none", onUpdate: () => {
       p.style.strokeDashoffset = len * (1 - o.t);
       const pt = p.getPointAtLength(len * o.t), rr = svg.getBoundingClientRect();
       introTarget = () => ({ x: rr.left + pt.x - 6, y: rr.top + pt.y - 4 });
@@ -155,29 +155,29 @@
       const r0 = s.getBoundingClientRect();
       if (act === "circle") {
         introTarget = () => { const r = s.getBoundingClientRect(); return { x: r.right - 30, y: r.top + 10 }; };
-        await sleep(450); say(line, 1600); circle(s); await sleep(1300);
+        await sleep(260); say(line, 1300); circle(s); await sleep(900);
       } else if (act === "zigzag") {
         introTarget = () => { const r = s.getBoundingClientRect(); return { x: r.left - 10, y: r.bottom - 10 }; };
-        await sleep(420); say(line, 1900); await zigzag(s); await sleep(500);
+        await sleep(240); say(line, 1600); await zigzag(s); await sleep(250);
       } else if (act === "wander") {
         say(line, 1400);
-        for (let i = 0; i < 5 && introOn; i++) {
+        for (let i = 0; i < 7 && introOn; i++) {
           const p = { x: gsap.utils.random(innerWidth * 0.1, innerWidth * 0.85), y: gsap.utils.random(innerHeight * 0.2, innerHeight * 0.75) };
-          introTarget = () => p; await sleep(320);
+          introTarget = () => p; await sleep(210);
         }
       } else if (act === "nudge") {
         const at = () => { const r = s.getBoundingClientRect(); return visible(r) ? { x: r.left + r.width / 2 - 10, y: r.top - 70 } : { x: innerWidth / 2 - 20, y: innerHeight - 170 }; };
-        introTarget = at; await sleep(400); say(line, 3200);
+        introTarget = at; await sleep(280); say(line, 2600);
         gsap.to(trick, { y: 34, duration: 0.28, repeat: 7, yoyo: true, ease: "power1.inOut" });
-        await sleep(2400);
+        await sleep(1800);
       }
     }
     introOn = false; introTarget = null; active = null;
   }
   addEventListener("scroll", () => { if (introOn && scrollY > 60) { introOn = false; introTarget = null; } }, { passive: true });
-  setTimeout(intro, 2600);
+  setTimeout(intro, 1200);
 
-  let entered = false, nextTrick = performance.now() + 9000;
+  let entered = false, nextTrick = performance.now() + 7000, hop = 0, nextHop = 0;
   gsap.ticker.add(() => {
     const g = introOn ? active : pick();
     if (introOn && introTarget) target = introTarget();
@@ -192,8 +192,13 @@
     if (!introOn && active) {
       const r = active.getBoundingClientRect();
       // sit just off the element's top-right corner, pointing in
-      const tx = Math.min(innerWidth - 190, Math.max(20, r.right - Math.min(140, r.width * 0.2)));
-      const ty = Math.min(innerHeight - 150, Math.max(130, r.top + Math.min(60, r.height * 0.15)));
+      // never parks: hops between spots around the element every ~1.6s
+      const nowH = performance.now();
+      if (nowH > nextHop) { hop++; nextHop = nowH + gsap.utils.random(1200, 2000); }
+      const spots = [[1, 0], [0.5, 0], [0, 0.4], [1, 0.6], [0.2, 1], [0.8, 1]];
+      const [fx, fy] = spots[hop % spots.length];
+      const tx = Math.min(innerWidth - 190, Math.max(20, r.left + r.width * fx - 30));
+      const ty = Math.min(innerHeight - 150, Math.max(130, r.top + Math.min(r.height, innerHeight * 0.7) * fy - 20));
       target = { x: tx, y: ty };
     }
     // idle hover bob
@@ -201,7 +206,7 @@
     const bob = { x: Math.sin(t * 1.3) * 10, y: Math.sin(t * 2.1) * 8 };
     const gx = target.x + trick.x + dodge.x + bob.x, gy = target.y + trick.y + dodge.y + bob.y;
     // spring (a bit bouncy: it overshoots and settles)
-    const K = introOn ? 0.1 : 0.045, D = introOn ? 0.76 : 0.82; // zippier during the intro
+    const K = introOn ? 0.14 : 0.08, D = introOn ? 0.74 : 0.78; // zippier during the intro
     vel.x += (gx - pos.x) * K; vel.y += (gy - pos.y) * K;
     vel.x *= D; vel.y *= D;
     pos.x += vel.x; pos.y += vel.y;
@@ -214,10 +219,10 @@
     el.classList.toggle("is-left", pos.x > innerWidth - 300);
     // tricks when you're chilling
     const now = performance.now();
-    if (!introOn && now > nextTrick && now - lastMove > 2500) {
+    if (!introOn && now > nextTrick && now - lastMove > 1500) {
       gsap.utils.random(tricks)();
       if (Math.random() < 0.45) say(gsap.utils.random(QUIPS), 1800);
-      nextTrick = now + gsap.utils.random(7000, 12000);
+      nextTrick = now + gsap.utils.random(4000, 7000);
     }
   });
 })();

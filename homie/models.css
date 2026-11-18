@@ -392,9 +392,9 @@ body.is-loading .slap, body.is-loading .nav { visibility: hidden; }
 }
 
 /* discord: second sticker under the download */
-.discord { display: inline-flex; align-items: center; gap: 12px; margin-top: 18px; padding: 12px 22px 10px; border-radius: 16px;
-  background: #5865f2; color: #fff; font-family: var(--f-head); font-weight: 900; text-transform: uppercase; font-size: clamp(20px, 1.9vw, 26px);
-  transform: rotate(1.5deg); transition: transform .45s var(--pop), background-color .3s; }
-.discord:hover { transform: rotate(-1deg) scale(1.05); background: #4752c4; }
-.discord svg { width: 1.2em; height: 1.2em; flex: none; }
-.discord__k { font-family: var(--f-hand); font-weight: 400; text-transform: none; font-size: .68em; color: #c9ffa8; transform: rotate(-4deg); }
+.discord { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; padding: 7px 14px 6px; border-radius: 999px;
+  background: #5865f2; color: #fff; font-size: 15px; font-weight: 600;
+  transition: transform .35s var(--pop), background-color .3s; }
+.discord:hover { transform: rotate(-2deg) scale(1.05); background: #4752c4; }
+.discord svg { width: 18px; height: 18px; flex: none; }
+.outro .max-line { margin: 26px auto 0; }

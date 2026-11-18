@@ -131,7 +131,7 @@ function intro() {
 Promise.race([
   Promise.all([
     document.fonts.ready,
-    ...$$("img").map((im) => (im.decode ? im.decode().catch(() => {}) : null)),
+    ...$$("img:not([loading=lazy])").map((im) => (im.decode ? im.decode().catch(() => {}) : null)),
   ]),
   new Promise((r) => setTimeout(r, 2500)),
 ]).then(intro);

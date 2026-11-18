@@ -573,7 +573,7 @@ function wall() {
 }
 
 Promise.race([
-  Promise.all([document.fonts.ready, ...$$("img").map((im) => (im.decode ? im.decode().catch(() => {}) : null))]),
+  Promise.all([document.fonts.ready, ...$$("img:not([loading=lazy])").map((im) => (im.decode ? im.decode().catch(() => {}) : null))]),
   new Promise((r) => setTimeout(r, 2500)),
 ]).then(() => { hero(); crew(); reel(); size(); hood(); wall(); ScrollTrigger.refresh(); });
 

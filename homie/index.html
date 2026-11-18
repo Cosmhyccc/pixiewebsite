@@ -7,9 +7,11 @@
   <meta name="description" content="homie is a free AI buddy that lives on your Mac. Your chats, files and voice never leave your computer. No data centers. No billionaires." />
   <meta name="theme-color" content="#f5efe3" />
   <style>body{visibility:hidden;background:#f5efe3}</style>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <!-- self-hosted, subset fonts + the logo load first; nothing waits on a third-party server -->
+  <link rel="preload" href="fonts/BarlowCondensed-Black.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/Barlow-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/PermanentMarker.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/homie-logo.webp" as="image" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="models.css" />
 </head>
@@ -65,7 +67,7 @@
   <div class="grain" aria-hidden="true"></div>
 
   <header class="nav">
-    <a class="nav__logo stick" href="#top" aria-label="homie home"><img src="assets/homie-logo.png" alt="homie" width="520" height="231" /></a>
+    <a class="nav__logo stick" href="#top" aria-label="homie home"><img src="assets/homie-logo.webp" alt="homie" width="360" height="160" fetchpriority="high" /></a>
     <nav class="nav__links">
       <a class="pill" href="#why">why local?</a>
       <a class="pill" href="#inside">what's inside</a>
@@ -140,9 +142,9 @@
       <aside class="founder" aria-label="Saif, who made homie">
         <div class="bubble"><svg class="bubble__ink" viewBox="0 0 260 120" preserveAspectRatio="none" aria-hidden="true"><g filter="url(#crayon)"><path class="bubble__path" d="M22 16C70 7 182 5 236 12c17 3 21 17 19 39-2 20-6 32-24 35l17 26-36-22c-52 6-140 8-186 2C9 90 5 76 6 54 7 32 7 18 22 16z" /></g></svg><p class="bubble__t" data-say="yo, i'm saif. i built homie so your AI never snitches on you."></p></div>
         <div class="talker">
-          <img class="talker__rest" src="assets/saif-rest.png" alt="Saif" />
-          <img class="talker__open" src="assets/saif-open.png" alt="" aria-hidden="true" />
-          <img class="talker__smile" src="assets/saif-thumbs.png" alt="" aria-hidden="true" />
+          <img class="talker__rest" src="assets/saif-rest.webp" alt="Saif" />
+          <img class="talker__open" src="assets/saif-open.webp" alt="" aria-hidden="true" />
+          <img class="talker__smile" src="assets/saif-thumbs.webp" alt="" aria-hidden="true" />
         </div>
       </aside>
 
@@ -159,33 +161,29 @@
       <div class="grid" data-guide="4 reasons i stay home">
         <article class="card c-blue">
           <div class="card__screen"><h3 class="card__t">your stuff stays yours.</h3><p class="card__b">your chats, files and voice get handled right on your Mac. nothing gets uploaded, stored on a server, or used to train someone's model.</p></div>
-          <img class="card__mac" src="assets/mac.png" alt="" width="640" height="792" />
+          <img class="card__mac" src="assets/mac.webp" alt="" width="640" height="792" loading="lazy" decoding="async" />
           <svg class="card__ico" viewBox="0 0 100 100" aria-hidden="true"><g filter="url(#crayon)"><path class="draw ln" d="M30 46V34c0-12 9-22 20-22s20 10 20 22v12" /><path class="draw ln" d="M22 46h56v40H22z" /><path class="draw ln" d="M50 60v12" /></g></svg>
           <p class="card__n">01 · privacy</p>
         </article>
         <article class="card c-green">
           <div class="card__screen"><h3 class="card__t">nothing to leak.</h3><p class="card__b">big AI companies keep everyone's data in one giant pile. that's what hackers go after. a breach can't leak what was never uploaded.</p></div>
-          <img class="card__mac" src="assets/mac.png" alt="" width="640" height="792" />
+          <img class="card__mac" src="assets/mac.webp" alt="" width="640" height="792" loading="lazy" decoding="async" />
           <svg class="card__ico" viewBox="0 0 100 100" aria-hidden="true"><g filter="url(#crayon)"><path class="draw ln" d="M50 10l32 12v24c0 22-14 36-32 44-18-8-32-22-32-44V22z" /><path class="draw ln" d="M36 50l10 10 20-22" /></g></svg>
           <p class="card__n">02 · don't get hacked</p>
         </article>
         <article class="card c-orange">
           <div class="card__screen"><h3 class="card__t">no thirsty data centers.</h3><p class="card__b">cloud AI runs in warehouses of servers that drink water and burn power around the clock. homie runs on the Mac you already own.</p></div>
-          <img class="card__mac" src="assets/mac.png" alt="" width="640" height="792" />
+          <img class="card__mac" src="assets/mac.webp" alt="" width="640" height="792" loading="lazy" decoding="async" />
           <svg class="card__ico" viewBox="0 0 100 100" aria-hidden="true"><g filter="url(#crayon)"><path class="draw ln" d="M34 14c-12 18-18 28-18 38a18 18 0 0036 0c0-10-6-20-18-38z" /><path class="draw ln" d="M70 90V58M70 58c-12 0-18-8-14-18-8-6-2-20 8-18 2-12 18-12 20 0 10-2 14 12 6 18 4 10-4 18-20 18z" /></g></svg>
           <p class="card__n">03 · the planet</p>
         </article>
         <article class="card c-purple">
           <div class="card__screen"><h3 class="card__t">no billionaire in the middle.</h3><p class="card__b">closed AI can change the rules, raise the price or get switched off overnight. homie runs on open models that live on your machine. it's yours.</p></div>
-          <img class="card__mac" src="assets/mac.png" alt="" width="640" height="792" />
+          <img class="card__mac" src="assets/mac.webp" alt="" width="640" height="792" loading="lazy" decoding="async" />
           <svg class="card__ico" viewBox="0 0 100 100" aria-hidden="true"><g filter="url(#crayon)"><path class="draw ln" d="M16 70l6-40 16 18 12-26 12 26 16-18 6 40z" /><path class="draw ln" d="M16 80h68" /><path class="draw ln ln--red" d="M10 20l80 70" /></g></svg>
           <p class="card__n">04 · power</p>
         </article>
       </div>
-
-      <p class="max-line" id="max" data-guide="need more muscle? flip to max">need more muscle? there's
-        <span class="max-tag"><svg viewBox="0 12 196 98" preserveAspectRatio="none" aria-hidden="true"><g filter="url(#crayon-wide)"><path class="draw ln ln--red" d="M24 58c-4-10 6-14 4-24 10 2 12-10 22-6 4-10 16-8 20 0 6-10 18-6 22 2 8-8 20-4 22 6 10-4 18 4 16 14 10 2 12 14 4 20 8 6 4 18-6 18 2 10-8 16-18 12-4 10-18 10-22 2-6 8-18 8-22-2-8 6-20 2-20-8-10 2-18-8-12-16-10-4-10-16 0-18z" /></g></svg><b class="max-word">max</b></span>
-        for heavy lifting, in the cloud. your call, one switch.</p>
     </section>
     <!-- ============ HERO: x-ray the Mac ============ -->
     <section class="mx-hero" id="inside">
@@ -206,7 +204,7 @@
         <canvas class="wcv" aria-hidden="true"></canvas>
         <div class="hn"><span class="peye"><b></b></span><span class="peye"><b></b></span></div>
         </div>
-        <img class="bigmac__img" src="assets/mac.png" alt="" width="640" height="792" />
+        <img class="bigmac__img" src="assets/mac.webp" alt="" width="640" height="792" loading="lazy" decoding="async" />
         </div>
         <p class="note note--x hand">homie's brain,<br />running live</p>
       </div>
@@ -448,7 +446,7 @@
               <div class="notch2"><span class="peye"><b></b></span><span class="peye"><b></b></span></div>
             </div>
           </div>
-          <img class="mac2__img" src="assets/mac.png" alt="" width="640" height="792" />
+          <img class="mac2__img" src="assets/mac.webp" alt="" width="640" height="792" loading="lazy" decoding="async" />
         </div>
         <p class="reel__note hand">drawn re-enactments of real homie features · <b class="max-word">max</b> tag = needs the cloud switch today</p>
       </div>
@@ -492,17 +490,21 @@
 
     <section class="outro">
       <p class="hand outro__k">that's everyone who lives here.</p>
-      <a class="cta stick" href="index.html#get"><svg class="cta__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>move them in <span class="cta__free">it's free</span></a>
-      <p class="cta-note">Apple silicon · macOS 26 or later · <b class="max-word">max</b> uses big cloud models instead, if you flip the switch</p>
+      <a class="cta stick" href="index.html#get" data-guide="grab it. it's free"><svg class="cta__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>move them in <span class="cta__free">it's free</span></a>
+      <p class="cta-note">Apple silicon · macOS 26 or later</p>
+
+      <p class="max-line" id="max" data-guide="need more muscle? flip to max">need more muscle? there's
+        <span class="max-tag"><svg viewBox="0 12 196 98" preserveAspectRatio="none" aria-hidden="true"><g filter="url(#crayon-wide)"><path class="draw ln ln--red" d="M24 58c-4-10 6-14 4-24 10 2 12-10 22-6 4-10 16-8 20 0 6-10 18-6 22 2 8-8 20-4 22 6 10-4 18 4 16 14 10 2 12 14 4 20 8 6 4 18-6 18 2 10-8 16-18 12-4 10-18 10-22 2-6 8-18 8-22-2-8 6-20 2-20-8-10 2-18-8-12-16-10-4-10-16 0-18z" /></g></svg><b class="max-word">max</b></span>
+        for heavy lifting, in the cloud. your call, one switch.</p>
       <!-- DISCORD: one link to swap. N5vkCwKrX expired; replace with a permanent invite -->
-      <a class="discord stick" href="https://discord.gg/N5vkCwKrX" target="_blank" rel="noopener" data-guide="come hang. we're nice"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>join our discord <span class="discord__k">beta testers + homies</span></a>
+      <a class="discord" href="https://discord.gg/N5vkCwKrX" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>join our discord</a>
     </section>
   </main>
 
-  <script src="vendor/gsap.min.js"></script>
-  <script src="vendor/ScrollTrigger.min.js"></script>
-  <script src="main.js"></script>
-  <script src="models.js"></script>
-  <script src="cursor.js"></script>
+  <script src="vendor/gsap.min.js" defer></script>
+  <script src="vendor/ScrollTrigger.min.js" defer></script>
+  <script src="main.js" defer></script>
+  <script src="models.js" defer></script>
+  <script src="cursor.js" defer></script>
 </body>
 </html>

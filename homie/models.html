@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>homie — what's in the house</title>
+  <meta name="description" content="The open models that make homie work: ears, a brain and a voice, all running on your Mac. Nothing goes to a data center." />
+  <meta name="theme-color" content="#f5efe3" />
+  <style>body{visibility:hidden;background:#f5efe3}</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="models.css" />
+</head>
+<body class="is-loading">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <filter id="stk" x="-20%" y="-20%" width="140%" height="150%" color-interpolation-filters="sRGB">
+        <feMorphology in="SourceAlpha" operator="dilate" radius="5" result="cut" />
+        <feMorphology in="SourceAlpha" operator="dilate" radius="6.2" result="edge" />
+        <feFlood flood-color="#1f1d1a" result="inkc" /><feComposite in="inkc" in2="edge" operator="in" result="ink" />
+        <feFlood flood-color="#fff8e7" result="crm" /><feComposite in="crm" in2="cut" operator="in" result="cream" />
+        <feOffset in="edge" dx="3" dy="5" result="off" /><feGaussianBlur in="off" stdDeviation="3" result="blur" />
+        <feFlood flood-color="#3b2a14" flood-opacity=".28" result="shc" /><feComposite in="shc" in2="blur" operator="in" result="shadow" />
+        <feMerge><feMergeNode in="shadow" /><feMergeNode in="ink" /><feMergeNode in="cream" /><feMergeNode in="SourceGraphic" /></feMerge>
+      </filter>
+      <filter id="stk-sm" x="-20%" y="-30%" width="140%" height="170%" color-interpolation-filters="sRGB">
+        <feMorphology in="SourceAlpha" operator="dilate" radius="3" result="cut" />
+        <feMorphology in="SourceAlpha" operator="dilate" radius="4" result="edge" />
+        <feFlood flood-color="#1f1d1a" result="inkc" /><feComposite in="inkc" in2="edge" operator="in" result="ink" />
+        <feFlood flood-color="#fff8e7" result="crm" /><feComposite in="crm" in2="cut" operator="in" result="cream" />
+        <feOffset in="edge" dx="2" dy="3" result="off" /><feGaussianBlur in="off" stdDeviation="2" result="blur" />
+        <feFlood flood-color="#3b2a14" flood-opacity=".25" result="shc" /><feComposite in="shc" in2="blur" operator="in" result="shadow" />
+        <feMerge><feMergeNode in="shadow" /><feMergeNode in="ink" /><feMergeNode in="cream" /><feMergeNode in="SourceGraphic" /></feMerge>
+      </filter>
+      <filter id="crayon" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence class="boil" type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="1" result="wob" />
+        <feDisplacementMap in="SourceGraphic" in2="wob" scale="5" xChannelSelector="R" yChannelSelector="G" result="moved" />
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="7" result="grit" />
+        <feColorMatrix in="grit" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -2.2 1.75" result="gritA" />
+        <feComposite in="moved" in2="gritA" operator="in" />
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="nav__logo stick" href="index.html" aria-label="homie home"><img src="assets/homie-logo.png" alt="homie" width="520" height="231" /></a>
+    <nav class="nav__links">
+      <a class="pill" href="index.html#why">why local?</a>
+      <a class="pill is-here" href="models.html" aria-current="page">what's inside</a>
+      <a class="pill pill--go stick-sm" href="index.html#get">get homie</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ HERO: x-ray the Mac ============ -->
+    <section class="mx-hero">
+      <div class="mx-hero__copy">
+        <p class="hand mx-kicker slap">open source, open house <span class="hand-arrow">↘</span></p>
+        <h1 class="h1 mx-h1" aria-label="What's in the house?">
+          <span class="h1__l"><span class="w slap">WHAT'S</span> <span class="w slap">IN</span> <span class="w slap">THE</span></span>
+          <span class="h1__l"><span class="w slap w--house">HOUSE?</span></span>
+        </h1>
+        <p class="lede slap">homie is three open AI models living together on your Mac: <em>ears</em>, a <em>brain</em> and a <em>voice</em>. here's who they are, what they do, and why none of them ever phones a data center.</p>
+        <p class="hand mx-scroll slap">scroll to look inside <span>↓</span></p>
+      </div>
+
+      <div class="mx-hero__art" aria-hidden="true">
+        <!-- the Mac, drawn in crayon, x-rayed: the crew lives inside -->
+        <svg class="xray" viewBox="0 0 560 520">
+          <g filter="url(#crayon)">
+            <path class="draw ln ln--fat" d="M70 60h420c12 0 20 8 20 20v280c0 12-8 20-20 20H70c-12 0-20-8-20-20V80c0-12 8-20 20-20z" />
+            <path class="draw ln" d="M232 380l-14 70M328 380l14 70M180 452h200" />
+          </g>
+          <!-- the "screen" becomes an x-ray: a dark pane that wipes in -->
+          <clipPath id="screenclip"><rect x="72" y="82" width="416" height="276" rx="6" /></clipPath>
+          <g clip-path="url(#screenclip)">
+            <rect class="xray__pane" x="72" y="82" width="416" height="276" />
+            <g class="xray__scan"><rect x="72" y="80" width="416" height="6" /></g>
+            <g class="xray__crew" filter="url(#crayon)">
+              <!-- ears -->
+              <g class="crew crew--ears" transform="translate(150 220)">
+                <path class="ln ln--cr" d="M-14 -40c30-14 58 6 52 36-4 18-22 22-24 40-2 14-14 22-28 14" />
+                <path class="ln ln--cr" d="M-2 -18c14-6 26 4 22 18-2 8-12 10-12 18" />
+                <path class="ln ln--blue2 wv" d="M-48 -10c-8 10-8 22 0 32M-62 -22c-14 18-14 40 0 58" />
+              </g>
+              <!-- brain -->
+              <g class="crew crew--brain" transform="translate(280 214)">
+                <path class="ln ln--cr" d="M-46 18c-18-4-22-30-6-38-4-22 22-34 36-20 8-16 34-14 38 2 18-6 34 10 26 28 14 10 6 34-12 32-4 14-24 18-34 8-10 10-30 8-34-4-8 2-14-2-14-8z" />
+                <path class="ln ln--cr" d="M-20 -20c6 10 2 20-6 26M14 -22c-6 12 0 22 10 24M-4 4c4 10 14 12 22 6" />
+                <ellipse class="eye" cx="-12" cy="-2" rx="5" ry="7" /><ellipse class="eye" cx="10" cy="-2" rx="5" ry="7" />
+              </g>
+              <!-- voice -->
+              <g class="crew crew--voice" transform="translate(410 220)">
+                <path class="ln ln--cr" d="M-30 -14h16l24-22v72l-24-22h-16z" />
+                <path class="ln ln--pink wv" d="M22 -12c8 8 8 20 0 28M34 -26c16 16 16 40 0 56" />
+              </g>
+            </g>
+            <text class="xray__lbl" x="150" y="300">EARS</text>
+            <text class="xray__lbl" x="280" y="300">BRAIN</text>
+            <text class="xray__lbl" x="410" y="300">VOICE</text>
+          </g>
+        </svg>
+        <p class="note note--x hand">x-ray of<br />your Mac</p>
+      </div>
+    </section>
+
+    <!-- ============ ONE SENTENCE, START TO FINISH (pinned, scrubbed) ============ -->
+    <section class="trip" id="trip">
+      <header class="sec-head">
+        <h2 class="h2"><span class="w">ONE</span> <span class="w w--blue">SENTENCE.</span></h2>
+        <p class="hand sec-sub">watch it go from your mouth to done, without leaving the house</p>
+      </header>
+
+      <div class="trip__pin">
+        <div class="trip__bytes stick-sm" aria-live="off"><span class="hand">sent to the internet:</span> <b class="trip__zero">0 bytes</b></div>
+        <div class="trip__stage">
+          <svg class="stage" viewBox="0 0 1200 640" role="img" aria-label="A drawing of a house. You say: set a pasta timer for ten minutes and turn on dark mode. The ears turn it into words, the brain picks two tools, the timer starts, the house goes dark, and the voice says done. A cloud outside gets nothing.">
+            <rect class="stage__night" x="0" y="0" width="1200" height="640" rx="28" />
+            <g filter="url(#crayon)">
+              <!-- house -->
+              <path class="tdraw ln ln--fat" d="M24 196L600 34l576 162" />
+              <path class="tdraw ln ln--fat" d="M74 182v428M1126 182v428" />
+              <path class="tdraw ln" d="M30 612c200-6 400 4 580-2s380 6 560 0" />
+              <!-- the cloud, outside, left out -->
+              <g class="tcloud">
+                <path class="tdraw ln" d="M1006 92c-14 0-22-12-16-23 5-9 19-10 26-4 3-14 19-20 32-14 8-12 28-12 34 2 13-5 28 5 25 18 12 3 15 19 4 24-6 3-12 3-17 2-7 8-21 8-28 1-9 7-24 6-30-2-10 5-21 3-30-4z" />
+                <path class="tdraw ln ln--dash" d="M1050 128c-20 40-60 70-110 96" />
+                <path class="tx ln ln--red" d="M970 150l46 44M1016 150l-46 44" />
+              </g>
+              <!-- stations -->
+              <g transform="translate(250 360)">
+                <path class="tdraw ln" d="M-24 -66c48-24 96 10 86 60-6 30-36 36-40 66-4 24-24 36-46 24" />
+                <path class="tdraw ln" d="M-4 -30c24-10 42 6 36 30-4 14-20 16-20 30" />
+              </g>
+              <g transform="translate(600 352)" class="tbrain">
+                <path class="tdraw ln" d="M-80 30c-30-6-38-50-10-64-6-38 38-58 62-34 14-28 58-24 66 4 30-10 58 16 44 48 24 18 10 58-20 56-6 24-42 30-58 14-18 16-52 14-58-6-14 4-26-4-26-18z" />
+                <path class="tdraw ln" d="M-34 -34c10 16 4 34-10 44M24 -38c-10 20 0 38 18 42M-6 8c6 16 24 20 38 10" />
+              </g>
+              <g transform="translate(950 360)">
+                <path class="tdraw ln" d="M-56 -26h30l44-40v132l-44-40h-30z" />
+              </g>
+              <!-- the wires between them -->
+              <path class="tdraw ln ln--wire" d="M330 330c60-70 120-70 170-20" />
+              <path class="tdraw ln ln--wire" d="M710 310c60-60 110-60 150-4" />
+            </g>
+            <!-- brain eyes (solid so they blink) -->
+            <g class="teyes"><ellipse cx="582" cy="350" rx="8" ry="11" /><ellipse cx="616" cy="350" rx="8" ry="11" /></g>
+
+            <!-- 1. your voice: a wave coming in from the left -->
+            <g class="tin">
+              <g class="tin__bars" transform="translate(110 360)">
+                <rect x="0" y="-20" width="9" height="40" rx="4.5" /><rect x="16" y="-34" width="9" height="68" rx="4.5" /><rect x="32" y="-14" width="9" height="28" rx="4.5" />
+                <rect x="48" y="-40" width="9" height="80" rx="4.5" /><rect x="64" y="-24" width="9" height="48" rx="4.5" /><rect x="80" y="-10" width="9" height="20" rx="4.5" />
+              </g>
+            </g>
+            <!-- 2. words: the ears turn it into text (each word a sticker) -->
+            <g class="twords" font-family="Barlow Condensed, Arial Narrow, sans-serif" font-weight="900" font-size="25">
+              <g class="tw" transform="translate(120 230)"><rect x="0" y="-26" width="58" height="36" rx="8" /><text x="10" y="2">SET</text></g>
+              <g class="tw" transform="translate(186 222)"><rect x="0" y="-26" width="44" height="36" rx="8" /><text x="10" y="2">A</text></g>
+              <g class="tw" transform="translate(238 232)"><rect x="0" y="-26" width="84" height="36" rx="8" /><text x="10" y="2">PASTA</text></g>
+              <g class="tw" transform="translate(330 220)"><rect x="0" y="-26" width="80" height="36" rx="8" /><text x="10" y="2">TIMER</text></g>
+              <g class="tw" transform="translate(120 278)"><rect x="0" y="-26" width="58" height="36" rx="8" /><text x="10" y="2">10</text></g>
+              <g class="tw" transform="translate(186 284)"><rect x="0" y="-26" width="64" height="36" rx="8" /><text x="10" y="2">MIN</text></g>
+              <g class="tw" transform="translate(258 276)"><rect x="0" y="-26" width="64" height="36" rx="8" /><text x="10" y="2">AND</text></g>
+              <g class="tw tw--hot" transform="translate(330 270)"><rect x="0" y="-26" width="76" height="36" rx="8" /><text x="10" y="2">DARK</text></g>
+              <g class="tw tw--hot" transform="translate(414 280)"><rect x="0" y="-26" width="80" height="36" rx="8" /><text x="10" y="2">MODE</text></g>
+            </g>
+            <!-- 3. the brain thinks: tokens tick out, then two tool stickers -->
+            <g class="ttokens" font-family="ui-monospace, Menlo, monospace" font-size="17" font-weight="700">
+              <text class="ttok" x="470" y="476">timer(</text>
+              <text class="ttok" x="540" y="476">minutes:</text>
+              <text class="ttok" x="630" y="476">10,</text>
+              <text class="ttok" x="672" y="476">label:"pasta")</text>
+              <text class="ttok" x="470" y="504">mac_setting(</text>
+              <text class="ttok" x="600" y="504">"dark_mode",</text>
+              <text class="ttok" x="728" y="504">on)</text>
+            </g>
+            <g class="ttool ttool--a" transform="translate(470 560)"><rect x="0" y="-28" width="190" height="42" rx="10" /><text x="16" y="2">TIMER · 10:00</text></g>
+            <g class="ttool ttool--b" transform="translate(680 566)"><rect x="0" y="-28" width="206" height="42" rx="10" /><text x="16" y="2">DARK MODE · ON</text></g>
+            <!-- the timer clock that starts ticking -->
+            <g class="tclock" transform="translate(160 520)">
+              <circle class="ln" r="34" fill="var(--cream)" /><path class="ln" d="M0 -40v-10M-8 -52h16" />
+              <path class="tclock__hand ln ln--red" d="M0 0V-24" />
+            </g>
+            <!-- 4. the voice answers -->
+            <g class="tout" transform="translate(960 290)">
+              <rect class="tout__bub" x="-60" y="-62" width="236" height="64" rx="18" />
+              <text class="tout__t" x="-44" y="-22">done! pasta's on.</text>
+              <g class="tout__bars" transform="translate(70 74)">
+                <rect x="0" y="-12" width="8" height="24" rx="4" /><rect x="14" y="-26" width="8" height="52" rx="4" /><rect x="28" y="-18" width="8" height="36" rx="4" /><rect x="42" y="-30" width="8" height="60" rx="4" /><rect x="56" y="-14" width="8" height="28" rx="4" />
+              </g>
+            </g>
+            <text class="tcloud__q" x="1150" y="160">…hello?</text>
+          </svg>
+        </div>
+
+        <ol class="trip__steps" aria-label="What happens">
+          <li class="tstep is-on"><b class="tstep__n">01</b><span class="tstep__who c-blue">the ears</span><p>you talk. homie's ears turn your voice into words, live, while you're still talking. the audio never leaves the Mac.</p></li>
+          <li class="tstep"><b class="tstep__n">02</b><span class="tstep__who c-purple">the brain</span><p>the brain reads the words and decides what to do. it writes the plan out piece by piece, about 15 little chunks a second.</p></li>
+          <li class="tstep"><b class="tstep__n">03</b><span class="tstep__who c-orange">the hands</span><p>the plan becomes real actions on your Mac: a pasta timer starts, the lights go down. two jobs from one sentence.</p></li>
+          <li class="tstep"><b class="tstep__n">04</b><span class="tstep__who c-pink">the voice</span><p>the voice says it back in a real human-sounding voice, made on your Mac's Neural Engine in about a tenth of a second.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ THE CREW: trading cards ============ -->
+    <section class="crew-sec" id="crew">
+      <header class="sec-head">
+        <h2 class="h2"><span class="w">MEET</span> <span class="w">THE</span> <span class="w w--orange">CREW.</span></h2>
+        <p class="hand sec-sub">tap a card to flip it. the nerd stuff is on the back</p>
+      </header>
+
+      <div class="deck">
+        <!-- EARS -->
+        <button class="tcard" style="--c: var(--blue); --tilt: -4deg" aria-label="The ears card. Flip for details.">
+          <span class="tcard__in">
+            <span class="tcard__face tcard__front">
+              <span class="tcard__no hand">#01</span>
+              <svg class="tcard__art" viewBox="0 0 200 160" aria-hidden="true"><g filter="url(#crayon)"><path class="cdraw ln ln--cr" d="M86 30c46-22 92 8 84 56-6 30-34 34-38 62-4 22-22 34-44 22" /><path class="cdraw ln ln--cr" d="M104 62c22-10 40 6 34 28-4 12-18 14-18 28" /><path class="cdraw ln ln--cr" d="M60 70c-12 14-12 32 0 46M40 54c-22 26-22 62 0 88" /></g></svg>
+              <span class="tcard__role">THE EARS</span>
+              <span class="tcard__say">hears you and writes it down, as you talk.</span>
+              <span class="tcard__stats"><span><i>speed</i>live</span><span><i>size</i>built in</span><span><i>internet</i>none</span></span>
+            </span>
+            <span class="tcard__face tcard__back">
+              <span class="tcard__k">real name</span><b class="tcard__name">Apple on-device speech</b>
+              <span class="tcard__k">made by</span><b>Apple, already inside macOS</b>
+              <span class="tcard__k">how homie runs it</span><b>on-device mode only, so no audio is uploaded</b>
+              <span class="tcard__k">license</span><b>part of macOS (not open source)</b>
+              <span class="tcard__soon hand">open-source ears are next</span>
+            </span>
+          </span>
+        </button>
+        <!-- BRAIN -->
+        <button class="tcard" style="--c: var(--purple); --tilt: 2.5deg" aria-label="The brain card. Flip for details.">
+          <span class="tcard__in">
+            <span class="tcard__face tcard__front">
+              <span class="tcard__no hand">#02</span>
+              <svg class="tcard__art" viewBox="0 0 200 160" aria-hidden="true"><g filter="url(#crayon)"><path class="cdraw ln ln--cr" d="M40 106c-28-6-34-46-8-58-6-34 34-52 56-30 12-26 52-22 60 4 26-8 52 14 40 44 22 16 10 52-18 50-6 22-38 26-52 12-16 14-46 12-52-6-12 4-24-4-26-16z" /><path class="cdraw ln ln--cr" d="M80 46c8 14 4 30-8 38M128 44c-8 18 0 34 16 38" /></g><ellipse class="eye" cx="90" cy="88" rx="7" ry="10" /><ellipse class="eye" cx="118" cy="88" rx="7" ry="10" /></svg>
+              <span class="tcard__role">THE BRAIN</span>
+              <span class="tcard__say">figures out what you meant and picks the right tools.</span>
+              <span class="tcard__stats"><span><i>speed</i>~15/s</span><span><i>size</i>2.7 GB</span><span><i>internet</i>none</span></span>
+            </span>
+            <span class="tcard__face tcard__back">
+              <span class="tcard__k">real name</span><b class="tcard__name">Qwen3.5 · 4B</b>
+              <span class="tcard__k">made by</span><b>the Qwen team at Alibaba</b>
+              <span class="tcard__k">how homie runs it</span><b>4-bit, through llama.cpp on your Mac's GPU</b>
+              <span class="tcard__k">license</span><b>Apache 2.0</b>
+              <span class="tcard__open hand">open weights ✓</span>
+            </span>
+          </span>
+        </button>
+        <!-- VOICE -->
+        <button class="tcard" style="--c: var(--pink); --ink2: var(--ink); --tilt: -1.5deg" aria-label="The voice card. Flip for details.">
+          <span class="tcard__in">
+            <span class="tcard__face tcard__front">
+              <span class="tcard__no hand">#03</span>
+              <svg class="tcard__art" viewBox="0 0 200 160" aria-hidden="true"><g filter="url(#crayon)"><path class="cdraw ln ln--cr" d="M44 62h28l40-36v108l-40-36H44z" /><path class="cdraw ln ln--cr" d="M134 58c12 12 12 32 0 44M152 40c24 24 24 56 0 80" /></g></svg>
+              <span class="tcard__role">THE VOICE</span>
+              <span class="tcard__say">talks back like a person, not a robot.</span>
+              <span class="tcard__stats"><span><i>speed</i>~0.1 s</span><span><i>size</i>82M</span><span><i>internet</i>none</span></span>
+            </span>
+            <span class="tcard__face tcard__back">
+              <span class="tcard__k">real name</span><b class="tcard__name">Kokoro · 82M</b>
+              <span class="tcard__k">made by</span><b>hexgrad</b>
+              <span class="tcard__k">how homie runs it</span><b>on the Neural Engine, via FluidAudio</b>
+              <span class="tcard__k">license</span><b>Apache 2.0</b>
+              <span class="tcard__open hand">open weights ✓</span>
+            </span>
+          </span>
+        </button>
+        <!-- ENGINE -->
+        <button class="tcard" style="--c: var(--green); --tilt: 3deg" aria-label="The engine card. Flip for details.">
+          <span class="tcard__in">
+            <span class="tcard__face tcard__front">
+              <span class="tcard__no hand">#04</span>
+              <svg class="tcard__art" viewBox="0 0 200 160" aria-hidden="true"><g filter="url(#crayon)"><circle class="cdraw ln ln--cr" cx="100" cy="82" r="30" /><path class="cdraw ln ln--cr" d="M100 30v18M100 116v18M48 82h18M134 82h18M64 46l12 12M124 106l12 12M136 46l-12 12M76 106l-12 12" /><circle class="cdraw ln ln--cr" cx="100" cy="82" r="10" /></g></svg>
+              <span class="tcard__role">THE ENGINE</span>
+              <span class="tcard__say">the motor that makes the brain run fast on a laptop.</span>
+              <span class="tcard__stats"><span><i>runs on</i>GPU</span><span><i>needs</i>any M chip</span><span><i>internet</i>none</span></span>
+            </span>
+            <span class="tcard__face tcard__back">
+              <span class="tcard__k">real name</span><b class="tcard__name">llama.cpp</b>
+              <span class="tcard__k">made by</span><b>Georgi Gerganov + ggml community</b>
+              <span class="tcard__k">how homie runs it</span><b>a tiny server only your Mac can talk to</b>
+              <span class="tcard__k">license</span><b>MIT</b>
+              <span class="tcard__open hand">open source ✓</span>
+            </span>
+          </span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ HOW BIG IS A BRAIN? (canvas, scrubbed) ============ -->
+    <section class="size" id="size">
+      <div class="size__pin">
+        <div class="size__copy">
+          <h2 class="h2 size__h"><span class="w">HOW BIG</span><br /><span class="w">IS A</span> <span class="w w--purple">BRAIN?</span></h2>
+          <div class="size__lines">
+            <p class="size__line is-on">every dot is <b>a million</b> tiny numbers. that's how a brain like this remembers language.</p>
+            <p class="size__line">homie's brain has <b class="size__count">4,000,000,000</b> of them.</p>
+            <p class="size__line">we squish each one down to 4 bits, so the whole thing packs into <b>2.7 GB</b>. smaller than a few movies.</p>
+            <p class="size__line">the big cloud brains are hundreds of times bigger. they need a <b>warehouse</b>. homie needs <b>your Mac</b>.</p>
+          </div>
+        </div>
+        <div class="size__viz">
+          <canvas class="size__cv" aria-hidden="true"></canvas>
+          <p class="size__tag hand" aria-hidden="true"><span class="size__num">0</span> numbers</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ OPEN SOURCE: thank-you sticker wall ============ -->
+    <section class="open" id="open">
+      <header class="sec-head">
+        <h2 class="h2"><span class="w">THE WHOLE</span> <span class="w w--green">HOUSE</span><br /><span class="w">IS OPEN.</span></h2>
+        <p class="lede open__lede">homie stands on the shoulders of homies. the models are open, and we're open-sourcing homie too, so anyone can see exactly what runs on their Mac. no secrets in the walls.</p>
+      </header>
+      <div class="wall" aria-label="Thank-you stickers for the open-source projects homie uses">
+        <span class="peel stk c-purple" style="--x: 6%; --y: 8%; --r: -8deg">thank u Qwen</span>
+        <span class="peel stk c-pink" style="--x: 52%; --y: 4%; --r: 6deg">kokoro &lt;3</span>
+        <span class="peel stk c-green" style="--x: 30%; --y: 34%; --r: -3deg">llama.cpp goes brrr</span>
+        <span class="peel stk c-blue" style="--x: 70%; --y: 38%; --r: 9deg">FluidAudio</span>
+        <span class="peel stk c-orange" style="--x: 4%; --y: 62%; --r: 5deg">no data centers</span>
+        <span class="peel stk c-cream" style="--x: 46%; --y: 68%; --r: -6deg">open weights</span>
+        <span class="peel stk c-ink" style="--x: 58%; --y: 84%; --r: -2deg">homie on github · soon</span>
+        <p class="wall__hint hand">(go on, move 'em around)</p>
+      </div>
+    </section>
+
+    <section class="outro">
+      <p class="hand outro__k">that's everyone who lives here.</p>
+      <a class="cta stick" href="index.html#get"><svg class="cta__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>move them in <span class="cta__free">it's free</span></a>
+      <p class="cta-note">Apple silicon · macOS 26 or later · <b class="max-word">max</b> uses big cloud models instead, if you flip the switch</p>
+    </section>
+  </main>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="models.js"></script>
+</body>
+</html>

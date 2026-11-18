@@ -255,8 +255,8 @@ function reel() {
     const rows = $$(".mu__rows li", d), q = $(".mu__q", d), sw = $(".stopwatch__n", d);
     const tl = gsap.timeline();
     tl.set(rows, { autoAlpha: 0 }).set(rows[0], { className: "" }).set(".mu__now", { yPercent: 110 }).add(() => (q.textContent = "")).set(".win--music", { autoAlpha: 0, scale: 0.9 });
-    const clock = { s: 0 };
-    tl.fromTo(clock, { s: 0 }, { s: 4.2, duration: 4.2, ease: "none", onUpdate: () => (sw.textContent = clock.s.toFixed(1)) }, 0.2);
+    // The reel is slowed down so you can follow it; the stopwatch shows the real app's time (README: ~0.4 s).
+    tl.add(() => (sw.textContent = "~0.4"), 0);
     you(tl, 0.2, "play billie jean");
     tl.to(".win--music", { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 1.4);
     typeInto(tl, 1.8, q, "billie jean", 0.05);
@@ -267,7 +267,7 @@ function reel() {
       .to(".mu__now", { yPercent: 0, duration: 0.35, ease: "back.out(2)" }, 3.6)
       .fromTo(".mu__eq i", { scaleY: 0.2 }, { scaleY: 1, duration: 0.2, repeat: 15, yoyo: true, ease: "steps(3)", stagger: 0.06 }, 3.9)
       .fromTo(".stopwatch", { scale: 1.5, rotation: -14 }, { scale: 1, rotation: -4, duration: 0.35, ease: "back.out(3)" }, 4.4);
-    say(tl, 4.3, "playing billie jean. 4 seconds, no cloud.");
+    say(tl, 4.3, "playing billie jean.");
     fly(tl, 5.2, 820, 420, 0.9);
     tl.to({}, { duration: 1.6 });
     return tl;
@@ -514,9 +514,11 @@ function hood() {
   const specs = $$(".spec b");
   const showSpecs = () => specs.forEach((b) => {
     const to = +b.dataset.to, pre = b.dataset.pre || "", suf = b.dataset.suf || "";
+    const dec = (b.dataset.to.split(".")[1] || "").length; // "0.4" keeps one decimal
+    const fmt = (n) => (dec ? n.toFixed(dec) : Math.round(n).toLocaleString("en-US"));
     const o = { v: 0 };
-    if (reduce) { b.textContent = pre + to.toLocaleString("en-US") + suf; return; }
-    gsap.to(o, { v: to, duration: 1.4, ease: "power2.out", onUpdate: () => (b.textContent = pre + Math.round(o.v).toLocaleString("en-US") + suf) });
+    if (reduce) { b.textContent = pre + fmt(to) + suf; return; }
+    gsap.to(o, { v: to, duration: 1.4, ease: "power2.out", onUpdate: () => (b.textContent = pre + fmt(o.v) + suf) });
   });
   onView(".specs", () => { showSpecs(); if (!reduce) slap(".spec", { stagger: 0.06 }); });
   onView(".hood", () => !reduce && slap(".hood .h2 .w", { stagger: 0.1 }));
@@ -528,7 +530,7 @@ function hood() {
     ["", "  loaded 4.0B params · 2.7 GB · Metal GPU", "d"],
     ["", "  ✓ toolbox prompt cached (~3,300 tokens)", "g"],
     ["$ ", "PixieVoice 19878 voice-key.txt   # Kokoro-82M on the Neural Engine, 127.0.0.1 only", "p"],
-    ["", "  ✓ Kokoro 82M on the Neural Engine · ~100 ms/phrase", "g"],
+    ["", "  ✓ Kokoro 82M on the Neural Engine", "g"],
     ["", "# you talk · Apple on-device speech hears it", "d"],
     ["", "  > \"set a 10 minute timer\"", "o"],
     ["", "  ⚡ instant lane · no model needed · done", "g"],

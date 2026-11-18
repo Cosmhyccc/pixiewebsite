@@ -563,3 +563,18 @@ body.is-loading .slap, body.is-loading .nav { visibility: hidden; }
 .prove__also { padding: 0 22px 20px; font-size: 14px; line-height: 1.45; opacity: .8; }
 .prove__also p { margin: 0; } .prove__also ul { margin: 6px 0; padding-left: 18px; }
 @media (max-width: 900px) { .more__grid { grid-template-columns: 1fr; max-width: 520px; gap: 34px; } .more__card:nth-child(2) { transform: rotate(1.2deg); } }
+
+/* ============ THE REAL THING: notch video + app screenshots ============ */
+.real { padding: 110px 0 30px; }
+.real__notch { margin: 0 auto 56px; max-width: 1100px; padding: 0 var(--pad); }
+/* the ink line is the top edge of the screen the notch hangs from */
+.real__vid { display: block; width: 100%; height: auto; aspect-ratio: 1440 / 320; background: var(--paper); border-top: 3px solid var(--ink); }
+.real__shots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(22px, 3vw, 44px); max-width: 1180px; margin: 0 auto; padding: 0 var(--pad); }
+.real__shot { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.real__shot img { display: block; width: 100%; height: auto; border-radius: 18px; box-shadow: 0 0 0 2.5px var(--ink), 6px 8px 0 2px var(--ink); background: var(--paper); }
+.real__shot:nth-child(1) img { transform: rotate(-1.2deg); }
+.real__shot:nth-child(2) img { transform: rotate(1deg); }
+.real__shot figcaption { font-size: clamp(17px, 1.5vw, 22px); text-align: center; }
+@media (max-width: 900px) { .real__shots { grid-template-columns: 1fr; max-width: 560px; gap: 40px; } .real { padding-top: 80px; } }
+/* phones: crop the empty paper on both sides so the notch reads at a useful size */
+@media (max-width: 600px) { .real__vid { aspect-ratio: 460 / 165; object-fit: cover; object-position: center top; } .real__notch { padding: 0 8px; } }

@@ -31,8 +31,7 @@
     }
   });
 
-  const x = $('[data-inv="x"]');
-  if (x) x.href = "https://x.com/intent/tweet?text=" + encodeURIComponent(TWEET);
+  document.querySelectorAll('[data-inv="x"]').forEach((x) => (x.href = "https://x.com/intent/tweet?text=" + encodeURIComponent(TWEET)));
 
   const share = $('[data-inv="share"]');
   share?.addEventListener("click", async () => {

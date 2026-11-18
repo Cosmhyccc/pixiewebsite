@@ -12,8 +12,8 @@
   <link rel="preload" href="fonts/Barlow-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/PermanentMarker.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/homie-logo.webp" as="image" />
-  <link rel="stylesheet" href="style.css?v=1794969950" />
-  <link rel="stylesheet" href="models.css?v=1794969950" />
+  <link rel="stylesheet" href="style.css?v=1794970450" />
+  <link rel="stylesheet" href="models.css?v=1794970450" />
 </head>
 <body class="is-loading">
   <!-- shared SVG filters: sticker contour, crayon line boil -->
@@ -71,6 +71,7 @@
     <nav class="nav__links">
       <a class="pill" href="#why">why local?</a>
       <a class="pill" href="#inside">what's inside</a>
+      <a class="pill" href="#check">will it run?</a>
       <a class="pill pill--go stick-sm" href="#invite"><svg class="pill__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>get homie</a>
     </nav>
   </header>
@@ -486,6 +487,85 @@
       </div>
     </section>
 
+    <!-- ============ WILL IT RUN ON MY MAC? quick checker ============ -->
+    <section class="chk" id="check">
+      <header class="sec-head">
+        <h2 class="h2"><span class="w">WILL IT RUN</span><br /><span class="w">ON MY</span> <span class="w w--blue">MAC?</span></h2>
+        <p class="hand sec-sub">tap your Mac. see how homie feels on it</p>
+      </header>
+      <div class="chk__wrap">
+        <div class="chk__ctl" data-guide="tap your Mac in">
+          <p class="chk__guess hand" hidden></p>
+          <div class="chk__row"><p class="chk__lab">chip</p><div class="chk__opts" data-k="chip">
+            <button type="button" data-v="intel">Intel</button><button type="button" data-v="1">M1</button><button type="button" data-v="2">M2</button><button type="button" data-v="3">M3</button><button type="button" data-v="4">M4</button><button type="button" data-v="5" class="is-on">M5</button>
+          </div></div>
+          <div class="chk__row"><p class="chk__lab">flavor</p><div class="chk__opts" data-k="tier">
+            <button type="button" data-v="base" class="is-on">plain</button><button type="button" data-v="pro">Pro</button><button type="button" data-v="max">Max</button><button type="button" data-v="ultra">Ultra</button>
+          </div></div>
+          <div class="chk__row"><p class="chk__lab">memory</p><div class="chk__opts" data-k="mem">
+            <button type="button" data-v="8">8 GB</button><button type="button" data-v="16" class="is-on">16 GB</button><button type="button" data-v="24">24 GB</button><button type="button" data-v="32">32 GB+</button>
+          </div></div>
+          <p class="chk__how">not sure? Apple menu → About This Mac. it's right there.</p>
+        </div>
+        <div class="chk__mac">
+          <div class="chk__scr" aria-live="polite">
+            <p class="chk__verdict">RUNS GREAT</p>
+            <p class="chk__why"></p>
+            <div class="chk__mem"><p class="chk__mlab">memory</p><div class="chk__bar"></div>
+              <p class="chk__key"><i class="k-h"></i>homie <i class="k-m"></i>macOS <i class="k-f"></i>free for your apps</p></div>
+            <div class="chk__spd"><p class="chk__mlab">speed <b class="chk__tok">~31 tokens/s</b></p>
+              <p class="chk__type"><span class="chk__out"></span><span class="chk__car">▌</span></p></div>
+          </div>
+          <img class="chk__img" src="assets/mac.webp" alt="" width="640" height="792" loading="lazy" decoding="async" />
+        </div>
+      </div>
+      <p class="chk__fine">speeds are estimates from each chip's memory speed, based on one real Mac (M5, 16 GB: 31 tokens/s). homie needs Apple silicon + macOS 26 or later.</p>
+    </section>
+
+    <!-- ============ PROVE IT: nothing leaves your Mac ============ -->
+    <section class="prove" id="prove">
+      <header class="sec-head">
+        <h2 class="h2"><span class="w">DON'T TRUST US.</span><br /><span class="w w--green">CHECK.</span></h2>
+        <p class="hand sec-sub">your voice and words stay home. here's how to see it yourself</p>
+      </header>
+      <div class="prove__wrap">
+        <div class="prove__viz" aria-label="While homie works, traffic inside your Mac goes up and bytes sent to the cloud stay at zero">
+          <svg class="prove__svg" viewBox="0 0 520 330" aria-hidden="true">
+            <g filter="url(#crayon)">
+              <path class="prove__home" d="M30 128L180 30l150 98v176H30z" />
+              <path class="prove__cloud" d="M392 92c-14 0-22-12-15-23 5-9 19-10 26-4 4-14 19-20 32-14 8-12 28-12 34 2 13-5 28 5 25 18 12 3 15 19 4 24-5 3-12 3-17 2-7 8-21 8-28 1-9 7-24 6-30-2-10 5-21 3-31-4z" />
+              <path class="prove__x" d="M386 40l110 92M496 40L386 132" />
+              <path class="prove__gap" d="M338 200c20-10 34-30 64-60" />
+            </g>
+            <g class="prove__nodes">
+              <g transform="translate(90 190)"><circle r="34" class="pv pv--ink" /><text y="6">mic</text></g>
+              <g transform="translate(180 120)"><circle r="40" class="pv pv--purple" /><text y="6">brain</text></g>
+              <g transform="translate(270 190)"><circle r="34" class="pv pv--pink" /><text class="t-ink" y="6">voice</text></g>
+              <g transform="translate(180 262)"><circle r="30" class="pv pv--orange" /><text y="6">tools</text></g>
+            </g>
+            <path id="pl" class="prove__loop" d="M90 190L180 120L270 190L180 262z" />
+            <g class="prove__dots"></g>
+            <text class="prove__lab" x="180" y="322">your Mac</text>
+            <text class="prove__lab prove__lab--c" x="440" y="160">the cloud</text>
+          </svg>
+          <div class="prove__ctr">
+            <p><b class="prove__in">0</b><span>bytes moved inside your Mac</span></p>
+            <p class="is-zero"><b>0</b><span>bytes of your voice + words sent out</span></p>
+          </div>
+        </div>
+        <div class="prove__term" data-guide="paste it. see for yourself">
+          <div class="term__bar"><i></i><i></i><i></i><span>Terminal</span></div>
+          <div class="prove__body">
+            <p class="prove__c"># while homie is on, ask your Mac who the brain talks to</p>
+            <p class="prove__cmd"><span>$</span> <code>lsof -nP -i -a -c llama-server</code><button type="button" class="prove__copy">copy</button></p>
+            <p class="prove__c"># you'll see only this:</p>
+            <pre class="prove__res">llama-ser  TCP 127.0.0.1:19890 (LISTEN)</pre>
+          </div>
+          <p class="prove__note"><b>127.0.0.1</b> means "this Mac". if homie's brain ever called a server, you'd see an outside address here. you won't.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ FRIEND LOOPS: invite-only, so homies bring homies ============ -->
     <section class="invite" id="invite">
       <header class="sec-head">
@@ -521,6 +601,15 @@
       </div>
     </section>
 
+    <!-- ============ WALL OF HOMIES: X mentions, stamped when they get in. entries live in homies.js ============ -->
+    <section class="homies" id="homies">
+      <header class="sec-head">
+        <h2 class="h2"><span class="w">WALL OF</span> <span class="w w--pink">HOMIES.</span></h2>
+        <p class="hand sec-sub">ask for a code on X and you end up up here. got in? you get the stamp</p>
+      </header>
+      <div class="hw" data-guide="get yourself on the wall"></div>
+    </section>
+
     <section class="outro">
       <a class="cta stick" href="#invite" data-guide="grab it. it's free"><svg class="cta__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>let's be homies</a>
       <p class="cta-note">Apple silicon · macOS 26 or later</p>
@@ -535,9 +624,11 @@
 
   <script src="vendor/gsap.min.js" defer></script>
   <script src="vendor/ScrollTrigger.min.js" defer></script>
-  <script src="main.js?v=1794969950" defer></script>
-  <script src="models.js?v=1794969950" defer></script>
-  <script src="cursor.js?v=1794969950" defer></script>
-  <script src="invite.js?v=1794969950" defer></script>
+  <script src="main.js?v=1794970450" defer></script>
+  <script src="models.js?v=1794970450" defer></script>
+  <script src="cursor.js?v=1794970450" defer></script>
+  <script src="homies.js?v=1794970450" defer></script>
+  <script src="extras.js?v=1794970450" defer></script>
+  <script src="invite.js?v=1794970450" defer></script>
 </body>
 </html>

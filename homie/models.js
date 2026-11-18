@@ -23,7 +23,13 @@ const slap = (els, opts = {}) => {
     clearProps: "scale,rotation,opacity,visibility", ...rest,
   });
 };
-const onView = (el, fn, start = "top 92%") => ScrollTrigger.create({ trigger: el, start, once: true, onEnter: fn });
+// visibility via IntersectionObserver: always live, never stale when the page above changes height
+const node = (el) => (typeof el === "string" ? $(el) : el);
+const onView = (el, fn) => {
+  const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); fn(); } }, { rootMargin: "0px 0px -6% 0px" });
+  io.observe(node(el));
+};
+const whileVisible = (el, fn) => new IntersectionObserver((es) => es.forEach((e) => fn(e.isIntersecting))).observe(node(el));
 
 // ---------- hero ----------
 function hero() {
@@ -47,7 +53,7 @@ function hero() {
     .fromTo(".bigmac", { y: 80, rotation: 10, autoAlpha: 0 }, { y: 0, rotation: 0, autoAlpha: 1, duration: 0.6, ease: "back.out(1.6)", clearProps: "transform" }, 0.3)
     .add(slap(".mx-hero .lede", { rotation: 0, scale: 1.08, duration: 0.5 }), 0.7)
     .from(".hn", { y: -30, duration: 0.4, ease: "back.out(2)" }, 0.9)
-    .fromTo(".mx-hero .note", { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.2 }, 1.4), "top 80%");
+    .fromTo(".mx-hero .note", { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.2 }, 1.4));
 }
 
 // ---------- hero screen: the actual model, running. 4-bit weights shimmer as a pass sweeps through,
@@ -149,7 +155,7 @@ function weights() {
   };
   if (reduce) { requestAnimationFrame((n) => frame(n + 4000)); return; }
   let on = true;
-  ScrollTrigger.create({ trigger: ".mx-hero", start: "top bottom", end: "bottom top", onToggle: (s) => (on = s.isActive) });
+  whileVisible(".mx-hero", (v) => (on = v));
   const loop = (n) => { if (on && !document.hidden) frame(n); requestAnimationFrame(loop); };
   requestAnimationFrame(loop);
 }
@@ -179,8 +185,7 @@ function crew() {
     gsap.fromTo(c, { y: 0 }, { y: -14, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out" });
     k++;
   };
-  ScrollTrigger.create({ trigger: ".deck", start: "top 90%", end: "bottom 5%",
-    onToggle: (s) => { clearInterval(flipping); if (s.isActive) flipping = setInterval(flipNext, 650); } });
+  whileVisible(".deck", (v) => { clearInterval(flipping); if (v) flipping = setInterval(flipNext, 650); });
   gsap.set(".tcard", { autoAlpha: 0 });
   onView(".crew-sec", () => {
     gsap.timeline()
@@ -190,7 +195,7 @@ function crew() {
         { y: 0, x: 0, rotation: 0, autoAlpha: 1, duration: 0.5, ease: "back.out(1.5)", stagger: 0.08, clearProps: "transform" }, 0.1)
       .add(draw($$(".cdraw"), { duration: 0.45, stagger: 0.02 }), 0.4)
 ;
-  }, "top 98%");
+  });
 }
 
 // ---------- the tool reel: four little re-enactments on a Mac screen, auto-advancing ----------
@@ -383,11 +388,8 @@ function reel() {
   if (reduce) { play(0); tl.progress(1); return; }
   blink();
   play(0);
-  ScrollTrigger.create({
-    trigger: ".mac2", start: "top 85%", end: "bottom 10%",
-    onToggle: (self) => { running = self.isActive; if (running) { tl.play(); bar.play(); } else { tl.pause(); bar.pause(); } },
-  });
-  onView(".tools", () => gsap.timeline().add(slap(".tools .h2 .w", { stagger: 0.08 })).from(".tools .sec-sub", { autoAlpha: 0, duration: 0.3 }, 0.2), "top 90%");
+  whileVisible(".mac2", (v) => { running = v; if (v) { tl.play(); bar.play(); } else { tl.pause(); bar.pause(); } });
+  onView(".tools", () => gsap.timeline().add(slap(".tools .h2 .w", { stagger: 0.08 })).from(".tools .sec-sub", { autoAlpha: 0, duration: 0.3 }, 0.2));
 }
 
 // ---------- how big is a brain: plays on its own, loops ----------
@@ -472,8 +474,8 @@ function size() {
     .to(state, { p: 0.7, duration: 1.4 })
     .to(state, { p: 0.9, duration: 1.4, ease: "none" })
     .to(state, { p: 1, duration: 2.2 });
-  ScrollTrigger.create({ trigger: ".size", start: "top 95%", end: "bottom top", onToggle: (s) => (s.isActive ? loop.play() : loop.pause()) });
-  onView(".size", () => slap(".size__h .w", { stagger: 0.08 }), "top 90%");
+  whileVisible(".size__viz", (v) => (v ? loop.play() : loop.pause()));
+  onView(".size", () => slap(".size__h .w", { stagger: 0.08 }));
 }
 
 // ---------- under the hood: packets flow forever, specs count up, terminal types ----------
@@ -507,10 +509,7 @@ function hood() {
     spawn(fast ? r.fast : r.brain, COLORS[n % COLORS.length], fast ? 420 : 240, r.g);
     n++;
   };
-  ScrollTrigger.create({
-    trigger: ".pipe", start: "top 95%", end: "bottom top",
-    onToggle: (s) => { clearInterval(timer); if (s.isActive && !reduce) { tick(); timer = setInterval(() => !document.hidden && tick(), 700); } },
-  });
+  whileVisible(".pipe", (v) => { clearInterval(timer); if (v && !reduce) { tick(); timer = setInterval(() => !document.hidden && tick(), 700); } });
 
   const specs = $$(".spec b");
   const showSpecs = () => specs.forEach((b) => {
@@ -519,8 +518,8 @@ function hood() {
     if (reduce) { b.textContent = pre + to.toLocaleString("en-US") + suf; return; }
     gsap.to(o, { v: to, duration: 1.4, ease: "power2.out", onUpdate: () => (b.textContent = pre + Math.round(o.v).toLocaleString("en-US") + suf) });
   });
-  onView(".specs", () => { showSpecs(); if (!reduce) slap(".spec", { stagger: 0.06 }); }, "top 92%");
-  onView(".hood", () => !reduce && slap(".hood .h2 .w", { stagger: 0.1 }), "top 90%");
+  onView(".specs", () => { showSpecs(); if (!reduce) slap(".spec", { stagger: 0.06 }); });
+  onView(".hood", () => !reduce && slap(".hood .h2 .w", { stagger: 0.1 }));
 
   // terminal: what booting homie's brain + voice looks like (typed, looping)
   const out = $(".term__out");
@@ -550,7 +549,7 @@ function hood() {
     if (ci >= txt.length) { html += `<span class="${cls}">${esc(pre + txt)}</span>\n`; li++; ci = 0; setTimeout(step, isCmd ? 380 : 260); }
     else setTimeout(step, 28);
   };
-  onView(".term", () => { if (!typing) { typing = true; step(); } }, "top 95%");
+  onView(".term", () => { if (!typing) { typing = true; step(); } });
 }
 
 // ---------- sticker wall ----------
@@ -568,9 +567,9 @@ function wall() {
     el.addEventListener("pointerup", drop); el.addEventListener("pointercancel", drop);
   });
   if (reduce) return;
-  onView(".open", () => gsap.timeline().add(slap(".open .h2 .w", { stagger: 0.1 })).from(".open__lede", { autoAlpha: 0, y: 14, duration: 0.4 }, 0.3), "top 90%");
-  onView(".wall", () => gsap.timeline().add(slap(".peel", { stagger: 0.08, scale: 2 })).from(".wall__hint", { autoAlpha: 0, duration: 0.4 }, 0.8), "top 90%");
-  onView(".outro", () => slap([".outro__k", ".outro .cta", ".outro .cta-note"], { stagger: 0.1 }), "top 92%");
+  onView(".open", () => gsap.timeline().add(slap(".open .h2 .w", { stagger: 0.1 })).from(".open__lede", { autoAlpha: 0, y: 14, duration: 0.4 }, 0.3));
+  onView(".wall", () => gsap.timeline().add(slap(".peel", { stagger: 0.08, scale: 2 })).from(".wall__hint", { autoAlpha: 0, duration: 0.4 }, 0.8));
+  onView(".outro", () => slap([".outro__k", ".outro .cta", ".outro .cta-note"], { stagger: 0.1 }));
 }
 
 Promise.race([

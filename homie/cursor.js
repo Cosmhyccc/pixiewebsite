@@ -159,8 +159,9 @@
         introTarget = () => { const r = s.getBoundingClientRect(); return { x: r.right - 30, y: r.top + 10 }; };
         await sleep(260); say(line, 1300); circle(s); await sleep(900);
       } else if (act === "zigzag") {
-        introTarget = () => { const r = s.getBoundingClientRect(); return { x: r.left - 10, y: r.bottom - 10 }; };
-        await sleep(240); say(line, 1600); await zigzag(s); await sleep(250);
+        // just visits the word (no line drawn under it)
+        introTarget = () => { const r = s.getBoundingClientRect(); return { x: r.right - 20, y: r.bottom - 30 }; };
+        await sleep(240); say(line, 1600); await sleep(1100);
       } else if (act === "wander") {
         say(line, 1400);
         for (let i = 0; i < 7 && introOn; i++) {

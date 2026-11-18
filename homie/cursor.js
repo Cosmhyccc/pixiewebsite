@@ -179,7 +179,7 @@
   addEventListener("scroll", () => { if (introOn && scrollY > 60) { introOn = false; introTarget = null; } }, { passive: true });
   setTimeout(intro, 1200);
 
-  let entered = false, nextTrick = performance.now() + 7000, hop = 0, nextHop = 0;
+  let entered = false, nextTrick = performance.now() + 15000, hop = 0, nextHop = 0;
   gsap.ticker.add(() => {
     const g = introOn ? active : pick();
     if (introOn && introTarget) target = introTarget();
@@ -194,9 +194,9 @@
     if (!introOn && active) {
       const r = active.getBoundingClientRect();
       // sit just off the element's top-right corner, pointing in
-      // never parks: hops between spots around the element every ~1.6s
+      // drifts to a new spot around the element every ~5s (calm, not twitchy)
       const nowH = performance.now();
-      if (nowH > nextHop) { hop++; nextHop = nowH + gsap.utils.random(1200, 2000); }
+      if (nowH > nextHop) { hop++; nextHop = nowH + gsap.utils.random(4500, 6500); }
       const spots = [[1, 0], [0.5, 0], [0, 0.4], [1, 0.6], [0.2, 1], [0.8, 1]];
       const [fx, fy] = spots[hop % spots.length];
       const tx = Math.min(innerWidth - 190, Math.max(20, r.left + r.width * fx - 30));
@@ -225,10 +225,10 @@
     el.classList.toggle("is-left", pos.x > innerWidth - 300);
     // tricks when you're chilling
     const now = performance.now();
-    if (!introOn && now > nextTrick && now - lastMove > 1500) {
+    if (!introOn && now > nextTrick && now - lastMove > 3000) {
       gsap.utils.random(tricks)();
-      if (Math.random() < 0.9) say(gsap.utils.random(QUIPS), 1800);
-      nextTrick = now + gsap.utils.random(4000, 7000);
+      if (Math.random() < 0.5) say(gsap.utils.random(QUIPS), 1800);
+      nextTrick = now + gsap.utils.random(14000, 22000);
     }
   });
 })();

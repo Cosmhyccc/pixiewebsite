@@ -526,7 +526,7 @@ function hood() {
   const LINES = [
     ["$ ", "llama-server -m Qwen3.5-4B-Q4_K_M.gguf -c 12288 --host 127.0.0.1", "p"],
     ["", "  loaded 4.0B params · 2.7 GB · Metal GPU", "d"],
-    ["", "  ✓ toolbox prompt cached (5,019 tokens)", "g"],
+    ["", "  ✓ toolbox prompt cached (~3,300 tokens)", "g"],
     ["$ ", "PixieVoice 19878 voice-key.txt   # Kokoro-82M on the Neural Engine, 127.0.0.1 only", "p"],
     ["", "  ✓ Kokoro 82M on the Neural Engine · ~100 ms/phrase", "g"],
     ["", "# you talk · Apple on-device speech hears it", "d"],

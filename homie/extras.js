@@ -113,7 +113,7 @@
 
   // ---------- WALL OF HOMIES ----------
   (() => {
-    const wall = $(".hw"); if (!wall) return;
+    const wall = $(".hw"); if (!wall || !(window.HOMIES || []).length) return;
     const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
     (window.HOMIES || []).forEach((h) => {
       const card = el("a", "hw__t"); card.href = h.url; card.target = "_blank"; card.rel = "noopener";
@@ -122,10 +122,6 @@
       if (h.gotIn) card.appendChild(el("span", "hw__stamp", "got in ✓"));
       wall.appendChild(card);
     });
-    const ghost = el("div", "hw__t hw__t--ghost");
-    ghost.appendChild(el("p", "hw__txt", (window.HOMIES || []).length ? "you next?" : "your tweet here. be the first homie on the wall"));
-    const x = $('[data-inv="x"]')?.cloneNode(true);
-    if (x) ghost.appendChild(x);
-    wall.appendChild(ghost);
+    if ((window.HOMIES || []).length) wall.closest(".homies").hidden = false; // hidden until real posts exist
   })();
 })();

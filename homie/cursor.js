@@ -201,7 +201,10 @@
       // drifts to a new spot around the element every ~5s (calm, not twitchy)
       const nowH = performance.now();
       if (nowH > nextHop) { hop++; nextHop = nowH + gsap.utils.random(4500, 6500); }
-      const spots = [[1, 0], [0.5, 0], [0, 0.4], [1, 0.6], [0.2, 1], [0.8, 1]];
+      // A guide can name its own resting spots (fractions of its box) so the bubble never covers nearby text:
+      // data-guide-spots="x,y x,y", and data-guide-spots-sm for narrow screens.
+      const own = (innerWidth < 700 && active.dataset.guideSpotsSm) || active.dataset.guideSpots;
+      const spots = own ? own.trim().split(/\s+/).map((p) => p.split(",").map(Number)) : [[1, 0], [0.5, 0], [0, 0.4], [1, 0.6], [0.2, 1], [0.8, 1]];
       const [fx, fy] = spots[hop % spots.length];
       const tx = Math.min(innerWidth - 190, Math.max(20, r.left + r.width * fx - 30));
       const ty = Math.min(innerHeight - 150, Math.max(130, r.top + Math.min(r.height, innerHeight * 0.7) * fy - 20));

@@ -32,9 +32,7 @@
       $$('[data-k="mem"] button').forEach((b) => (b.disabled = intel));
       if (!intel && !BW[st.chip][st.tier]) st.tier = "max";
       $$(".chk__opts button").forEach((b) => b.classList.toggle("is-on", st[b.parentElement.dataset.k] === b.dataset.v));
-      // tier buttons spell the full chip name: M4 / M4 Pro / M4 Max / M4 Ultra
-      const TN = { base: "", pro: " Pro", max: " Max", ultra: " Ultra" };
-      $$('[data-k="tier"] button').forEach((b) => (b.textContent = intel ? (b.dataset.v === "base" ? "—" : TN[b.dataset.v].trim()) : `M${st.chip}${TN[b.dataset.v]}`));
+      $(".chk__cn").textContent = intel ? "Intel" : "M" + st.chip;
       const mem = +st.mem;
       let cls = "", v, w;
       if (intel) {

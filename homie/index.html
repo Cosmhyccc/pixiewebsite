@@ -12,8 +12,8 @@
   <link rel="preload" href="fonts/Barlow-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/PermanentMarker.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/homie-logo.webp" as="image" />
-  <link rel="stylesheet" href="style.css?v=1794982084" />
-  <link rel="stylesheet" href="models.css?v=1794982084" />
+  <link rel="stylesheet" href="style.css?v=1794986894" />
+  <link rel="stylesheet" href="models.css?v=1794986894" />
 </head>
 <body class="is-loading">
   <!-- shared SVG filters: sticker contour, crayon line boil -->
@@ -451,6 +451,30 @@
       </div>
     </section>
     <!-- ============ HOW BIG IS A BRAIN? (canvas, autoplay loop) ============ -->
+    <!-- ============ MORE THINGS: voice typing, circle to ask, chat (all verified on device) ============ -->
+    <section class="more" id="more">
+      <header class="sec-head">
+        <h2 class="h2"><span class="w">AND A FEW</span> <span class="w w--green">MORE.</span></h2>
+      </header>
+      <div class="more__grid">
+        <article class="more__card c-blue">
+          <p class="more__keys"><kbd>fn</kbd> + <kbd>control</kbd></p>
+          <h3 class="more__h">TYPE WITH YOUR VOICE.</h3>
+          <p class="more__p">hold both keys and talk. homie types it wherever your cursor is, about 0.3 s a sentence. runs on your Mac. nothing is uploaded.</p>
+        </article>
+        <article class="more__card c-cream">
+          <p class="more__keys"><kbd>hold fn</kbd> + circle</p>
+          <h3 class="more__h">CIRCLE IT. ASK IT.</h3>
+          <p class="more__p">circle something on screen and ask "what is this?". homie reads the circled text on your Mac in about 0.5 s. it reads text and rough labels, not full pictures.</p>
+        </article>
+        <article class="more__card c-ink">
+          <p class="more__keys">chat tab</p>
+          <h3 class="more__h">OR JUST CHAT.</h3>
+          <p class="more__p">rather type? there's a chat window too, running on your Mac. chats stay on your Mac. <span class="more__soon">homie max chat: coming soon</span></p>
+        </article>
+      </div>
+    </section>
+
     <section class="size" id="size">
       <div class="size__pin">
         <div class="size__copy">
@@ -562,7 +586,15 @@
             <pre class="prove__res">llama-ser  TCP 127.0.0.1:19890 (LISTEN)</pre>
           </div>
           <p class="prove__note"><b>127.0.0.1</b> means "this Mac". if homie's brain ever called a server, you'd see an outside address here. you won't.</p>
-          <p class="prove__also">homie downloads its brain once on first launch, and looks songs up on Apple's catalog when you ask it to play one. that's it.</p>
+          <div class="prove__also">
+            <p>homie goes online for exactly three things:</p>
+            <ul>
+              <li>once, on first launch: downloading its brain and voice (from Hugging Face)</li>
+              <li>when you ask to play a song: looking it up on Apple's catalog</li>
+              <li>when you ask to open a site or search: your browser opens it</li>
+            </ul>
+            <p>that's it.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -625,11 +657,11 @@
 
   <script src="vendor/gsap.min.js" defer></script>
   <script src="vendor/ScrollTrigger.min.js" defer></script>
-  <script src="main.js?v=1794982084" defer></script>
-  <script src="models.js?v=1794982084" defer></script>
-  <script src="cursor.js?v=1794982084" defer></script>
-  <script src="homies.js?v=1794982084" defer></script>
-  <script src="extras.js?v=1794982084" defer></script>
-  <script src="invite.js?v=1794982084" defer></script>
+  <script src="main.js?v=1794986894" defer></script>
+  <script src="models.js?v=1794986894" defer></script>
+  <script src="cursor.js?v=1794986894" defer></script>
+  <script src="homies.js?v=1794986894" defer></script>
+  <script src="extras.js?v=1794986894" defer></script>
+  <script src="invite.js?v=1794986894" defer></script>
 </body>
 </html>

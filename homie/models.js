@@ -368,7 +368,7 @@ function reel() {
   }
 
   const builders = [music, drawIt, circle, mac];
-  const TAGS = [["works in homie", false], ["homie max", true], ["homie max", true], ["works in homie", false]];
+  const TAGS = [["works in homie", false], ["homie max", true], ["works in homie", false], ["works in homie", false]];
   let idx = 0, tl = null, bar = null, running = false;
   const play = (i) => {
     idx = i;

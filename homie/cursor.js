@@ -35,7 +35,7 @@
   const dodge = { x: 0, y: 0 };
   let target = { x: innerWidth * 0.6, y: innerHeight * 0.4 };
   let active = null, ring = null, lastMove = performance.now(), bubTimer = 0;
-  const QUIPS = ["wheee", "i'm homie's cursor", "i click stuff for you", "brb doing a lap", "no cloud. just vibes", "scroll more, it gets better"];
+  const QUIPS = ["wheee", "brb doing a lap", "no cloud. just vibes", "scroll more, it gets better"];
 
   const say = (text, ms = 2600) => {
     bub.textContent = text;

@@ -1,3 +1,5 @@
+// homie "look inside" sections (on the home page, below why local). Wrapped so it can share the page with main.js.
+(() => {
 // homie "what's in the house": x-ray hero with homie's eyes, crew cards, an auto-playing tool reel,
 // a looping 4-billion-number brain, a live pipeline + terminal, and a sticker wall you can push around.
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -6,28 +8,25 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 gsap.registerPlugin(ScrollTrigger);
 
 // ---------- shared hand-drawn bits ----------
-if (!reduce) {
-  const turb = $$(".boil");
-  let seed = 1;
-  setInterval(() => { if (document.hidden) return; seed = (seed % 3) + 1; turb.forEach((t) => t.setAttribute("seed", seed)); }, 140);
-}
 const prepDraw = (els) => els.forEach((p) => {
   const len = Math.ceil(p.getTotalLength ? p.getTotalLength() : 600) + 2;
   p.style.strokeDasharray = len;
   p.style.strokeDashoffset = reduce ? 0 : len;
 });
-prepDraw($$(".draw, .cdraw"));
+prepDraw($$(".cdraw"));
 const draw = (els, opts = {}) => gsap.to(els, { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut", stagger: 0.07, ...opts });
-const slap = (els, opts = {}) =>
-  gsap.from(els, {
-    scale: 1.35, rotation: () => gsap.utils.random(-12, 12), autoAlpha: 0, duration: 0.5,
-    ease: "back.out(2.6)", stagger: 0.07, clearProps: "scale,rotation,opacity,visibility", ...opts,
+// stickers slap on: land big and crooked, settle with a bounce (scale/rotation in opts are the starting pose)
+const slap = (els, opts = {}) => {
+  const { scale = 1.35, rotation = () => gsap.utils.random(-12, 12), ...rest } = opts;
+  return gsap.fromTo(els, { autoAlpha: 0, scale, rotation }, {
+    autoAlpha: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2.6)", stagger: 0.07,
+    clearProps: "scale,rotation,opacity,visibility", ...rest,
   });
+};
 const onView = (el, fn, start = "top 92%") => ScrollTrigger.create({ trigger: el, start, once: true, onEnter: fn });
 
 // ---------- hero ----------
 function hero() {
-  document.body.classList.remove("is-loading");
   // homie's notch: pupils follow your pointer, blinks now and then
   const hn = $(".hn"), hp = $$(".hn .peye b");
   addEventListener("pointermove", (e) => {
@@ -40,14 +39,15 @@ function hero() {
   setTimeout(blink, 2500);
   weights();
   if (reduce) return;
-  gsap.timeline()
-    .add(slap(".nav", { scale: 1, rotation: 0, y: -20, ease: "power3.out", duration: 0.6 }), 0)
+  // this section now lives below "why local", so it lands when you scroll to it
+  gsap.set([".mx-kicker", ".mx-h1 .w", ".bigmac", ".mx-hero .lede", ".mx-hero .note"], { autoAlpha: 0 });
+  onView(".mx-hero", () => gsap.timeline()
     .add(slap(".mx-kicker"), 0.1)
     .add(slap(".mx-h1 .w", { stagger: 0.09 }), 0.2)
-    .from(".bigmac", { y: 80, rotation: 10, autoAlpha: 0, duration: 0.6, ease: "back.out(1.6)" }, 0.3)
+    .fromTo(".bigmac", { y: 80, rotation: 10, autoAlpha: 0 }, { y: 0, rotation: 0, autoAlpha: 1, duration: 0.6, ease: "back.out(1.6)", clearProps: "transform" }, 0.3)
     .add(slap(".mx-hero .lede", { rotation: 0, scale: 1.08, duration: 0.5 }), 0.7)
     .from(".hn", { y: -30, duration: 0.4, ease: "back.out(2)" }, 0.9)
-    .from(".note", { autoAlpha: 0, y: 10, duration: 0.4, stagger: 0.2 }, 1.4);
+    .fromTo(".mx-hero .note", { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.2 }, 1.4), "top 80%");
 }
 
 // ---------- hero screen: the actual model, running. 4-bit weights shimmer as a pass sweeps through,
@@ -145,7 +145,7 @@ function weights() {
     const blinkOn = Math.floor(t * 2) % 2 === 0;
     ctx.fillText("> " + out + (blinkOn ? "▌" : ""), padX, H * 0.93);
     ctx.fillStyle = "#8ee04f"; ctx.font = `500 ${fs * 0.85}px ui-monospace, Menlo, monospace`;
-    ctx.textAlign = "right"; ctx.fillText("~15 tok/s · 0 bytes uploaded", W - padX, H * 0.93); ctx.textAlign = "left";
+    if (W > 420) { ctx.textAlign = "right"; ctx.fillText("~15 tok/s · 0 bytes uploaded", W - padX, H * 0.93); ctx.textAlign = "left"; }
   };
   if (reduce) { requestAnimationFrame((n) => frame(n + 4000)); return; }
   let on = true;
@@ -478,13 +478,17 @@ function size() {
 
 // ---------- under the hood: packets flow forever, specs count up, terminal types ----------
 function hood() {
-  const g = $(".packets");
   const NS = "http://www.w3.org/2000/svg";
   const P = (id) => document.getElementById(id);
-  const brainRoute = ["pw1", "pw2", "pw3", "pw4", "pw6"].map(P);
-  const fastRoute = ["pw1", "pw2", "pw5", "pw6"].map(P);
+  const phone = matchMedia("(max-width: 700px)");
+  // the wide diagram on desktop, the tall one on phones
+  const routes = () => {
+    const k = phone.matches ? "pv" : "pw";
+    return { g: $(phone.matches ? ".packets--v" : ".packets:not(.packets--v)"),
+      brain: [1, 2, 3, 4, 6].map((n) => P(k + n)), fast: [1, 2, 5, 6].map((n) => P(k + n)) };
+  };
   const COLORS = ["#1f5cff", "#7b5cf2", "#8ee04f", "#ff5214", "#f4afc0"];
-  const spawn = (route, color, speed) => {
+  const spawn = (route, color, speed, g) => {
     const c = document.createElementNS(NS, "circle");
     c.setAttribute("r", 9); c.setAttribute("fill", color); g.appendChild(c);
     const lens = route.map((p) => p.getTotalLength()), total = lens.reduce((a, b) => a + b, 0);
@@ -499,7 +503,8 @@ function hood() {
   let n = 0, timer = null;
   const tick = () => { // every other packet takes the instant lane, and it's faster
     const fast = n % 2 === 0;
-    spawn(fast ? fastRoute : brainRoute, COLORS[n % COLORS.length], fast ? 420 : 240);
+    const r = routes();
+    spawn(fast ? r.fast : r.brain, COLORS[n % COLORS.length], fast ? 420 : 240, r.g);
     n++;
   };
   ScrollTrigger.create({
@@ -571,4 +576,6 @@ function wall() {
 Promise.race([
   Promise.all([document.fonts.ready, ...$$("img").map((im) => (im.decode ? im.decode().catch(() => {}) : null))]),
   new Promise((r) => setTimeout(r, 2500)),
-]).then(() => { hero(); nudge(); crew(); reel(); size(); hood(); wall(); ScrollTrigger.refresh(); });
+]).then(() => { hero(); crew(); reel(); size(); hood(); wall(); ScrollTrigger.refresh(); });
+
+})();

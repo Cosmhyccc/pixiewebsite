@@ -35,7 +35,9 @@
   const dodge = { x: 0, y: 0 };
   let target = { x: innerWidth * 0.6, y: innerHeight * 0.4 };
   let active = null, ring = null, lastMove = performance.now(), bubTimer = 0;
-  const QUIPS = ["wheee", "brb doing a lap", "no cloud. just vibes", "scroll more, it gets better"];
+  const QUIPS = ["wheee", "wheeeeee", "wheee", "wheeeee~", "brb doing a lap", "no cloud. just vibes", "scroll more, it gets better"];
+  const WHEE = ["wheee", "wheeeeee", "wheeeee~"];
+  let lastWhee = 0;
 
   const say = (text, ms = 2600) => {
     bub.textContent = text;
@@ -62,7 +64,7 @@
     if (ring) { const old = ring; gsap.to(old, { opacity: 0, duration: 0.3, onComplete: () => old.remove() }); ring = null; }
     const r = g.getBoundingClientRect();
     const pad = 22, w = r.width + pad * 2, h = r.height + pad * 2;
-    if (w > 700 || h > 460) return; // big sections just get pointed at
+    if (w > 700 || h > 460 || innerWidth < 700) return; // big sections (and phones) just get pointed at
     const ns = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(ns, "svg");
     svg.setAttribute("class", "gc-ring");
@@ -211,6 +213,10 @@
     vel.x *= D; vel.y *= D;
     pos.x += vel.x; pos.y += vel.y;
     const speed = Math.hypot(vel.x, vel.y);
+    // going fast? obviously say wheee
+    if (speed > 22 && !bub.classList.contains("is-on") && performance.now() - lastWhee > 2500 && Math.random() < 0.5) {
+      lastWhee = performance.now(); say(gsap.utils.random(WHEE), 1100);
+    }
     const tilt = Math.max(-35, Math.min(35, vel.x * 1.6)) + trick.r;
     const stretch = 1 + Math.min(0.35, speed / 70);
     el.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
@@ -221,7 +227,7 @@
     const now = performance.now();
     if (!introOn && now > nextTrick && now - lastMove > 1500) {
       gsap.utils.random(tricks)();
-      if (Math.random() < 0.45) say(gsap.utils.random(QUIPS), 1800);
+      if (Math.random() < 0.9) say(gsap.utils.random(QUIPS), 1800);
       nextTrick = now + gsap.utils.random(4000, 7000);
     }
   });

@@ -91,12 +91,12 @@ function intro() {
     .add(slap(".hero__hi"), 0.1)
     .add(slap(".h1 .w", { stagger: 0.09 }), 0.2)
     .add(draw($$(".hero__art .draw").filter((p) => !p.classList.contains("x")), { stagger: 0.05 }), 0.35)
-    .add(slap(".lede", { rotation: 0, scale: 1.08, duration: 0.5 }), 0.75)
+    .add(slap(".hero .lede", { rotation: 0, scale: 1.08, duration: 0.5 }), 0.75)
     .add(slap(".chip", { stagger: 0.07 }), 0.95)
     .add(slap(".cta-row", { rotation: -4 }), 1.25)
     .from(".eyes ellipse", { attr: { ry: 0 }, duration: 0.3, ease: "back.out(3)", stagger: 0.05 }, 1.3)
     .from(".dots circle", { attr: { r: 0 }, duration: 0.45, ease: "back.out(3)", stagger: 0.05 }, 1.35)
-    .from(".note", { autoAlpha: 0, y: 10, duration: 0.4, stagger: 0.15 }, 1.5)
+    .from(".hero .note", { autoAlpha: 0, y: 10, duration: 0.4, stagger: 0.15 }, 1.5)
     // the cloud gets a big red "nah"
     .add(draw($$(".x"), { duration: 0.32, ease: "power3.in", stagger: 0.18 }), 1.85)
     .fromTo(".cloud", { x: 0 }, { x: 6, duration: 0.05, repeat: 5, yoyo: true, ease: "steps(1)" }, 2.25)
@@ -114,7 +114,7 @@ function intro() {
 
   // why local: headline slaps, cards land one by one, icons draw
   gsap.timeline({ scrollTrigger: { trigger: ".why__head", start: "top 78%" } })
-    .add(slap(".h2 .w", { stagger: 0.12 }))
+    .add(slap(".why .h2 .w", { stagger: 0.12 }))
     .from(".why__sub", { autoAlpha: 0, y: 12, duration: 0.4 }, 0.3);
   $$(".card").forEach((card, i) => {
     gsap.timeline({ scrollTrigger: { trigger: card, start: "top 85%" } })

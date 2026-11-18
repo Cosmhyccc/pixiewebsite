@@ -19,13 +19,13 @@
 
 /* ---------- hero ---------- */
 .mx-hero {
-  position: relative; min-height: 100svh; max-width: 1500px; margin: 0 auto;
+  position: relative; max-width: 1500px; margin: 0 auto; scroll-margin-top: 20px;
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center;
-  gap: clamp(16px, 3vw, 56px); padding: 110px var(--pad) 80px;
+  gap: clamp(16px, 3vw, 56px); padding: 40px var(--pad) 40px;
 }
 .mx-kicker { font-size: clamp(20px, 1.8vw, 28px); color: var(--orange); margin: 0 0 6px; transform: rotate(-3deg); transform-origin: left; }
 .mx-h1 { font-size: clamp(60px, 8.6vw, 152px); }
-.lede em { font-style: normal; font-family: var(--f-hand); font-weight: 400; color: var(--blue); }
+.mx-hero .lede em { font-style: normal; font-family: var(--f-hand); font-weight: 400; color: var(--blue); }
 .mx-scroll { margin: 32px 0 0; font-size: 18px; opacity: .72; }
 .mx-scroll span { display: inline-block; animation: nudge 1.4s steps(4, end) infinite; }
 .mx-hero__art { position: relative; }
@@ -81,7 +81,7 @@
 .tcard__k { font-family: var(--f-hand); font-size: 14px; color: var(--c); filter: brightness(.8); margin-top: 8px; }
 .tcard__back b { font-size: 15px; line-height: 1.25; }
 .tcard__back .tcard__name { font-family: var(--f-head); font-weight: 900; font-size: 30px; line-height: .95; text-transform: uppercase; }
-.tcard__open, .tcard__soon { position: absolute; right: 14px; bottom: 14px; font-size: 18px; transform: rotate(-8deg); padding: 4px 10px; border-radius: 8px; background: var(--green); color: var(--ink); }
+.tcard__open, .tcard__soon { position: static; align-self: flex-end; margin-top: auto; font-size: 18px; transform: rotate(-8deg); padding: 4px 10px; border-radius: 8px; background: var(--green); color: var(--ink); }
 .tcard__soon { background: var(--orange); color: var(--cream); font-size: 15px; }
 
 /* ---------- how big is a brain ---------- */
@@ -313,7 +313,6 @@ body.is-loading .slap, body.is-loading .nav { visibility: hidden; }
   .nudge { font-size: 18px; bottom: 16px; }
   .specs { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
   .spec span { font-size: 12.5px; }
-  .pipe { overflow-x: auto; } .pipe__svg { min-width: 640px; }
 }
 @media (prefers-reduced-motion: reduce) { .nudge, .nudge__arrow, .nudge__face b, .said__mic { animation: none; } }
 
@@ -361,3 +360,33 @@ body.is-loading .slap, body.is-loading .nav { visibility: hidden; }
 .hn .peye { width: 15px; height: 17px; border-radius: 4px; } .hn .peye b { left: 4px; top: 5px; width: 7px; height: 7px; border-radius: 1.5px; }
 .hn.is-blink .peye { height: 2px; margin-top: 7px; }
 .note--eyes { left: -8%; top: 30%; transform: rotate(-8deg); text-align: right; }
+
+/* ---------- phone pass ---------- */
+.pipe__svg--v { display: none; }
+@media (max-width: 700px) {
+  .pipe__svg:not(.pipe__svg--v) { display: none; }
+  .pipe__svg--v { display: block; max-width: 360px; margin: 0 auto; }
+  .pipe__svg--v .pnode text { font-size: 20px; }
+  .pipe__svg--v .pnode .pt { font-size: 34px; }
+  .pipe__svg--v .pnode .ps { font-size: 15px; }
+  .pipe__svg--v .plane { font-size: 24px; }
+  .pipe__svg--v .pnode:first-of-type text { text-anchor: start; }
+  /* tool reel: let the Mac run wider than the screen so its display reads bigger */
+  .tools { overflow-x: clip; }
+  .mac2 { width: 140%; margin-left: -20%; }
+  .reel__tabs { gap: 8px; }
+  .mx-hero { padding-top: 10px; gap: 8px; }
+  .hood { padding-top: 80px; }
+  .crew-sec { padding-bottom: 70px; }
+  .size__pin { min-height: 0; padding-top: 40px; }
+  .open { padding-top: 90px; }
+}
+@media (max-width: 700px) {
+  .mac2 { width: 124%; margin-left: -12%; }
+  .size__tag { position: static; margin-top: 8px; }
+}
+@media (max-width: 600px) {
+  /* sticker wall: a tidy pile instead of absolute spots that fall off the edge */
+  .wall { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 14px 10px; height: auto; padding: 10px 12px 50px; }
+  .peel { position: relative; left: auto; top: auto; font-size: 21px; padding: 8px 14px 6px; }
+}

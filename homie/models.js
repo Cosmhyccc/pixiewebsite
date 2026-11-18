@@ -529,7 +529,7 @@ function hood() {
     ["", "  ✓ toolbox prompt cached (5,019 tokens)", "g"],
     ["$ ", "PixieVoice 19878 voice-key.txt   # Kokoro-82M on the Neural Engine, 127.0.0.1 only", "p"],
     ["", "  ✓ Kokoro 82M on the Neural Engine · ~100 ms/phrase", "g"],
-    ["$ ", "homie listen --on-device", "p"],
+    ["", "# you talk · Apple on-device speech hears it", "d"],
     ["", "  > \"set a 10 minute timer\"", "o"],
     ["", "  ⚡ instant lane · no model needed · done", "g"],
     ["", "  > \"what should i cook with eggs and spinach?\"", "o"],

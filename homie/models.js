@@ -569,7 +569,7 @@ function wall() {
   if (reduce) return;
   onView(".open", () => gsap.timeline().add(slap(".open .h2 .w", { stagger: 0.1 })).from(".open__lede", { autoAlpha: 0, y: 14, duration: 0.4 }, 0.3));
   onView(".wall", () => gsap.timeline().add(slap(".peel", { stagger: 0.08, scale: 2 })).from(".wall__hint", { autoAlpha: 0, duration: 0.4 }, 0.8));
-  onView(".outro", () => slap([".outro__k", ".outro .cta", ".outro .cta-note"], { stagger: 0.1 }));
+  onView(".outro", () => slap([".outro__k", ".outro .cta", ".outro .cta-note", ".outro .discord"], { stagger: 0.1 }));
 }
 
 Promise.race([

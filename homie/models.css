@@ -390,3 +390,11 @@ body.is-loading .slap, body.is-loading .nav { visibility: hidden; }
   .wall { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 14px 10px; height: auto; padding: 10px 12px 50px; }
   .peel { position: relative; left: auto; top: auto; font-size: 21px; padding: 8px 14px 6px; }
 }
+
+/* discord: second sticker under the download */
+.discord { display: inline-flex; align-items: center; gap: 12px; margin-top: 18px; padding: 12px 22px 10px; border-radius: 16px;
+  background: #5865f2; color: #fff; font-family: var(--f-head); font-weight: 900; text-transform: uppercase; font-size: clamp(20px, 1.9vw, 26px);
+  transform: rotate(1.5deg); transition: transform .45s var(--pop), background-color .3s; }
+.discord:hover { transform: rotate(-1deg) scale(1.05); background: #4752c4; }
+.discord svg { width: 1.2em; height: 1.2em; flex: none; }
+.discord__k { font-family: var(--f-hand); font-weight: 400; text-transform: none; font-size: .68em; color: #c9ffa8; transform: rotate(-4deg); }

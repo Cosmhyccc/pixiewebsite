@@ -136,7 +136,7 @@ Promise.race([
   new Promise((r) => setTimeout(r, 2500)),
 ]).then(intro);
 
-// --- homie's eyes: pupils watch homie's flying cursor (or yours), blink now and then
+// --- homie's eyes: pupils follow your cursor (or finger), blink now and then
 (() => {
   const orb = $(".orb"), balls = $$(".eyeball"), pups = $$(".pup");
   if (!orb) return;
@@ -144,7 +144,7 @@ Promise.race([
   const cur = pups.map(() => ({ x: 0, y: 0 }));
   addEventListener("pointermove", (e) => { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
   const look = () => {
-    const tgt = window.homieCursor || mouse;
+    const tgt = mouse; // they watch YOU
     balls.forEach((b, k) => {
       const r = b.getBoundingClientRect();
       const dx = tgt.x - (r.left + r.width / 2), dy = tgt.y - (r.top + r.height / 2), d = Math.hypot(dx, dy) || 1;

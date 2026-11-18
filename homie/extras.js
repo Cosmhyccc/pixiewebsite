@@ -10,7 +10,7 @@
     // memory bandwidth (GB/s) per chip: token speed tracks it. measured anchor: M5 base, 16 GB = 31 tok/s
     const BW = { 1: { base: 68, pro: 200, max: 400, ultra: 800 }, 2: { base: 100, pro: 200, max: 400, ultra: 800 },
       3: { base: 100, pro: 150, max: 400, ultra: 819 }, 4: { base: 120, pro: 273, max: 546 }, 5: { base: 153, pro: 307, max: 614 } };
-    const HOMIE_GB = 3.5, MACOS_GB = 4;
+    const MACOS_GB = 4; // homie: ~3.8 GB full tier, ~1.9 GB lite (8 GB Macs get the 2B brain automatically)
     const st = { chip: "5", tier: "base", mem: "16" };
     const verdict = $(".chk__verdict"), why = $(".chk__why"), bar = $(".chk__bar"), tokEl = $(".chk__tok"), out = $(".chk__out"), key = $(".chk__key");
     const LINES = [["sure", "!", " starting", " a", " 10", " minute", " timer", "."], ["on", " it", ".", " dark", " mode", ",", " coming", " up", "."], ["playing", " lo", "-fi", " beats", " on", " spotify", "."]];
@@ -40,21 +40,22 @@
         w = "homie needs Apple silicon (M1 or newer). Intel Macs can't run the brain locally.";
       } else {
         tps = Math.min(90, Math.round(31 * Math.pow(BW[st.chip][st.tier] / 153, 0.8)));
-        if (mem <= 8) tps = Math.max(5, Math.round(tps * 0.5)); // 8 GB swaps, which halves speed
-        const secs = Math.max(1, (34 + 28) / tps).toFixed(1);
-        if (mem <= 8) { v = "TIGHT FIT"; cls = "is-tight"; w = `runs, but 8 GB is snug. close heavy apps. ~${secs}s a request. lighter 8 GB brain coming.`; }
-        else if (tps >= 25) { v = "RUNS GREAT"; w = `plenty of room. homie answers in ~${secs}s.`; }
-        else { v = "RUNS FINE"; cls = "is-ok"; w = `a beat slower, still totally usable. ~${secs}s a request.`; }
+        if (mem <= 8) tps = Math.min(140, Math.round(tps * 1.6)); // lite (2B) writes ~1.6x faster: 50 vs 31 tok/s measured on M5
+        const first = (0.73 * 31 / tps).toFixed(1); // time to first sound on a thinking request; 0.73 s measured on M5
+        if (mem <= 8) { v = "RUNS (LITE)"; cls = "is-ok"; w = "8 GB gets homie lite: a smaller brain that fits comfortably. everyday stuff is just as fast; long multi-step asks are a bit less reliable."; }
+        else if (tps >= 25) { v = "RUNS GREAT"; w = `everyday commands: ~0.4s. requests that need thinking: first words in ~${first}s.`; }
+        else { v = "RUNS FINE"; cls = "is-ok"; w = `everyday commands: ~0.4s. requests that need thinking: first words in ~${first}s.`; }
       }
       if (verdict.textContent !== v && window.gsap && !reduce) gsap.fromTo(verdict, { scale: 1.25, rotation: -4 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.6)" });
       verdict.textContent = v; verdict.className = "chk__verdict " + cls; why.textContent = w;
       tokEl.textContent = intel ? "—" : `~${tps} tokens/s`;
       // one block per GB
+      const HOMIE_GB = mem <= 8 ? 1.9 : 3.8;
       const n = intel ? 16 : mem, free = Math.max(0, mem - HOMIE_GB - MACOS_GB);
       bar.innerHTML = "";
       for (let i = 0; i < n; i++) {
         const b = document.createElement("i");
-        if (!intel) b.className = i < Math.ceil(HOMIE_GB) ? (mem <= 8 ? "is-h is-over" : "is-h") : i < Math.ceil(HOMIE_GB) + MACOS_GB ? "is-m" : "";
+        if (!intel) b.className = i < Math.ceil(HOMIE_GB) ? "is-h" : i < Math.ceil(HOMIE_GB) + MACOS_GB ? "is-m" : "";
         else b.className = "is-m";
         bar.appendChild(b);
       }

@@ -546,3 +546,4 @@ body.is-loading .slap, body.is-loading .nav { visibility: hidden; }
 .hw__t--ghost .hw__txt { font-family: var(--f-hand); font-size: 22px; transform: rotate(-2deg); }
 .hw__t--ghost .inv__btn { background: var(--ink); color: var(--cream); font-size: 21px; }
 .hw__t--ghost .inv__btn svg { width: 18px; height: 18px; }
+.prove__also { margin: 0; padding: 0 22px 20px; font-size: 14px; line-height: 1.4; opacity: .7; }

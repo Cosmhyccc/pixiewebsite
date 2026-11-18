@@ -151,7 +151,7 @@ function weights() {
     const blinkOn = Math.floor(t * 2) % 2 === 0;
     ctx.fillText("> " + out + (blinkOn ? "▌" : ""), padX, H * 0.93);
     ctx.fillStyle = "#8ee04f"; ctx.font = `500 ${fs * 0.85}px ui-monospace, Menlo, monospace`;
-    if (W > 420) { ctx.textAlign = "right"; ctx.fillText("~15 tok/s · 0 bytes uploaded", W - padX, H * 0.93); ctx.textAlign = "left"; }
+    if (W > 420) { ctx.textAlign = "right"; ctx.fillText("~31 tok/s · 0 bytes uploaded", W - padX, H * 0.93); ctx.textAlign = "left"; }
   };
   if (reduce) { requestAnimationFrame((n) => frame(n + 4000)); return; }
   let on = true;
@@ -533,7 +533,7 @@ function hood() {
     ["", "  > \"set a 10 minute timer\"", "o"],
     ["", "  ⚡ instant lane · no model needed · done", "g"],
     ["", "  > \"what should i cook with eggs and spinach?\"", "o"],
-    ["", "  brain · 15 tok/s · speaking while it thinks…", "d"],
+    ["", "  brain · 31 tok/s · speaking while it thinks…", "d"],
     ["", "  bytes sent to the internet: 0", "g"],
   ];
   const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");

@@ -12,8 +12,8 @@
   <link rel="preload" href="fonts/Barlow-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/PermanentMarker.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/homie-logo.webp" as="image" />
-  <link rel="stylesheet" href="style.css?v=1794971179" />
-  <link rel="stylesheet" href="models.css?v=1794971179" />
+  <link rel="stylesheet" href="style.css?v=1794974168" />
+  <link rel="stylesheet" href="models.css?v=1794974168" />
 </head>
 <body class="is-loading">
   <!-- shared SVG filters: sticker contour, crayon line boil -->
@@ -245,7 +245,7 @@
               <svg class="tcard__art" viewBox="0 0 200 160" aria-hidden="true"><g filter="url(#crayon)"><path class="cdraw ln ln--cr" d="M40 106c-28-6-34-46-8-58-6-34 34-52 56-30 12-26 52-22 60 4 26-8 52 14 40 44 22 16 10 52-18 50-6 22-38 26-52 12-16 14-46 12-52-6-12 4-24-4-26-16z" /><path class="cdraw ln ln--cr" d="M80 46c8 14 4 30-8 38M128 44c-8 18 0 34 16 38" /></g><ellipse class="eye" cx="90" cy="88" rx="7" ry="10" /><ellipse class="eye" cx="118" cy="88" rx="7" ry="10" /></svg>
               <span class="tcard__role">THE BRAIN</span>
               <span class="tcard__say">figures out what you meant and picks the right tools.</span>
-              <span class="tcard__stats"><span><i>speed</i>~15/s</span><span><i>size</i>2.7 GB</span><span><i>internet</i>none</span></span>
+              <span class="tcard__stats"><span><i>speed</i>~31/s</span><span><i>size</i>2.7 GB</span><span><i>internet</i>none</span></span>
             </span>
             <span class="tcard__face tcard__back">
               <span class="tcard__k">real name</span><b class="tcard__name">Qwen3.5 · 4B</b>
@@ -348,7 +348,7 @@
         <div class="specs">
           <div class="spec c-purple"><b data-to="4" data-suf="-bit">0</b><span>weights, squished from 16 (Q4_K_M)</span></div>
           <div class="spec c-blue"><b data-to="12288">0</b><span>tokens of short-term memory</span></div>
-          <div class="spec c-green"><b data-to="15" data-pre="~" data-suf="/s">0</b><span>tokens a second on a MacBook Air</span></div>
+          <div class="spec c-green"><b data-to="31" data-pre="~" data-suf="/s">0</b><span>tokens a second (M5, 16 GB)</span></div>
           <div class="spec c-pink"><b data-to="100" data-pre="~" data-suf="ms">0</b><span>to speak a phrase, on the Neural Engine</span></div>
           <div class="spec c-orange"><b data-to="5019">0</b><span>token toolbox cached once at launch</span></div>
           <div class="spec c-ink"><b data-to="0">0</b><span>outside servers. the brain only answers 127.0.0.1</span></div>
@@ -519,7 +519,7 @@
           <img class="chk__img" src="assets/mac.webp" alt="" width="640" height="792" loading="lazy" decoding="async" />
         </div>
       </div>
-      <p class="chk__fine">speeds are estimates from each chip's memory speed, based on one real Mac (M5, 16 GB: 31 tokens/s). homie needs Apple silicon + macOS 26 or later.</p>
+      <p class="chk__fine">everyday commands (timers, apps, music, calendar) skip the brain: ~0.4 s on any M-series Mac. thinking speeds are estimates from each chip's memory speed, based on a real M5 with 16 GB (31 tokens/s, first words in 0.73 s). 8 GB Macs get homie lite automatically. needs Apple silicon + macOS 26 or later.</p>
     </section>
 
     <!-- ============ PROVE IT: nothing leaves your Mac ============ -->
@@ -562,6 +562,7 @@
             <pre class="prove__res">llama-ser  TCP 127.0.0.1:19890 (LISTEN)</pre>
           </div>
           <p class="prove__note"><b>127.0.0.1</b> means "this Mac". if homie's brain ever called a server, you'd see an outside address here. you won't.</p>
+          <p class="prove__also">homie downloads its brain once on first launch, and looks songs up on Apple's catalog when you ask it to play one. that's it.</p>
         </div>
       </div>
     </section>
@@ -624,11 +625,11 @@
 
   <script src="vendor/gsap.min.js" defer></script>
   <script src="vendor/ScrollTrigger.min.js" defer></script>
-  <script src="main.js?v=1794971179" defer></script>
-  <script src="models.js?v=1794971179" defer></script>
-  <script src="cursor.js?v=1794971179" defer></script>
-  <script src="homies.js?v=1794971179" defer></script>
-  <script src="extras.js?v=1794971179" defer></script>
-  <script src="invite.js?v=1794971179" defer></script>
+  <script src="main.js?v=1794974168" defer></script>
+  <script src="models.js?v=1794974168" defer></script>
+  <script src="cursor.js?v=1794974168" defer></script>
+  <script src="homies.js?v=1794974168" defer></script>
+  <script src="extras.js?v=1794974168" defer></script>
+  <script src="invite.js?v=1794974168" defer></script>
 </body>
 </html>

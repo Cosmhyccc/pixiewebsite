@@ -3,7 +3,7 @@
   const $ = (s) => document.querySelector(s);
   const WAITLIST = "https://yiphasqdhitluorenuwl.supabase.co/functions/v1/pixie-local-waitlist";
   const KEY = "sb_publishable_qKA6uxOk2OWafa1GyfLqFw_2SPK69ba"; // public app key, same one the app ships
-  const TWEET = "anybody got a homie invite code? demo looked awesome, would love it if someone can share an invite!";
+  const TWEET = "anybody got a homie ai invite code? demo looked awesome, would love it if someone can share an invite!";
   const msg = (form, text, ok = false) => { const m = form.querySelector(".inv__msg"); m.textContent = text; m.classList.toggle("is-ok", ok); };
 
   const link = $('[data-inv="link"]');

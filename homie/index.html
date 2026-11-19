@@ -11,7 +11,11 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="homie — the AI that stays home" />
   <meta property="og:description" content="A free AI buddy that lives on your Mac. Your chats, files and voice never leave your computer." />
-  <meta property="og:image" content="assets/og.png" />
+  <!-- SITE URL: https://homie.vercel.app. To move, run ./set-site-url.sh https://new.domain (rewrites these 4 lines) -->
+  <link rel="canonical" href="https://homie.vercel.app/" />
+  <meta property="og:url" content="https://homie.vercel.app/" />
+  <meta property="og:image" content="https://homie.vercel.app/assets/og.png" />
+  <meta name="twitter:image" content="https://homie.vercel.app/assets/og.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <style>body{visibility:hidden;background:#f5efe3}</style>
   <!-- self-hosted, subset fonts + the logo load first; nothing waits on a third-party server -->
@@ -19,8 +23,8 @@
   <link rel="preload" href="fonts/Barlow-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/PermanentMarker.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/homie-logo.webp?v=4" as="image" />
-  <link rel="stylesheet" href="style.css?v=1795000100" />
-  <link rel="stylesheet" href="models.css?v=1795000100" />
+  <link rel="stylesheet" href="style.css?v=1795000200" />
+  <link rel="stylesheet" href="models.css?v=1795000200" />
 </head>
 <body class="is-loading">
   <!-- shared SVG filters: sticker contour, crayon line boil -->
@@ -79,7 +83,7 @@
       <a class="pill" href="#why">why local?</a>
       <a class="pill" href="#inside">what's inside</a>
       <a class="pill" href="#check">will it run?</a>
-      <a class="pill pill--go stick-sm" href="#invite"><svg class="pill__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>get homie</a>
+      <a class="pill pill--go stick-sm" href="https://github.com/Cosmhyccc/homie"><svg class="pill__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>get homie</a>
     </nav>
   </header>
 
@@ -101,7 +105,7 @@
           <li class="chip slap c-purple">nothing to sell</li>
         </ul>
         <div class="cta-row slap" id="get" data-guide="psst. it's free. like, actually">
-          <a class="cta stick" href="#invite"><svg class="cta__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>download for mac <span class="cta__free">it's free</span></a>
+          <a class="cta stick" href="https://github.com/Cosmhyccc/homie"><svg class="cta__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>download for mac <span class="cta__free">it's free</span></a>
           <p class="cta-note">Apple silicon · macOS 26 or later</p>
         </div>
       </div>
@@ -399,7 +403,7 @@
                   </ul>
                   <div class="mu__now"><span class="mu__art" style="--a:#f4afc0"></span><b>Billie Jean</b><span class="mu__eq"><i></i><i></i><i></i><i></i><i></i></span></div>
                 </div>
-                <div class="stopwatch"><span class="stopwatch__n">~0.4</span>s <small>voice → playing, in the real app</small></div>
+                <div class="stopwatch"><span class="stopwatch__n">~0.5</span>s <small>voice → homie on it, in the real app</small></div>
               </div>
 
               <!-- B. draws it out -->
@@ -491,12 +495,27 @@
         <article class="more__card c-cream">
           <p class="more__keys"><kbd>hold fn</kbd> + circle</p>
           <h3 class="more__h">CIRCLE IT. ASK IT.</h3>
-          <p class="more__p">circle something on screen and ask "what is this?". homie reads the circled area right on your Mac. it reads text and rough labels, not full pictures yet.</p>
+          <p class="more__p">circle something on screen and ask "what is this?". homie looks at the circled area with a vision model on your Mac (16 GB+ Macs) and reads the text in it. the picture never leaves.</p>
         </article>
         <article class="more__card c-ink">
           <p class="more__keys">chat tab</p>
           <h3 class="more__h">OR JUST CHAT.</h3>
           <p class="more__p">rather type? there's a chat tab too, answered by the brain on your Mac. chats stay on your Mac. <span class="more__soon">homie max chat: coming soon</span></p>
+        </article>
+        <article class="more__card c-green">
+          <p class="more__keys">"where's the share button?"</p>
+          <h3 class="more__h">IT POINTS AT YOUR SCREEN.</h3>
+          <p class="more__p">ask homie to circle, underline or point at something. it finds the exact word or button with on-device text recognition and your Mac's accessibility info, then marks it in about half a second.</p>
+        </article>
+        <article class="more__card c-cream">
+          <p class="more__keys">"show me a water molecule"</p>
+          <h3 class="more__h">3D, ON COMMAND.</h3>
+          <p class="more__p">molecules, math surfaces, the planets. homie pops up a 3D model you can spin, in under 0.3 s. the brain picks the scene, it never has to draw it.</p>
+        </article>
+        <article class="more__card c-blue">
+          <p class="more__keys">airplane mode</p>
+          <h3 class="more__h">WORKS OFFLINE.</h3>
+          <p class="more__p">after the one-time download, homie needs no internet. turn wifi off and it still listens, thinks and talks back.</p>
         </article>
       </div>
     </section>
@@ -523,7 +542,7 @@
     <section class="open" id="open">
       <header class="sec-head">
         <h2 class="h2"><span class="w">THE WHOLE</span> <span class="w w--green">HOUSE</span><br /><span class="w">IS OPEN.</span></h2>
-        <p class="lede open__lede">homie stands on the shoulders of homies. the models are open, and we're open-sourcing homie too, so anyone can see exactly what runs on their Mac. no secrets in the walls.</p>
+        <p class="lede open__lede">homie stands on the shoulders of homies. the models are open, and homie is open source too (MIT), so anyone can see exactly what runs on their Mac. no secrets in the walls.</p>
       </header>
       <div class="wall" data-guide="go on, drag these" aria-label="Thank-you stickers for the open-source projects homie uses">
         <span class="peel stk c-purple" style="--x: 6%; --y: 8%; --r: -8deg">thank u Qwen</span>
@@ -532,7 +551,7 @@
         <span class="peel stk c-blue" style="--x: 70%; --y: 38%; --r: 9deg">FluidAudio</span>
         <span class="peel stk c-orange" style="--x: 4%; --y: 62%; --r: 5deg">no data centers</span>
         <span class="peel stk c-cream" style="--x: 46%; --y: 68%; --r: -6deg">open weights</span>
-        <span class="peel stk c-ink" style="--x: 58%; --y: 74%; --r: -2deg">homie on github · soon</span>
+        <a class="peel stk c-ink" href="https://github.com/Cosmhyccc/homie" style="--x: 58%; --y: 74%; --r: -2deg">homie on github</a>
         <p class="wall__hint hand">(go on, move 'em around)</p>
       </div>
     </section>
@@ -569,7 +588,7 @@
           <img class="chk__img" src="assets/mac.webp" alt="" width="640" height="792" loading="lazy" decoding="async" />
         </div>
       </div>
-      <p class="chk__fine">measured on an M5 with 16 GB: everyday commands (timers, apps, music, calendar) skip the brain and answer in 0.40 s; questions for the brain start talking in 0.66 s (p50, homie lite). other chips are estimates from memory speed. 8 GB Macs get homie lite (the 2B brain, 1.3 GB download) automatically. needs Apple silicon + macOS 26 or later.</p>
+      <p class="chk__fine">measured on an M5 with 16 GB (the full 4B brain, median): everyday commands (timers, apps, music, calendar) skip the brain and answer in ~0.5 s; questions for the brain start talking in ~1.2 s. other chips are estimates from memory speed. 8 GB Macs get homie lite automatically: the 2B brain, a 1.3 GB download, first words in ~0.66 s. needs Apple silicon + macOS 26 or later.</p>
     </section>
 
     <!-- ============ PROVE IT: nothing leaves your Mac ============ -->
@@ -670,7 +689,7 @@
     </section>
 
     <section class="outro">
-      <a class="cta stick" href="#invite" data-guide="grab it. it's free"><svg class="cta__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>let's be homies</a>
+      <a class="cta stick" href="https://github.com/Cosmhyccc/homie" data-guide="grab it. it's free"><svg class="cta__apple" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" /></svg>let's be homies</a>
       <p class="cta-note">Apple silicon · macOS 26 or later</p>
 
       <p class="max-line" id="max" data-guide="need more muscle? flip to max">need more muscle? there's
@@ -683,11 +702,11 @@
 
   <script src="vendor/gsap.min.js" defer></script>
   <script src="vendor/ScrollTrigger.min.js" defer></script>
-  <script src="main.js?v=1795000100" defer></script>
-  <script src="models.js?v=1795000100" defer></script>
-  <script src="cursor.js?v=1795000100" defer></script>
-  <script src="homies.js?v=1795000100" defer></script>
-  <script src="extras.js?v=1795000100" defer></script>
-  <script src="invite.js?v=1795000100" defer></script>
+  <script src="main.js?v=1795000200" defer></script>
+  <script src="models.js?v=1795000200" defer></script>
+  <script src="cursor.js?v=1795000200" defer></script>
+  <script src="homies.js?v=1795000200" defer></script>
+  <script src="extras.js?v=1795000200" defer></script>
+  <script src="invite.js?v=1795000200" defer></script>
 </body>
 </html>

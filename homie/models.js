@@ -255,8 +255,8 @@ function reel() {
     const rows = $$(".mu__rows li", d), q = $(".mu__q", d), sw = $(".stopwatch__n", d);
     const tl = gsap.timeline();
     tl.set(rows, { autoAlpha: 0 }).set(rows[0], { className: "" }).set(".mu__now", { yPercent: 110 }).add(() => (q.textContent = "")).set(".win--music", { autoAlpha: 0, scale: 0.9 });
-    // The reel is slowed down so you can follow it; the stopwatch shows the real app's time (README: ~0.4 s).
-    tl.add(() => (sw.textContent = "~0.4"), 0);
+    // The reel is slowed down so you can follow it; the stopwatch shows the real app's time (instant lane p50 0.46 s, M5 16 GB).
+    tl.add(() => (sw.textContent = "~0.5"), 0);
     you(tl, 0.2, "play billie jean");
     tl.to(".win--music", { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 1.4);
     typeInto(tl, 1.8, q, "billie jean", 0.05);
@@ -558,13 +558,16 @@ function hood() {
 function wall() {
   const wallEl = $(".wall");
   $$(".peel").forEach((el) => {
-    let sx = 0, sy = 0, dx = 0, dy = 0, held = false;
+    let sx = 0, sy = 0, dx = 0, dy = 0, held = false, moved = 0;
+    // a sticker that's a link (github) still drags; only a still click opens it
+    el.addEventListener("click", (e) => { if (moved > 6) e.preventDefault(); });
+    el.addEventListener("dragstart", (e) => e.preventDefault());
     el.addEventListener("pointerdown", (e) => {
-      held = true; el.setPointerCapture(e.pointerId); el.classList.add("is-held");
+      held = true; moved = 0; el.setPointerCapture(e.pointerId); el.classList.add("is-held");
       sx = e.clientX - dx; sy = e.clientY - dy;
       el.style.zIndex = String(10 + (wallEl.dataset.z = +(wallEl.dataset.z || 0) + 1));
     });
-    el.addEventListener("pointermove", (e) => { if (!held) return; dx = e.clientX - sx; dy = e.clientY - sy; el.style.translate = `${dx}px ${dy}px`; });
+    el.addEventListener("pointermove", (e) => { if (!held) return; const nx = e.clientX - sx, ny = e.clientY - sy; moved += Math.hypot(nx - dx, ny - dy); dx = nx; dy = ny; el.style.translate = `${dx}px ${dy}px`; });
     const drop = () => { if (!held) return; held = false; el.classList.remove("is-held"); };
     el.addEventListener("pointerup", drop); el.addEventListener("pointercancel", drop);
   });

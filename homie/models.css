@@ -578,3 +578,8 @@ body.is-loading .slap, body.is-loading .nav { visibility: hidden; }
 @media (max-width: 900px) { .real__shots { grid-template-columns: 1fr; max-width: 560px; gap: 40px; } .real { padding-top: 80px; } }
 /* phones: crop the empty paper on both sides so the notch reads at a useful size */
 @media (max-width: 600px) { .real__vid { aspect-ratio: 460 / 165; object-fit: cover; object-position: center top; } .real__notch { padding: 0 8px; } }
+/* six "a few more" cards: alternate tilts for rows 2 */
+.more__card:nth-child(4) { transform: rotate(1deg); } .more__card:nth-child(5) { transform: rotate(-1.2deg) translateY(18px); } .more__card:nth-child(6) { transform: rotate(.8deg); }
+.more__card.c-green { --bg: var(--green); --fg: var(--ink); }
+@media (max-width: 900px) { .more__card:nth-child(5) { transform: rotate(-1.2deg); } }
+a.peel { text-decoration: none; color: inherit; -webkit-user-drag: none; }

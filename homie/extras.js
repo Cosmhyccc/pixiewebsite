@@ -53,11 +53,11 @@
       } else {
         tps = Math.min(90, Math.round(31 * Math.pow(BW[st.chip][st.tier] / 153, 0.8)));
         if (mem <= 8) tps = Math.min(140, Math.round(tps * 1.6)); // lite (2B) writes ~1.6x faster: 50 vs 31 tok/s measured on M5
-        // first sound on a thinking request, p50 measured on an M5 16 GB (oss/docs/assets/latency.svg, Nov 18): 0.66 s lite, 1.20 s full
-        const first = (mem <= 8 ? 0.66 * 50 / tps : 1.20 * 31 / tps).toFixed(1);
-        if (mem <= 8) { v = "RUNS (LITE)"; cls = "is-ok"; w = `8 GB gets homie lite: a smaller brain that fits comfortably. everyday commands: ~0.5s. thinking: first words in ~${first}s. it scores 26/30 on our accuracy test (the full brain: 30/30).`; }
-        else if (tps >= 25) { v = "RUNS GREAT"; w = `everyday commands: ~0.5s. requests that need thinking: first words in ~${first}s.`; }
-        else { v = "RUNS FINE"; cls = "is-ok"; w = `everyday commands: ~0.5s. requests that need thinking: first words in ~${first}s.`; }
+        // first sound on a thinking request, p50 measured on an M5 16 GB (oss/docs/assets/latency.svg, Nov 18 rerun): 0.66 s lite, 1.17 s full
+        const first = (mem <= 8 ? 0.66 * 50 / tps : 1.17 * 31 / tps).toFixed(1);
+        if (mem <= 8) { v = "RUNS (LITE)"; cls = "is-ok"; w = `8 GB gets homie lite: a smaller brain that fits comfortably. everyday commands: ~0.4s. thinking: first words in ~${first}s. it scores 26/30 on our accuracy test (the full brain: 30/30).`; }
+        else if (tps >= 25) { v = "RUNS GREAT"; w = `everyday commands: ~0.4s. requests that need thinking: first words in ~${first}s.`; }
+        else { v = "RUNS FINE"; cls = "is-ok"; w = `everyday commands: ~0.4s. requests that need thinking: first words in ~${first}s.`; }
       }
       if (verdict.textContent !== v && window.gsap && !reduce) gsap.fromTo(verdict, { scale: 1.25, rotation: -4 }, { scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.6)" });
       verdict.textContent = v; verdict.className = "chk__verdict " + cls; why.textContent = w;

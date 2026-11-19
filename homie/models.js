@@ -255,8 +255,8 @@ function reel() {
     const rows = $$(".mu__rows li", d), q = $(".mu__q", d), sw = $(".stopwatch__n", d);
     const tl = gsap.timeline();
     tl.set(rows, { autoAlpha: 0 }).set(rows[0], { className: "" }).set(".mu__now", { yPercent: 110 }).add(() => (q.textContent = "")).set(".win--music", { autoAlpha: 0, scale: 0.9 });
-    // The reel is slowed down so you can follow it; the stopwatch shows the real app's time (instant lane p50 0.46 s, M5 16 GB).
-    tl.add(() => (sw.textContent = "~0.5"), 0);
+    // The reel is slowed down so you can follow it; the stopwatch shows the real app's time (instant lane p50 0.43 s, M5 16 GB).
+    tl.add(() => (sw.textContent = "~0.4"), 0);
     you(tl, 0.2, "play billie jean");
     tl.to(".win--music", { autoAlpha: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 1.4);
     typeInto(tl, 1.8, q, "billie jean", 0.05);
@@ -528,7 +528,7 @@ function hood() {
   const LINES = [
     ["$ ", "llama-server -m Qwen3.5-4B-Q4_K_M.gguf -c 12288 --host 127.0.0.1", "p"],
     ["", "  loaded 4.0B params · 2.7 GB · Metal GPU", "d"],
-    ["", "  ✓ toolbox prompt cached (~3,300 tokens)", "g"],
+    ["", "  ✓ toolbox prompt cached (~3,700 tokens)", "g"],
     ["$ ", "PixieVoice 19878 voice-key.txt   # Kokoro-82M on the Neural Engine, 127.0.0.1 only", "p"],
     ["", "  ✓ Kokoro 82M on the Neural Engine", "g"],
     ["", "# you talk · Apple on-device speech hears it", "d"],

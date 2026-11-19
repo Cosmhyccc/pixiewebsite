@@ -6,12 +6,19 @@
   <title>homie — the AI that stays home</title>
   <meta name="description" content="homie is a free AI buddy that lives on your Mac. Your chats, files and voice never leave your computer. No data centers. No billionaires." />
   <meta name="theme-color" content="#f5efe3" />
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png" />
+  <link rel="apple-touch-icon" href="assets/favicon-180.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="homie — the AI that stays home" />
+  <meta property="og:description" content="A free AI buddy that lives on your Mac. Your chats, files and voice never leave your computer." />
+  <meta property="og:image" content="assets/og.png" />
+  <meta name="twitter:card" content="summary_large_image" />
   <style>body{visibility:hidden;background:#f5efe3}</style>
   <!-- self-hosted, subset fonts + the logo load first; nothing waits on a third-party server -->
   <link rel="preload" href="fonts/BarlowCondensed-Black.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/Barlow-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/PermanentMarker.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="assets/homie-logo.webp" as="image" />
+  <link rel="preload" href="assets/homie-logo.webp?v=4" as="image" />
   <link rel="stylesheet" href="style.css?v=1795000100" />
   <link rel="stylesheet" href="models.css?v=1795000100" />
 </head>
@@ -67,7 +74,7 @@
   <div class="grain" aria-hidden="true"></div>
 
   <header class="nav">
-    <a class="nav__logo stick" href="#top" aria-label="homie home"><img src="assets/homie-logo.webp" alt="homie" width="360" height="160" fetchpriority="high" /></a>
+    <a class="nav__logo stick" href="#top" aria-label="homie home"><img src="assets/homie-logo.webp?v=4" alt="homie" width="600" height="245" fetchpriority="high" /></a>
     <nav class="nav__links">
       <a class="pill" href="#why">why local?</a>
       <a class="pill" href="#inside">what's inside</a>

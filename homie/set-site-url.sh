@@ -1,6 +1,6 @@
 #!/bin/bash
 # Point the site's canonical / og:url / og:image / twitter:image at a new base URL.
-# Usage: ./set-site-url.sh https://homie.vercel.app   (no trailing slash)
+# Usage: ./set-site-url.sh https://homie-mac.vercel.app   (no trailing slash)
 set -euo pipefail
 new="${1:?usage: ./set-site-url.sh https://your.domain}"
 new="${new%/}"

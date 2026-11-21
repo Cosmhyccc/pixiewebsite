@@ -7,7 +7,10 @@
   const notMac = !phone && !/Macintosh|Mac OS X/.test(ua);
   if (!phone && !notMac) return;
 
-  const link = "https://homie-mac.vercel.app";
+  // Keep where this visit came from (e.g. ?ref=ig-homie) so the download on the Mac is still attributed.
+  const from = new URLSearchParams();
+  for (const [k, v] of new URLSearchParams(location.search)) if (/^(ref|utm_\w+)$/.test(k)) from.set(k, v.slice(0, 100));
+  const link = "https://homie-mac.vercel.app/" + (from.toString() ? "?" + from : "");
   const label = phone ? "send it to my mac" : "homie is mac only, for now";
   const note = phone ? "homie lives on your Mac. Send yourself the link." : "Apple silicon · macOS 26 or later";
 

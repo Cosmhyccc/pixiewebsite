@@ -21,10 +21,10 @@
     if (!toast) {
       toast = document.createElement("div");
       toast.setAttribute("role", "status");
-      toast.textContent = "Oops, your machine is not supported for homie at the time :(";
-      toast.style.cssText = "position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:9999;max-width:calc(100vw - 32px);"
-        + "padding:14px 20px;border-radius:16px;background:#1d1b18;color:#fff6e6;font:600 16px/1.35 inherit;text-align:center;"
-        + "box-shadow:0 10px 30px rgba(0,0,0,.25);transition:opacity .25s;opacity:0";
+      toast.innerHTML = "Oops, your machine is not supported<br>for homie at the time :(";
+      toast.style.cssText = "position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:9999;width:max-content;max-width:min(320px,calc(100vw - 32px));"
+        + "padding:16px 22px;border-radius:16px;border:2px solid #e5484d;background:#ffe8e8;color:#8f1d22;font:600 16px/1.4 inherit;text-align:center;"
+        + "box-shadow:0 10px 30px rgba(229,72,77,.2);transition:opacity .25s;opacity:0;pointer-events:none";
       document.body.appendChild(toast);
     }
     requestAnimationFrame(() => (toast.style.opacity = "1"));

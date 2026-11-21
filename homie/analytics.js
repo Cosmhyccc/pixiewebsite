@@ -13,10 +13,11 @@
     : /Macintosh|Mac OS X/.test(ua) ? "mac" : "other";
   const test = !/(^|\.)homie-mac\.vercel\.app$/.test(location.hostname);
 
+  let from = {};   // the link this visit came in on (utm/ref), sent with every event so downloads are attributed too
   function track(event, props = {}) {
     const body = new URLSearchParams({ data: JSON.stringify([{ event, properties: {
       token, distinct_id: visitor, $device_id: visitor, $insert_id: crypto.randomUUID(), time: Math.floor(Date.now() / 1000),
-      source: "homie_site", platform: device, is_test: test, ...props,
+      source: "homie_site", platform: device, is_test: test, ...from, ...props,
     } }]) });
     const post = (url) => fetch(url, { method: "POST", body, keepalive: true, credentials: "omit" })
       .then((r) => r.json()).then((j) => { if (j.status !== 1) throw 0; });
@@ -27,6 +28,7 @@
   const params = new URLSearchParams(location.search), view = { path: location.pathname.slice(0, 100) };
   try { if (document.referrer) { const h = new URL(document.referrer).hostname; if (h !== location.hostname) view.referrer_domain = h.slice(0, 100); } } catch {}
   for (const k of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "ref"]) { const v = params.get(k); if (v) view[k === "ref" ? "utm_source" : k] = v.slice(0, 100); }
+  for (const k of ["utm_source", "utm_medium", "utm_campaign", "utm_content"]) if (view[k]) from[k] = view[k];
   track("Page Viewed", view);
 
   document.addEventListener("click", (e) => {

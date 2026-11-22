@@ -108,12 +108,20 @@
     const path = $("#pl"), dots = $(".prove__dots"), ctr = $(".prove__in"), len = path.getTotalLength();
     const N = 6, ns = "http://www.w3.org/2000/svg";
     const ds = Array.from({ length: N }, () => { const c = document.createElementNS(ns, "circle"); c.setAttribute("r", 7); dots.appendChild(c); return c; });
-    let bytes = 0, on = false, raf = 0;
+    // the moving dots live in their own overlay svg, so the crayon-filtered drawing underneath isn't re-filtered every frame
+    const wrap = document.createElement("div"); wrap.style.position = "relative";
+    svg.parentNode.insertBefore(wrap, svg); wrap.appendChild(svg);
+    const over = document.createElementNS(ns, "svg");
+    over.setAttribute("viewBox", svg.getAttribute("viewBox")); over.setAttribute("aria-hidden", "true");
+    over.setAttribute("class", svg.getAttribute("class"));
+    over.style.cssText = "position:absolute;inset:0;width:100%;height:100%;pointer-events:none";
+    over.appendChild(dots); wrap.appendChild(over);
+    let bytes = 0, on = false, raf = 0, lastCtr = 0;
     const frame = (now) => {
       const t = now / 1000;
       ds.forEach((c, i) => { const p = path.getPointAtLength(((t * 0.18 + i / N) % 1) * len); c.setAttribute("cx", p.x); c.setAttribute("cy", p.y); });
       bytes += Math.floor(2000 + Math.random() * 40000);
-      ctr.textContent = bytes.toLocaleString("en-US");
+      if (now - lastCtr > 120) { lastCtr = now; ctr.textContent = bytes.toLocaleString("en-US"); } // the counter sits on a filtered sticker
       if (on) raf = requestAnimationFrame(frame);
     };
     whileVisible($(".prove__viz"), (v) => { on = v && !reduce; cancelAnimationFrame(raf); if (on) raf = requestAnimationFrame(frame); });

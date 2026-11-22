@@ -403,7 +403,7 @@ function size() {
   const order = gsap.utils.shuffle([...Array(N).keys()]);
   const rank = new Array(N);
   order.forEach((idx, r) => (rank[idx] = r));
-  const color = Array.from({ length: N }, (_, i) => PALETTE[(i * 7 + (i % 13)) % PALETTE.length]);
+  const colorIdx = Array.from({ length: N }, (_, i) => (i * 7 + (i % 13)) % PALETTE.length);
   let W = 0, H = 0, dpr = 1;
   const state = { p: 0 };
   const ease = gsap.parseEase("power3.inOut");
@@ -432,18 +432,25 @@ function size() {
     if (cloud > 0) {
       const g = gap * (0.9 + cloud * 0.2), reach = cloud * Math.hypot(W, H) * 1.1;
       ctx.fillStyle = "rgba(31,29,26,.13)";
+      ctx.beginPath(); // one path, one fill: thousands of separate fills made phones crawl
       for (let y = g / 2; y < H; y += g) for (let x = g / 2; x < W; x += g)
-        if (Math.hypot(x - px0, y - H * 0.8) < reach) { ctx.beginPath(); ctx.arc(x, y, g * 0.18, 0, 6.283); ctx.fill(); }
+        if (Math.hypot(x - px0, y - H * 0.8) < reach) { ctx.moveTo(x + g * 0.18, y); ctx.arc(x, y, g * 0.18, 0, 6.283); }
+      ctx.fill();
     }
-    for (let i = 0; i < N; i++) {
-      if (rank[i] >= shown) continue;
-      const gx = ox + (i % COLS) * gap, gy = oy + Math.floor(i / COLS) * gap;
-      const tx = px0 + (i % pc) * pg, ty = py0 + Math.floor(i / pc) * pg;
-      const x = gx + (tx - gx) * pack, y = gy + (ty - gy) * pack;
-      let r = gap * 0.36 * (1 - pack * 0.55);
-      if (p < 0.06 && i === order[0]) r = gap * (0.36 + 2.6 * (1 - clamp(p / 0.06)));
-      ctx.fillStyle = color[i];
-      ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill();
+    // batch the dots by color: 6 fills per frame instead of 4,000
+    for (let c = 0; c < PALETTE.length; c++) {
+      ctx.fillStyle = PALETTE[c];
+      ctx.beginPath();
+      for (let i = 0; i < N; i++) {
+        if (colorIdx[i] !== c || rank[i] >= shown) continue;
+        const gx = ox + (i % COLS) * gap, gy = oy + Math.floor(i / COLS) * gap;
+        const tx = px0 + (i % pc) * pg, ty = py0 + Math.floor(i / pc) * pg;
+        const x = gx + (tx - gx) * pack, y = gy + (ty - gy) * pack;
+        let r = gap * 0.36 * (1 - pack * 0.55);
+        if (p < 0.06 && i === order[0]) r = gap * (0.36 + 2.6 * (1 - clamp(p / 0.06)));
+        ctx.moveTo(x + r, y); ctx.arc(x, y, r, 0, 6.283);
+      }
+      ctx.fill();
     }
     if (pack > 0.6) {
       ctx.globalAlpha = clamp((pack - 0.6) / 0.4);

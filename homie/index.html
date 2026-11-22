@@ -23,8 +23,8 @@
   <link rel="preload" href="fonts/Barlow-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="fonts/PermanentMarker.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="assets/homie-logo.webp?v=4" as="image" />
-  <link rel="stylesheet" href="style.css?v=1795000300" />
-  <link rel="stylesheet" href="models.css?v=1795000300" />
+  <link rel="stylesheet" href="style.css?v=1795000700" />
+  <link rel="stylesheet" href="models.css?v=1795000700" />
 </head>
 <body class="is-loading">
   <!-- shared SVG filters: sticker contour, crayon line boil -->
@@ -113,13 +113,13 @@
       <!-- the drawing: your house (with homie inside) vs "the cloud" -->
       <div class="hero__art">
         <svg class="art" viewBox="0 0 620 600" role="img" aria-label="A hand-drawn house with homie living in a laptop inside. Far away, a crossed-out cloud labelled the cloud.">
-          <g filter="url(#crayon)">
-            <!-- the cloud (someone else's computer) -->
-            <g class="cloud">
+            <!-- the cloud: own filter group so its drift/shake only re-renders the cloud, not the whole drawing (someone else's computer) -->
+            <g class="cloud"><g filter="url(#crayon)">
               <path class="draw ln" d="M440 96c-16 0-26-14-18-27 6-11 22-12 30-5 4-16 22-24 37-17 9-14 32-14 40 2 15-6 32 6 29 21 14 3 18 22 5 28-6 4-14 4-20 2-8 9-24 9-32 1-10 8-28 7-35-2-11 6-24 4-36-3z" />
               <path class="draw ln ln--red x" d="M436 40c40 26 92 64 132 84" />
               <path class="draw ln ln--red x" d="M572 34c-38 34-84 62-128 90" />
-            </g>
+            </g></g>
+          <g filter="url(#crayon)">
             <!-- ground -->
             <path class="draw ln" d="M30 520c90-6 190 4 290-2s200 6 270 0" />
             <!-- house -->
@@ -669,11 +669,11 @@
 
   <script src="vendor/gsap.min.js" defer></script>
   <script src="vendor/ScrollTrigger.min.js" defer></script>
-  <script src="main.js?v=1795000300" defer></script>
-  <script src="models.js?v=1795000300" defer></script>
+  <script src="main.js?v=1795000700" defer></script>
+  <script src="models.js?v=1795000700" defer></script>
   <script src="cursor.js?v=1795000300" defer></script>
   <script src="homies.js?v=1795000300" defer></script>
-  <script src="extras.js?v=1795000300" defer></script>
+  <script src="extras.js?v=1795000700" defer></script>
   <script src="device.js?v=1795000600" defer></script>
   <script src="analytics.js?v=1795000400" defer></script>
 </body>

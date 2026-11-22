@@ -1,12 +1,14 @@
 // homie prototype: stickers slap on, crayon lines draw and "boil", saif talks.
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+// phones/tablets: SVG filters re-render on the CPU, so endless filtered motion tanks the frame rate
+const touch = matchMedia("(hover: none), (pointer: coarse)").matches;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 gsap.registerPlugin(ScrollTrigger);
 
 // --- crayon boil: swap the wobble seed "on twos" so lines feel hand-animated
-if (!reduce) {
+if (!reduce && !touch) {
   const turb = $$(".boil");
   let seed = 1;
   setInterval(() => {
@@ -109,8 +111,8 @@ function intro() {
   $$(".dots circle").forEach((c, i) =>
     gsap.to(c, { y: -10 - i * 2, duration: 0.5 + i * 0.07, repeat: -1, yoyo: true, ease: "steps(4)", delay: 2 + i * 0.1 })
   );
-  // the cloud drifts, far away, minding its own business
-  gsap.to(".cloud", { x: -14, y: 4, duration: 3.2, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 2.6 });
+  // the cloud drifts, far away, minding its own business (desktop only, see `touch`)
+  if (!touch) gsap.to(".cloud", { x: -14, y: 4, duration: 3.2, repeat: -1, yoyo: true, ease: "sine.inOut", delay: 2.6 });
 
   // why local: headline slaps, cards land one by one, icons draw
   gsap.timeline({ scrollTrigger: { trigger: ".why__head", start: "top 78%" } })
@@ -127,13 +129,14 @@ function intro() {
     .from(".max-tag b", { scale: 1.6, rotation: -14, duration: 0.45, ease: "back.out(3)" }, 0.5);
 }
 
-// wait for the fonts + key images so nothing pops in half-dressed (2.5s cap)
+// wait for the fonts + logo so nothing pops in half-dressed (1.2s cap). Saif's photos land later in the
+// intro and keep loading meanwhile, so phones on cellular don't stare at blank paper.
 Promise.race([
   Promise.all([
     document.fonts.ready,
-    ...$$("img:not([loading=lazy])").map((im) => (im.decode ? im.decode().catch(() => {}) : null)),
+    ...$$(".nav__logo img").map((im) => (im.decode ? im.decode().catch(() => {}) : null)),
   ]),
-  new Promise((r) => setTimeout(r, 2500)),
+  new Promise((r) => setTimeout(r, 1200)),
 ]).then(intro);
 
 // --- Pixie's actual eyes, ported from GiantEyesView.swift: 5x6 white pixel silhouette, 2x2 square pupils
@@ -148,9 +151,15 @@ Promise.race([
   const BLINK = [3, 1, 1, 3, 6];
   let mouse = { x: innerWidth / 2, y: innerHeight / 2 }, gaze = { x: 0, y: 0 };
   let blinkAt = -1, nextBlink = performance.now() + 2000;
+  let rect = cv.getBoundingClientRect(), visible = false, running = false, last = "";
+  const measure = () => { rect = cv.getBoundingClientRect(); };
   addEventListener("pointermove", (e) => { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
+  addEventListener("scroll", measure, { passive: true });
+  addEventListener("resize", measure);
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !running) { running = true; measure(); requestAnimationFrame(draw); } }).observe(cv);
   const draw = (now) => {
-    const r = cv.getBoundingClientRect();
+    if (!visible) { running = false; return; } // offscreen: stop; the observer restarts it
+    const r = rect;
     const dx = mouse.x - (r.left + r.width / 2), dy = mouse.y - (r.top + r.height / 2);
     const dist = Math.max(180, Math.hypot(dx, dy));
     gaze.x += (dx / dist - gaze.x) * 0.2; gaze.y += (dy / dist - gaze.y) * 0.2;
@@ -160,15 +169,18 @@ Promise.race([
     const sil = rows === 6 ? SHAPE : Array(rows).fill("11111");
     const pupH = rows === 6 ? 2 * P : P, step = Math.max(1, Math.floor(P / 2));
     const ox = Math.round(gaze.x * 2) * step, oy = rows === 6 ? Math.round(gaze.y * 2) * step : 0;
-    const midY = Math.round(H / 2);
-    ctx.clearRect(0, 0, W, H);
-    for (const c of [W * 0.29, W * 0.71]) {
-      const left = Math.round(c - 2.5 * P), top = Math.round(midY - rows * P / 2);
-      ctx.fillStyle = "#fff";
-      sil.forEach((row, y) => [...row].forEach((cell, x) => { if (cell === "1") ctx.fillRect(left + x * P, top + y * P, P, P); }));
-      if (rows > 1) { ctx.fillStyle = "#000"; ctx.fillRect(Math.round(c - P) + ox, Math.round(midY - pupH / 2) + oy, 2 * P, pupH); }
+    const key = rows + "," + ox + "," + oy;
+    if (key !== last) { // only repaint when the eyes actually change
+      last = key;
+      const midY = Math.round(H / 2);
+      ctx.clearRect(0, 0, W, H);
+      for (const c of [W * 0.29, W * 0.71]) {
+        const left = Math.round(c - 2.5 * P), top = Math.round(midY - rows * P / 2);
+        ctx.fillStyle = "#fff";
+        sil.forEach((row, y) => [...row].forEach((cell, x) => { if (cell === "1") ctx.fillRect(left + x * P, top + y * P, P, P); }));
+        if (rows > 1) { ctx.fillStyle = "#000"; ctx.fillRect(Math.round(c - P) + ox, Math.round(midY - pupH / 2) + oy, 2 * P, pupH); }
+      }
     }
     requestAnimationFrame(draw);
   };
-  requestAnimationFrame(draw);
 })();

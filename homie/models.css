@@ -583,3 +583,26 @@ body.is-loading .slap, body.is-loading .nav { visibility: hidden; }
 .more__card.c-green { --bg: var(--green); --fg: var(--ink); }
 @media (max-width: 900px) { .more__card:nth-child(5) { transform: rotate(-1.2deg); } }
 a.peel { text-decoration: none; color: inherit; -webkit-user-drag: none; }
+
+/* ---------- phones: cheap sticker look ----------
+   SVG filters (#stk morphology, #crayon turbulence) render on the CPU in mobile Safari and stalled every
+   scroll + animation. On touch devices the same cream contour + ink edge + soft shadow is drawn with plain
+   text-shadow / box-shadow instead; desktop keeps the SVG filters. */
+@media (hover: none), (pointer: coarse) {
+  :root { --stk-c: #fff8e7; --stk-i: #1f1d1a;
+    --stk-text: 5.0px 0.0px 0 var(--stk-c), 4.6px 1.9px 0 var(--stk-c), 3.5px 3.5px 0 var(--stk-c), 1.9px 4.6px 0 var(--stk-c), 0.0px 5.0px 0 var(--stk-c), -1.9px 4.6px 0 var(--stk-c), -3.5px 3.5px 0 var(--stk-c), -4.6px 1.9px 0 var(--stk-c), -5.0px 0.0px 0 var(--stk-c), -4.6px -1.9px 0 var(--stk-c), -3.5px -3.5px 0 var(--stk-c), -1.9px -4.6px 0 var(--stk-c), -0.0px -5.0px 0 var(--stk-c), 1.9px -4.6px 0 var(--stk-c), 3.5px -3.5px 0 var(--stk-c), 4.6px -1.9px 0 var(--stk-c), 2.8px 0.0px 0 var(--stk-c), 1.9px 1.9px 0 var(--stk-c), 0.0px 2.8px 0 var(--stk-c), -1.9px 1.9px 0 var(--stk-c), -2.8px 0.0px 0 var(--stk-c), -1.9px -1.9px 0 var(--stk-c), -0.0px -2.8px 0 var(--stk-c), 1.9px -1.9px 0 var(--stk-c), 6.2px 0.0px 0 var(--stk-i), 6.0px 1.6px 0 var(--stk-i), 5.4px 3.1px 0 var(--stk-i), 4.4px 4.4px 0 var(--stk-i), 3.1px 5.4px 0 var(--stk-i), 1.6px 6.0px 0 var(--stk-i), 0.0px 6.2px 0 var(--stk-i), -1.6px 6.0px 0 var(--stk-i), -3.1px 5.4px 0 var(--stk-i), -4.4px 4.4px 0 var(--stk-i), -5.4px 3.1px 0 var(--stk-i), -6.0px 1.6px 0 var(--stk-i), -6.2px 0.0px 0 var(--stk-i), -6.0px -1.6px 0 var(--stk-i), -5.4px -3.1px 0 var(--stk-i), -4.4px -4.4px 0 var(--stk-i), -3.1px -5.4px 0 var(--stk-i), -1.6px -6.0px 0 var(--stk-i), -0.0px -6.2px 0 var(--stk-i), 1.6px -6.0px 0 var(--stk-i), 3.1px -5.4px 0 var(--stk-i), 4.4px -4.4px 0 var(--stk-i), 5.4px -3.1px 0 var(--stk-i), 6.0px -1.6px 0 var(--stk-i), 3px 5px 3px rgba(59,42,20,0.28), 5px 7px 5px rgba(59,42,20,0.17);
+    --stk-text-sm: 3.0px 0.0px 0 var(--stk-c), 2.8px 1.1px 0 var(--stk-c), 2.1px 2.1px 0 var(--stk-c), 1.1px 2.8px 0 var(--stk-c), 0.0px 3.0px 0 var(--stk-c), -1.1px 2.8px 0 var(--stk-c), -2.1px 2.1px 0 var(--stk-c), -2.8px 1.1px 0 var(--stk-c), -3.0px 0.0px 0 var(--stk-c), -2.8px -1.1px 0 var(--stk-c), -2.1px -2.1px 0 var(--stk-c), -1.1px -2.8px 0 var(--stk-c), -0.0px -3.0px 0 var(--stk-c), 1.1px -2.8px 0 var(--stk-c), 2.1px -2.1px 0 var(--stk-c), 2.8px -1.1px 0 var(--stk-c), 1.7px 0.0px 0 var(--stk-c), 1.2px 1.2px 0 var(--stk-c), 0.0px 1.7px 0 var(--stk-c), -1.2px 1.2px 0 var(--stk-c), -1.7px 0.0px 0 var(--stk-c), -1.2px -1.2px 0 var(--stk-c), -0.0px -1.7px 0 var(--stk-c), 1.2px -1.2px 0 var(--stk-c), 4.0px 0.0px 0 var(--stk-i), 3.9px 1.0px 0 var(--stk-i), 3.5px 2.0px 0 var(--stk-i), 2.8px 2.8px 0 var(--stk-i), 2.0px 3.5px 0 var(--stk-i), 1.0px 3.9px 0 var(--stk-i), 0.0px 4.0px 0 var(--stk-i), -1.0px 3.9px 0 var(--stk-i), -2.0px 3.5px 0 var(--stk-i), -2.8px 2.8px 0 var(--stk-i), -3.5px 2.0px 0 var(--stk-i), -3.9px 1.0px 0 var(--stk-i), -4.0px 0.0px 0 var(--stk-i), -3.9px -1.0px 0 var(--stk-i), -3.5px -2.0px 0 var(--stk-i), -2.8px -2.8px 0 var(--stk-i), -2.0px -3.5px 0 var(--stk-i), -1.0px -3.9px 0 var(--stk-i), -0.0px -4.0px 0 var(--stk-i), 1.0px -3.9px 0 var(--stk-i), 2.0px -3.5px 0 var(--stk-i), 2.8px -2.8px 0 var(--stk-i), 3.5px -2.0px 0 var(--stk-i), 3.9px -1.0px 0 var(--stk-i), 2px 3px 2px rgba(59,42,20,0.25), 4px 5px 4px rgba(59,42,20,0.15);
+    --stk-box: 0 0 0 5px #fff8e7, 0 0 0 6.2px #1f1d1a, 3px 5px 6px 6px rgba(59,42,20,.28);
+    --stk-box-sm: 0 0 0 3px #fff8e7, 0 0 0 4px #1f1d1a, 2px 3px 4px 4px rgba(59,42,20,.25); }
+  .w { filter: none; text-shadow: var(--stk-text); }
+  .stick, .peel, .prove__term, .hw__t, .more__card, .inv__card { filter: none; box-shadow: var(--stk-box); }
+  .stick-sm, .chip, .nudge, .discord, .spec, .chk__opts button.is-on, .prove__ctr p, .mode-tag, .stopwatch, .hw__stamp { filter: none; box-shadow: var(--stk-box-sm); }
+  /* crayon lines: SVG turbulence is the single most expensive thing on a phone */
+  /* retro Mac photos: the drop-shadow is baked into assets/mac-shadow.webp (mac.webp + 77px padding each side),
+     a live CSS blur on a 640px image re-rendered every frame the cards flew in */
+  .card__mac, .bigmac__img, .mac2__img, .chk__img { filter: none; content: url("assets/mac-shadow.webp"); max-width: none;
+    left: -12.03%; top: -9.72%; right: auto; bottom: auto; width: 124.06%; height: 119.44%; }
+  .nav__logo.stick { box-shadow: none; filter: none; }
+  /* logo: the same sticker baked into the image (assets/homie-logo-stk.webp = logo + 17px-per-108px padding) */
+  .nav__logo img { --lw: clamp(108px, 11vw, 150px); content: url("assets/homie-logo-stk.webp"); width: calc(var(--lw) * 142 / 108); max-width: none; margin: calc(var(--lw) * -17 / 108); }
+}

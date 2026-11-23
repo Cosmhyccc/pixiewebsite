@@ -35,7 +35,7 @@
     const a = e.target.closest && e.target.closest("a");
     if (!a) return;
     const href = a.getAttribute("href") || "";
-    if (href.endsWith("homie.dmg")) {
+    if (href.startsWith("/download")) {
       const cta = a.classList.contains("pill") ? "nav" : a.dataset.guide ? "footer" : "hero";
       track(device === "phone" ? "Send To Mac Clicked" : "Download Clicked", { cta });
     } else {

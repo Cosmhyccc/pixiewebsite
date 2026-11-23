@@ -32,7 +32,7 @@
     toast.hide = setTimeout(() => (toast.style.opacity = "0"), 3500);
   }
 
-  document.querySelectorAll('a[href$="homie.dmg"]').forEach((a) => {
+  document.querySelectorAll('a[href^="/download"]').forEach((a) => {
     const text = [...a.childNodes].find((n) => n.nodeType === 3 && n.textContent.trim());
     const small = a.classList.contains("pill");
     if (text) text.textContent = small ? (phone ? "send to mac" : "mac only") : label;
